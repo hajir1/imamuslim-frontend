@@ -7,6 +7,7 @@ import AsmaulHusnaPage from "./page/AsmaulHusnaPage";
 import DoaDoaPage from "./page/DoaDoaPage";
 import JadwalSholatPage from "./page/JadwalSholatPage";
 import JuzPage from "./page/JuzPage";
+import DokumentasiPage from "./page/DokumentasiPage";
 
 const Routes = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const Routes = createBrowserRouter([
   {
     path: "/jadwalsholat",
     element: <JadwalSholatPage />,
+  },
+  {
+    path: "/dokumentasi",
+    element: <DokumentasiPage />,
   },
 ]);
 

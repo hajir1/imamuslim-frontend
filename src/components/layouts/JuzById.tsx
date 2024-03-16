@@ -27,6 +27,15 @@ const JuzById = () => {
   const [currentAudio, setCurrentAudio] = useState<any | null>(null);
 
   const [audio, setAudio] = useState<any>(null);
+  useEffect(() => {
+    if (audioRefPlay.current && currentAudio) {
+      audioRefPlay.current.src = currentAudio;
+      audioRefPlay.current.play();
+    }
+  }, [currentAudio]);
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, [juz]);
   const handleTerjemah = (verses: number) => {
     if (verses === 1) {
       return;
@@ -90,19 +99,15 @@ const JuzById = () => {
       setAudio(null);
     }
   };
-  useEffect(() => {
-    if (audioRefPlay.current && currentAudio) {
-      audioRefPlay.current.src = currentAudio;
-      audioRefPlay.current.play();
-    }
-  }, [currentAudio]);
-  useEffect(() => {
-    window.scrollTo({ top: 0 });
-  }, [juz]);
+
   return (
     <div className="w-full">
       <div className="w-full p-2 ">
-        <div className={`${darkMode?"border-b-white":"border-b-black"} flex justify-evenly items-center mt-3 mb-10 border-b-2 `}>
+        <div
+          className={`${
+            darkMode ? "border-b-white" : "border-b-black"
+          } flex justify-evenly items-center mt-3 mb-10 border-b-2 `}
+        >
           <span className="text-sm font-normal text-left">
             {(data as DataGetJuz)?.data?.juzStartInfo}{" "}
           </span>{" "}
@@ -152,7 +157,6 @@ const JuzById = () => {
                   handler={() => handleTerjemah(item?.number?.inQuran)}
                   fill={`${darkMode ? "white" : "black"}`}
                 />
-           
 
                 <CopyIcon
                   handler={(e: React.MouseEvent<SVGSVGElement>) =>

@@ -27,6 +27,12 @@ const BookMarkPage = () => {
   useEffect(() => {
     setBookMark((data as DataGetAlQuranSurahByAyat)?.data);
   }, [data]);
+  useEffect(() => {
+    if (audioRefPlay.current && currentAudio) {
+      audioRefPlay.current.src = currentAudio;
+      audioRefPlay.current.play();
+    }
+  }, [currentAudio]);
   const handleTerjemah = () => {
     setTerjemah(!terjemah);
 
@@ -74,12 +80,7 @@ const BookMarkPage = () => {
     setAudio(audio);
     setCurrentAudio(audio);
   };
-  useEffect(() => {
-    if (audioRefPlay.current && currentAudio) {
-      audioRefPlay.current.src = currentAudio;
-      audioRefPlay.current.play();
-    }
-  }, [currentAudio]);
+
   return (
     <div
       className={`${

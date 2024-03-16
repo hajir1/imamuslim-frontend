@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import InformasiIcon from "../element/Icon/InformasiIcon";
 
 const RoutingPage = () => {
   return (
@@ -28,6 +29,12 @@ const RoutingPage = () => {
         >
           jadwal sholat
         </Link>
+        {/* <Link
+          className="w-4/5 flex items-center justify-center gap-2 font-semibold text-xl border border-black rounded-lg bg-white my-2 p-2  text-red-700"
+          to={`/dokumentasi`}
+        >
+          <InformasiIcon /> Informasi
+        </Link> */}
       </div>
     </div>
   );

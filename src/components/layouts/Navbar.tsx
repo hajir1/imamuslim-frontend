@@ -59,6 +59,7 @@ const Navbar = ({ type }: NavbarProps) => {
           {type === "asmaulhusna" && <p className="text-white">asmaul husna</p>}
           {type === "doadoa" && <p className="text-white">doa dan dzikir</p>}
           {type === "jadwalsholat" && <p className="text-white">jadwal sholat</p>}
+          {type === "dokumentasi" && <p className="text-white">Informasi</p>}
         </Link>
         <div className="w-[48%] h-full  flex items-center justify-end md:w-2/3 ">
           <label className="h-10 themeSwitcherTwo shadow-card relative inline-flex cursor-pointer select-none items-center justify-center rounded-md p-1">

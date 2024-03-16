@@ -26,6 +26,13 @@ export const TerjemahRoute = () => {
 
   const skeletonArray: any = Array.from({ length: 20 }, (_, index) => index);
   const darkMode = useDarkmode((state) => state.darkMode);
+  useEffect(() => {
+    if (audioRefPlay.current && currentAudio) {
+      audioRefPlay.current.src = currentAudio;
+      audioRefPlay.current.play();
+    }
+  }, [currentAudio]);
+
   const handleTerjemah = (id: number) => {
     setTerjemah(!terjemah);
     const dataId = (data as DataGetAlQuranSurahById)?.data?.verses?.find(
@@ -97,13 +104,7 @@ export const TerjemahRoute = () => {
       setAudio(null);
     }
   };
-  useEffect(() => {
-    if (audioRefPlay.current && currentAudio) {
-      audioRefPlay.current.src = currentAudio;
-      audioRefPlay.current.play();
-    }
-  }, [currentAudio]);
-
+ 
   return (
     <div className="w-full mt-4 relative ">
       <h1 className="font-semibold text-2xl text-center ">

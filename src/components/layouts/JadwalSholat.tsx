@@ -39,60 +39,62 @@ const JadwalSholat = () => {
     <div className="w-full">
       <div className="w-full p-2">
         <h1 className="text-center text-3xl font-semibold">Waktu Sholat</h1>
-        <p className="font-semibold mt-4">{timeZone}</p>
-        <p className="mt-4 text-xl">{`${hours} : ${minutes} : ${seconds}`}</p>
+        <p className="font-semibold mt-4 lg:mt-1">{timeZone}</p>
+        <p className="mt-1 text-xl">{`${hours} : ${minutes} : ${seconds}`}</p>
       </div>
-      <div className="flex justify-evenly gap-2">
-        {(dataProvince as [])?.length > 0 ? (
-          <select
-            name=""
-            id=""
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-              setValueProvinceId(e.target.value);
-            }}
-            value={valueProvinceId}
-            className="w-40 border border-black rounded-sm p-2 bg-white outline-none"
-          >
-            {(dataProvince as []).map((item: any) => (
-              <option key={item?.id} value={item?.id}>
-                {item?.name}
-              </option>
-            ))}
-          </select>
-        ) : (
-          ""
-        )}
-        {(dataKabupaten as any)?.cities?.length > 0 ? (
-          <select
-            name=""
-            id=""
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-              const selectedCity = (dataKabupaten as any)?.cities?.find(
-                (city: any) => city.name === e.target.value
-              );
-              setValueKabId({
-                name: selectedCity?.name,
-                latitude: selectedCity?.coordinate?.latitude,
-                longitude: selectedCity?.coordinate?.longitude,
-              });
-            }}
-            value={valueKabId.name}
-            className="w-40 border border-black rounded-sm p-2 bg-white outline-none"
-          >
-            {(dataKabupaten as any)?.cities?.map((item: any) => (
-              <option key={item?.id} value={item?.name}>
-                {item?.name}
-              </option>
-            ))}
-          </select>
-        ) : (
-          <select className="w-40 border border-black rounded-sm p-2 bg-white"></select>
-        )}
+      <div className="w-full flex justify-center flex-col-reverse flex-wrap ">
+        <p className="my-4 text-center text-2xl ">
+          {" "}
+          {(dataPrayer as any)?.name} - {(dataPrayer as any)?.province?.name}{" "}
+        </p>
+        <div className="flex justify-evenly gap-2">
+          {(dataProvince as [])?.length > 0 ? (
+            <select
+              name=""
+              id=""
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                setValueProvinceId(e.target.value);
+              }}
+              value={valueProvinceId}
+              className="w-40 border border-black rounded-sm p-2 bg-white outline-none md:w-80 text-center"
+            >
+              {(dataProvince as []).map((item: any) => (
+                <option key={item?.id} value={item?.id}>
+                  {item?.name}
+                </option>
+              ))}
+            </select>
+          ) : (
+            ""
+          )}
+          {(dataKabupaten as any)?.cities?.length > 0 ? (
+            <select
+              name=""
+              id=""
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                const selectedCity = (dataKabupaten as any)?.cities?.find(
+                  (city: any) => city.name === e.target.value
+                );
+                setValueKabId({
+                  name: selectedCity?.name,
+                  latitude: selectedCity?.coordinate?.latitude,
+                  longitude: selectedCity?.coordinate?.longitude,
+                });
+              }}
+              value={valueKabId.name}
+              className="w-40 border border-black rounded-sm p-2 bg-white outline-none md:w-80 text-center"
+            >
+              {(dataKabupaten as any)?.cities?.map((item: any) => (
+                <option key={item?.id} value={item?.name}>
+                  {item?.name}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <select className="w-40 border border-black rounded-sm p-2 bg-white"></select>
+          )}
+        </div>
       </div>
-      <p className="my-4 text-center">
-        {" "}
-        {(dataPrayer as any)?.name} - {(dataPrayer as any)?.province?.name}{" "}
-      </p>
       <div className="flex flex-col">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
