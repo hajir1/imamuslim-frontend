@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto+Slab:wght@100..900&display=swap");
+
+::-webkit-scrollbar {
+  width: 3px;
+}
+::-webkit-scrollbar-track {
+  background-color: #1cb6c7;
+}
+::-webkit-scrollbar-thumb {
+  background-color: white;
+  border: 1px solid black;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+li,
+p,
+span {
+  font-family: "Roboto Slab", serif;
+  font-optical-sizing: auto;
+}
+.tooltip:hover .tooltip-item {
+  visibility: visible;
+}
+.border-even:nth-child(2n) {
+  background-color: #f5f3f0;
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spinner {
+  animation: spin 4s infinite;
+}

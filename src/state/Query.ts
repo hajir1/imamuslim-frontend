@@ -1,0 +1,195 @@
+import { useQuery } from "@tanstack/react-query";
+import {
+  APIgetAllSurah,
+  APIgetAllSurahBySurah,
+  APIgetAllSurahByAyat,
+  APIgetAllAsmaulHusna,
+  APIgetAllDoaDoa,
+  APIgetAllDzikir,
+  APIgetAllDzikirPagi,
+  APIgetJuz,
+  APIgetJadwalSholat,
+  APIgetProvince,
+  APIgetPrayer,
+} from "../services/api_call";
+import { AlQuranSurahData } from "../model/Interface";
+import { useParams } from "react-router-dom";
+
+const useGetAlQuranSurah = () => {
+  const { data, isError, isLoading } = useQuery<
+    AlQuranSurahData,
+    Error,
+    unknown,
+    string[]
+  >({
+    queryKey: ["getAlQuranSurah"],
+    queryFn: () => APIgetAllSurah(),
+  });
+
+  return { data, isError, isLoading };
+};
+const useGetAlQuranSurahBySurah = () => {
+  const { surah }: any = useParams();
+
+  const { data, isError, isLoading } = useQuery<
+    AlQuranSurahData,
+    Error,
+    unknown,
+    string[]
+  >({
+    queryKey: ["getAlQuranSurahBySurah"],
+    queryFn: () => APIgetAllSurahBySurah(surah),
+  });
+
+  return { data, isError, isLoading };
+};
+const useGetJuz = () => {
+  const { juz }: any = useParams();
+
+  const { data, isError, isLoading } = useQuery<
+    AlQuranSurahData,
+    Error,
+    unknown,
+    string[]
+  >({
+    queryKey: ["getAlQuranSurahBySurah"],
+    queryFn: () => APIgetJuz(juz),
+  });
+
+  return { data, isError, isLoading };
+};
+const useGetAlQuranSurahByAyat = () => {
+  const { surah, ayat }: any = useParams();
+
+  const { data, isError, isLoading } = useQuery<
+    AlQuranSurahData,
+    Error,
+    unknown,
+    string[]
+  >({
+    queryKey: ["getAlQuranSurahByAyat"],
+    queryFn: () => APIgetAllSurahByAyat(surah, ayat),
+  });
+
+  return { data, isError, isLoading };
+};
+const useGetAsmaulHusna = () => {
+  const { data, isError, isLoading } = useQuery<
+    AlQuranSurahData,
+    Error,
+    unknown,
+    string[]
+  >({
+    queryKey: ["getAsmaulHusna"],
+    queryFn: APIgetAllAsmaulHusna,
+  });
+
+  return { data, isError, isLoading };
+};
+const useGetDoa = () => {
+  const { data, isError, isLoading } = useQuery<
+    AlQuranSurahData,
+    Error,
+    unknown,
+    string[]
+  >({
+    queryKey: ["getDoa"],
+    queryFn: APIgetAllDoaDoa,
+  });
+
+  return { data, isError, isLoading };
+};
+const useGetDzikir = () => {
+  const { data, isError, isLoading } = useQuery<
+    AlQuranSurahData,
+    Error,
+    unknown,
+    string[]
+  >({
+    queryKey: ["getDzikir"],
+    queryFn: APIgetAllDzikir,
+  });
+
+  return { data, isError, isLoading };
+};
+const useGetDzikirPagi = () => {
+  const { data, isError, isLoading } = useQuery<
+    AlQuranSurahData,
+    Error,
+    unknown,
+    string[]
+  >({
+    queryKey: ["getDzikirPagi"],
+    queryFn: APIgetAllDzikirPagi,
+  });
+
+  return { data, isError, isLoading };
+};
+const useGetDzikirSore = () => {
+  const { data, isError, isLoading } = useQuery<
+    AlQuranSurahData,
+    Error,
+    unknown,
+    string[]
+  >({
+    queryKey: ["getDzikirSore"],
+    queryFn: APIgetAllDzikirPagi,
+  });
+
+  return { data, isError, isLoading };
+};
+const useGetJadwalSholat = () => {
+  const { data, isError, isLoading } = useQuery<
+    AlQuranSurahData,
+    Error,
+    unknown,
+    string[]
+  >({
+    queryKey: ["jadwalSholat"],
+    queryFn: APIgetJadwalSholat,
+  });
+
+  return { data, isError, isLoading };
+};
+
+const useGetProvince = (provinceId: any) => {
+  const { data, isError, isLoading } = useQuery<
+    AlQuranSurahData,
+    Error,
+    unknown,
+    string[]
+  >({
+    queryKey: ["getProvince", provinceId],
+    queryFn: () => APIgetProvince(provinceId),
+  });
+
+  return { data, isError, isLoading };
+};
+const useGetPrayer = (latitude: any, longitude: any) => {
+  const { data, isError, isLoading } = useQuery<
+    AlQuranSurahData,
+    Error,
+    unknown,
+    string[]
+  >({
+    queryKey: ["prayer", latitude, longitude],
+    queryFn: () => APIgetPrayer(latitude, longitude),
+  });
+
+  return { data, isError, isLoading };
+};
+
+export {
+  useGetAlQuranSurah,
+  useGetAlQuranSurahBySurah,
+  useGetAlQuranSurahByAyat,
+  useGetAsmaulHusna,
+  useGetDoa,
+  useGetDzikir,
+  useGetDzikirPagi,
+  useGetDzikirSore,
+  useGetJuz,
+  useGetJadwalSholat,
+  useGetProvince,
+  useGetPrayer,
+};
