@@ -5,6 +5,7 @@ import {
   useGetProvince,
 } from "../../state/Query";
 import { timeZone } from "../../helper/moment";
+import { useDarkmode } from "../../state/Zustand";
 
 const JadwalSholat = () => {
   const { data: dataProvince } = useGetJadwalSholat();
@@ -17,7 +18,7 @@ const JadwalSholat = () => {
     latitude: number;
     longitude: number;
   }>({ name: "", latitude: -6.170088888888889, longitude: 106.83105 });
-
+  const darkMode = useDarkmode((state) => state.darkMode);
   const { data: dataKabupaten } = useGetProvince(valueProvinceId);
   const { data: dataPrayer } = useGetPrayer(
     valueKabId.latitude,
@@ -56,7 +57,9 @@ const JadwalSholat = () => {
                 setValueProvinceId(e.target.value);
               }}
               value={valueProvinceId}
-              className="w-40 border border-black rounded-sm p-2 bg-white outline-none md:w-80 text-center"
+              className={`${
+                darkMode ? "text-black" : ""
+              } w-40 border border-black rounded-sm p-2 bg-white outline-none md:w-80 text-center`}
             >
               {(dataProvince as []).map((item: any) => (
                 <option key={item?.id} value={item?.id}>
@@ -82,7 +85,9 @@ const JadwalSholat = () => {
                 });
               }}
               value={valueKabId.name}
-              className="w-40 border border-black rounded-sm p-2 bg-white outline-none md:w-80 text-center"
+              className={`${
+                darkMode ? "text-black" : ""
+              } w-40 border border-black rounded-sm p-2 bg-white outline-none md:w-80 text-center`}
             >
               {(dataKabupaten as any)?.cities?.map((item: any) => (
                 <option key={item?.id} value={item?.name}>
@@ -132,10 +137,11 @@ const JadwalSholat = () => {
                   {(dataPrayer as any)?.prayers?.map((item: any) => (
                     <tr
                       key={item?.id}
-                      className={`${
+                      className={` ${
                         new Date(item?.date).toLocaleDateString() ===
-                          new Date().toLocaleDateString() && "bg-slate-200"
-                      } border-b border-neutral-200`}
+                          new Date().toLocaleDateString() &&
+                        "bg-slate-900 text-white"
+                      } border-b border-neutral-200 `}
                     >
                       <td className="whitespace-nowrap px-6 py-4 font-medium">
                         {item?.date}
