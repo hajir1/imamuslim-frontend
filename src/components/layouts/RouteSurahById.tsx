@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Border from "../element/Border";
 import { useBookMark, useDarkmode } from "../../state/Zustand";
 import Sekeleton from "../element/Sekeleton";
-import { DataGetAlQuranSurahById } from "../../model/Interface";
+import { DataGetAlQuranSurahById, DataSurahByIdMap } from "../../model/Interface";
 import { useGetAlQuranSurahBySurah } from "../../state/Query";
 import AudioHidupicon from "../element/Icon/AudioHidupicon";
 import AudioMatiIcon from "../element/Icon/AudioMatiIcon";
@@ -15,7 +15,7 @@ import Icon from "../../helper/Icon";
 export const TerjemahRoute = () => {
   const { data, isLoading } = useGetAlQuranSurahBySurah();
   const [terjemah, setTerjemah] = useState<
-    any | React.Dispatch<React.SetStateAction<null | any>>
+    number | null | React.Dispatch<React.SetStateAction<null | any>>
   >(null);
   const [audio, setAudio] = useState<any>(null);
   const [long, setLong] = useState<
@@ -80,7 +80,7 @@ export const TerjemahRoute = () => {
   const handleAudioEnded = () => {
     const currentIndex = (
       data as DataGetAlQuranSurahById
-    )?.data?.verses.findIndex((verse: any) => verse.audio?.primary === audio);
+    )?.data?.verses.findIndex((verse: DataSurahByIdMap) => verse.audio?.primary === audio);
     if (
       currentIndex !== -1 &&
       currentIndex + 1 < (data as DataGetAlQuranSurahById).data.verses.length
@@ -105,7 +105,7 @@ export const TerjemahRoute = () => {
       <div className="w-full mt-4 flex flex-col items-center gap-5">
         {!isLoading &&
         (data as DataGetAlQuranSurahById)?.data?.verses?.length > 0 ? (
-          (data as DataGetAlQuranSurahById)?.data?.verses?.map((item: any) => (
+          (data as DataGetAlQuranSurahById)?.data?.verses?.map((item: DataSurahByIdMap) => (
             <div
               className={`${
                 darkMode ? "border-b-white border-b-2" : "border-even "
@@ -182,7 +182,7 @@ export const TerjemahRoute = () => {
                     {terjemah ? (
                       <div className="flex justify-center">
                         <Viewicon
-                          handler={() => setTerjemah(!terjemah)}
+                          handler={() => setTerjemah(null)}
                           fill={`${darkMode ? "white" : "black"}`}
                         />
                       </div>
@@ -257,7 +257,7 @@ export const BacaRoute = () => {
   return (
     <div className="p-1">
       {(data as DataGetAlQuranSurahById)?.data?.verses?.length > 0
-        ? (data as DataGetAlQuranSurahById)?.data?.verses?.map((item: any) => (
+        ? (data as DataGetAlQuranSurahById)?.data?.verses?.map((item: DataSurahByIdMap) => (
             <div
               className={`${
                 darkMode ? "border-b-2 border-b-white" : "border-even "

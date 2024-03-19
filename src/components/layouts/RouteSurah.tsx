@@ -7,17 +7,8 @@ import { useState } from "react";
 import { useGetAlQuranSurah } from "../../state/Query";
 import ErrorConn from "../fragment/ErrorConn";
 import { useDarkmode } from "../../state/Zustand";
-type AlQuranSurahDatamap = {
-  number: number;
-  name: {
-    translation: { id: string; en: string };
-    transliteration: { id: string; en: string };
-    long: string;
-  };
-  numberOfVerses: number;
-  revelation: { id: number };
-  tafsir: { id: string };
-};
+import { AlQuranSurahDatamap } from "../../model/Interface";
+
 export const SurahRoute = () => {
   const [tafsir, settafsir] = useState<any>();
   const darkMode = useDarkmode((state) => state.darkMode);

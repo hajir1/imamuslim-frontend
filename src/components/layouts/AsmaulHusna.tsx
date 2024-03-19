@@ -19,8 +19,8 @@ const AsmaulHusna = () => {
         />
       </div>
       <div className="w-full flex flex-wrap gap-2 justify-center my-4 lg:p-4">
-        {(data as any)?.length > 0 ? (
-          (data as any)?.map((item: DataAsmaulHusna) => (
+        {(data as [])?.length > 0 ? (
+          (data as [])?.map((item: DataAsmaulHusna) => (
             <div
               className={`${
                 darkMode ? "border-b-2 border-b-white" : "border-even"

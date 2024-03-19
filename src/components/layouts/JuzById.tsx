@@ -1,5 +1,5 @@
 import { useGetJuz } from "../../state/Query";
-import { DataGetJuz } from "../../model/Interface";
+import { DataGetJuz, DataGetJuzMap } from "../../model/Interface";
 import Border from "../element/Border";
 import { useDarkmode } from "../../state/Zustand";
 import AudioMatiIcon from "../element/Icon/AudioMatiIcon";
@@ -18,7 +18,7 @@ const JuzById = () => {
   const { juz } = useParams();
   const darkMode = useDarkmode((state) => state.darkMode);
   const [terjemah, setTerjemah] = useState<
-    any | React.Dispatch<React.SetStateAction<null | any>>
+    number | null | React.Dispatch<React.SetStateAction<null | number>>
   >(null);
   const [long, setLong] = useState<
     boolean | React.Dispatch<React.SetStateAction<boolean>>
@@ -39,20 +39,19 @@ const JuzById = () => {
   }, [juz]);
   const handleTerjemah = (verses: number) => {
     const dataId = (data as DataGetJuz)?.data?.verses?.find(
-      (item: any) => item?.number?.inQuran === verses
+      (item: DataGetJuzMap) => item?.number?.inQuran === verses
     );
     if (dataId) {
       setTerjemah(dataId?.number?.inQuran);
     }
-    console.log(dataId);
     setLong(false);
   };
 
   const handleCopy = (
     e: React.MouseEvent<SVGSVGElement>,
-    arab: any,
-    en: any,
-    arti: any
+    arab: string,
+    en: string,
+    arti: string
   ) => {
     e.preventDefault();
     const copyText = `${arab}\n ${en} \n artinya : ${arti}`;
@@ -126,7 +125,7 @@ const JuzById = () => {
           }`}</p>
         </div>
         {(data as DataGetJuz)?.data?.verses?.length > 0 ? (
-          (data as DataGetJuz)?.data?.verses?.map((item: any) => (
+          (data as DataGetJuz)?.data?.verses?.map((item: DataGetJuzMap) => (
             <div
               className={`${
                 darkMode ? "border-b-white border-b-2" : "border-even "
@@ -193,7 +192,7 @@ const JuzById = () => {
                     {terjemah ? (
                       <div className="flex justify-center">
                         <Viewicon
-                          handler={() => setTerjemah(!terjemah)}
+                          handler={() => setTerjemah(null)}
                           fill={`${darkMode ? "white" : "black"}`}
                         />
                       </div>

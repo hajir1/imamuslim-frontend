@@ -20,8 +20,8 @@ const DoaRoute = () => {
   const skeletonArray: any = Array.from({ length: 20 }, (_, index) => index);
   return (
     <div className="flex w-full items-center flex-col gap-2">
-      {(data as any)?.length > 0 ? (
-        (data as any)?.map((item: DataDoa) => (
+      {(data as [])?.length > 0 ? (
+        (data as [])?.map((item: DataDoa) => (
           <div
             className={`${
               darkMode && " border-b-2 border-b-white"

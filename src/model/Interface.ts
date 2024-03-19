@@ -7,14 +7,39 @@ export interface IconProps {
   handler?: (event?: any) => void;
   classIcon?: string;
   fill?: string;
-  id? : string | undefined
+  id?: string | undefined;
 }
-
+export type AlQuranSurahDatamap = {
+  number: number;
+  name: {
+    translation: { id: string; en: string };
+    transliteration: { id: string; en: string };
+    long: string;
+  };
+  numberOfVerses: number;
+  revelation: { id: number };
+  tafsir: { id: string };
+};
 export interface Bookmark {
   juz: number;
   surah: number;
   ayat: number;
 }
+export type DataSurahByIdMap = {
+  number: { inQuran: number; inSurah: number };
+  text: { arab: string; transliteration: { en: string } };
+  translation: { id: string };
+  audio: { primary: HTMLAudioElement };
+  meta: {
+    juz: number;
+  };
+  tafsir: {
+    id: {
+      short: string;
+      long: string;
+    };
+  };
+};
 export interface DataGetAlQuranSurahById {
   data: {
     preBismillah: {
@@ -33,14 +58,44 @@ export interface DataGetAlQuranSurahById {
     };
     revelation: { id: string; arab: string; en: string };
     number: number;
-    verses: {
-      number: { inQuran: number; inSurah: number };
-      text: { arab: string; transliteration: { en: string } };
-      translation: { id: string };
-      audio: { primary: string };
-    }[];
+    verses: DataSurahByIdMap[];
   };
 }
+
+export type DataGetJuzMap = {
+  audio: {
+    primary: HTMLAudioElement;
+    secondary: [];
+  };
+
+  meta: {
+    hizbQuarter: number;
+    juz: number;
+    manzil: number;
+    page: number;
+    ruku: number;
+  };
+  number: {
+    inQuran: number;
+    inSurah: number;
+  };
+  tafsir: {
+    id: {
+      short: string;
+      long: string;
+    };
+  };
+  text: {
+    arab: string;
+    transliteration: {
+      en: string;
+    };
+  };
+  translation: {
+    en: string;
+    id: string;
+  };
+};
 export interface DataGetJuz {
   data: {
     juz: number;
@@ -49,40 +104,7 @@ export interface DataGetJuz {
     juzStartInfo: string;
     juzStartSurahNumber: number;
     totalVerses: number;
-    verses: {
-      audio: {
-        primary: string;
-        secondary: [];
-      };
-
-      meta: {
-        hizbQuarter: number;
-        juz: number;
-        manzil: number;
-        page: number;
-        ruku: number;
-      };
-      number: {
-        inQuran: number;
-        inSurah: number;
-      };
-      tafsir: {
-        id: {
-          short: string;
-          long: string;
-        };
-      };
-      text: {
-        arab: string;
-        transliteration: {
-          en: string;
-        };
-      };
-      translation: {
-        en: string;
-        id: string;
-      };
-    }[];
+    verses: DataGetJuzMap[];
   };
 }
 export interface DataGetAlQuranSurahByAyat {
@@ -139,3 +161,43 @@ export interface DataDzikir {
   title: string;
   translation: string;
 }
+export interface DataProvinceMapType {
+  coordinate: { latitude: number; longitude: number };
+  id: string;
+  name: string;
+  slug: string;
+  provinceId: string;
+}
+export interface DataProvinceKabMapType {
+  id: string;
+  name: string;
+  slug: string;
+  cities: DataProvinceMapType[];
+}
+
+export interface DataPrayer extends DataProvinceKabMapType {
+  province: {
+    id: string;
+    name: string;
+    slug: string;
+  };
+  prayers: [
+    {
+      time: {
+        imsak: string;
+        subuh: string;
+        terbit: string;
+        dhuha: string;
+        dzuhur: string;
+        ashar: string;
+        maghrib: string;
+        isya: string;
+      };
+      id: string;
+      date: any;
+      cityId: string;
+    }[]
+  ];
+}
+
+

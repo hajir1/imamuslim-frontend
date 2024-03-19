@@ -6,6 +6,7 @@ import {
 } from "../../state/Query";
 import { timeZone } from "../../helper/moment";
 import { useDarkmode } from "../../state/Zustand";
+import { DataPrayer, DataProvinceKabMapType, DataProvinceMapType } from "../../model/Interface";
 
 const JadwalSholat = () => {
   const { data: dataProvince } = useGetJadwalSholat();
@@ -14,9 +15,9 @@ const JadwalSholat = () => {
     "623170da0c9712e86967f915"
   );
   const [valueKabId, setValueKabId] = useState<{
-    name: string;
-    latitude: number;
-    longitude: number;
+    name: string | undefined;
+    latitude: number | undefined;
+    longitude: number | undefined;
   }>({ name: "", latitude: -6.170088888888889, longitude: 106.83105 });
   const darkMode = useDarkmode((state) => state.darkMode);
   const { data: dataKabupaten } = useGetProvince(valueProvinceId);
@@ -46,7 +47,7 @@ const JadwalSholat = () => {
       <div className="w-full flex justify-center flex-col-reverse flex-wrap ">
         <p className="my-4 text-center text-2xl ">
           {" "}
-          {(dataPrayer as any)?.name} - {(dataPrayer as any)?.province?.name}{" "}
+          {(dataPrayer as DataPrayer)?.name} - {(dataPrayer as DataPrayer)?.province?.name}{" "}
         </p>
         <div className="flex justify-evenly gap-2">
           {(dataProvince as [])?.length > 0 ? (
@@ -61,7 +62,7 @@ const JadwalSholat = () => {
                 darkMode ? "text-black" : ""
               } w-40 border border-black rounded-sm p-2 bg-white outline-none md:w-80 text-center`}
             >
-              {(dataProvince as []).map((item: any) => (
+              {(dataProvince as []).map((item: DataProvinceMapType) => (
                 <option key={item?.id} value={item?.id}>
                   {item?.name}
                 </option>
@@ -70,13 +71,13 @@ const JadwalSholat = () => {
           ) : (
             ""
           )}
-          {(dataKabupaten as any)?.cities?.length > 0 ? (
+          {(dataKabupaten as DataProvinceKabMapType)?.cities?.length > 0 ? (
             <select
               name=""
               id=""
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-                const selectedCity = (dataKabupaten as any)?.cities?.find(
-                  (city: any) => city.name === e.target.value
+                const selectedCity = (dataKabupaten as DataProvinceKabMapType)?.cities?.find(
+                  (city: DataProvinceMapType) => city.name === e.target.value
                 );
                 setValueKabId({
                   name: selectedCity?.name,
@@ -89,7 +90,7 @@ const JadwalSholat = () => {
                 darkMode ? "text-black" : ""
               } w-40 border border-black rounded-sm p-2 bg-white outline-none md:w-80 text-center`}
             >
-              {(dataKabupaten as any)?.cities?.map((item: any) => (
+              {(dataKabupaten as DataProvinceKabMapType)?.cities?.map((item: any) => (
                 <option key={item?.id} value={item?.name}>
                   {item?.name}
                 </option>
@@ -134,7 +135,7 @@ const JadwalSholat = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {(dataPrayer as any)?.prayers?.map((item: any) => (
+                  {(dataPrayer as DataPrayer)?.prayers?.map((item: any) => (
                     <tr
                       key={item?.id}
                       className={` ${
