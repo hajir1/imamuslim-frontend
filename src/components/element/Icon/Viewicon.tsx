@@ -1,12 +1,12 @@
 import Icon from "../../../helper/Icon";
 import { IconProps } from "../../../model/Interface";
 
-const Viewicon = ({handler, classIcon, fill}:IconProps) => {
+const Viewicon = ({ handler, classIcon, fill }: IconProps) => {
   return (
     <Icon
-      width="1.6em"
+      width="1.4em"
       classIcon={classIcon}
-      height="1.6em"
+      height="1.4em"
       handler={handler}
       viewBox="0 0 24 24"
     >

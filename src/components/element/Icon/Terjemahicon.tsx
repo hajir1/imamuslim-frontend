@@ -1,7 +1,7 @@
 import Icon from "../../../helper/Icon";
 import { IconProps } from "../../../model/Interface";
 
-const Terjemahicon = ({handler, fill, classIcon}: IconProps) => {
+const Terjemahicon = ({ handler, fill, classIcon, id }: IconProps) => {
   return (
     <Icon
       width="1.6em"
@@ -9,6 +9,7 @@ const Terjemahicon = ({handler, fill, classIcon}: IconProps) => {
       height="1.6em"
       viewBox="0 0 2048 2048"
       classIcon={classIcon}
+      id={id}
     >
       <path
         fill={fill}

@@ -11,6 +11,7 @@ import Viewicon from "../element/Icon/Viewicon";
 import HomeIcon from "../element/Icon/Homeicon";
 import Sekeleton from "../element/Sekeleton";
 import { useParams } from "react-router-dom";
+import Icon from "../../helper/Icon";
 
 const JuzById = () => {
   const { data } = useGetJuz();
@@ -37,20 +38,13 @@ const JuzById = () => {
     window.scrollTo({ top: 0 });
   }, [juz]);
   const handleTerjemah = (verses: number) => {
-    if (verses === 1) {
-      return;
-    }
     const dataId = (data as DataGetJuz)?.data?.verses?.find(
       (item: any) => item?.number?.inQuran === verses
     );
-    console.log(verses);
     if (dataId) {
       setTerjemah(dataId?.number?.inQuran);
     }
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    console.log(dataId);
     setLong(false);
   };
 
@@ -108,13 +102,13 @@ const JuzById = () => {
             darkMode ? "border-b-white" : "border-b-black"
           } flex justify-evenly items-center mt-3 mb-10 border-b-2 `}
         >
-          <span className="text-sm font-normal text-left">
+          <span className="text-sm font-normal text-left lg:text-2xl">
             {(data as DataGetJuz)?.data?.juzStartInfo}{" "}
           </span>{" "}
           <h1 className="font-semibold text-center text-3xl">
             Juz {(data as DataGetJuz)?.data?.juz}{" "}
           </h1>
-          <span className="text-sm font-normal text-left">
+          <span className="text-sm font-normal text-left lg:text-2xl">
             {(data as DataGetJuz)?.data?.juzEndInfo}
           </span>{" "}
         </div>
@@ -176,7 +170,7 @@ const JuzById = () => {
                     border="border-black"
                     number={item?.number?.inSurah}
                   />
-                  <h1 className="text-right text-xl w-[90%] sm:text-2xl lg:text-3xl">
+                  <h1 className="text-right text-xl w-[90%] sm:text-2xl lg:text-4xl">
                     {item?.text?.arab}
                   </h1>
                 </div>
@@ -184,25 +178,39 @@ const JuzById = () => {
                   <h1
                     className={`${
                       darkMode && ""
-                    } text-primary text-left mt-2 font-semibold lg:text-xl lg:my-6`}
+                    } text-primary text-left mt-2 font-semibold lg:text-2xl lg:my-6`}
                   >
                     {item?.text?.transliteration?.en}
                   </h1>
-                  <h1 className="text-left text-sm">{item?.translation?.id}</h1>
+                  <h1 className="text-left text-sm md:text-base">
+                    {item?.translation?.id}
+                  </h1>
                 </div>
               </div>
               {terjemah === item?.number?.inQuran && (
-                <div className="absolute bg-primary w-[95%] top-0 p-4 left-1/2 -translate-x-1/2 rounded-md shadow-lg z-30">
-                  <p
-                    className="text-white font-semibold cursor-pointer"
-                    onClick={() => setTerjemah(!terjemah)}
-                  >
-                    X
-                  </p>
-                  <h1 className="text-center text-3xl my-2 text-white">
-                    {item?.text?.arab}
-                  </h1>
-                  <p className="text-center text-white">
+                <div className="relative w-full">
+                  <div className="flex justify-center w-full">
+                    {terjemah ? (
+                      <div className="flex justify-center">
+                        <Viewicon
+                          handler={() => setTerjemah(!terjemah)}
+                          fill={`${darkMode ? "white" : "black"}`}
+                        />
+                      </div>
+                    ) : (
+                      <Icon width="1em" height="1em" viewBox="0 0 24 24">
+                        <path
+                          fill=""
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={1.5}
+                          d="m19 15l-7-6l-7 6"
+                        ></path>{" "}
+                      </Icon>
+                    )}
+                  </div>
+                  <p className="text-center text-sm md:text-base ">
                     {item?.tafsir?.id?.short}
                   </p>
                   <div
@@ -216,13 +224,13 @@ const JuzById = () => {
                     <p
                       className={`${
                         darkMode ? "text-white" : "text-black"
-                      } inline-block `}
+                      } inline-block cursor-pointer  `}
                     >
                       view More
                     </p>
                   </div>
                   {long ? (
-                    <p className="text-center text-white">
+                    <p className="text-center text-sm md:text-base">
                       {item?.tafsir?.id?.long}
                     </p>
                   ) : (

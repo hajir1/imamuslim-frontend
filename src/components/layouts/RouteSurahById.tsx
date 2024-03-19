@@ -10,6 +10,7 @@ import Terjemahicon from "../element/Icon/Terjemahicon";
 import BookMarkIcon from "../element/Icon/BookMarkIcon";
 import CopyIcon from "../element/Icon/CopyIcon";
 import Viewicon from "../element/Icon/Viewicon";
+import Icon from "../../helper/Icon";
 
 export const TerjemahRoute = () => {
   const { data, isLoading } = useGetAlQuranSurahBySurah();
@@ -32,26 +33,14 @@ export const TerjemahRoute = () => {
       audioRefPlay.current.play();
     }
   }, [currentAudio]);
-
   const handleTerjemah = (id: number) => {
-    setTerjemah(!terjemah);
     const dataId = (data as DataGetAlQuranSurahById)?.data?.verses?.find(
       (item: any) => item?.number?.inSurah === id
     );
     if (dataId) {
       setTerjemah(dataId?.number?.inSurah);
     }
-    if (window.innerWidth < 700) {
-      window.scrollTo({
-        top: window.innerHeight - 250,
-        behavior: "smooth",
-      });
-    } else {
-      window.scrollTo({
-        top: window.innerHeight - 300,
-        behavior: "smooth",
-      });
-    }
+
     setLong(false);
   };
   const handleBookMark = (juz: number, surah: number, ayat: number) => {
@@ -104,7 +93,7 @@ export const TerjemahRoute = () => {
       setAudio(null);
     }
   };
- 
+
   return (
     <div className="w-full mt-4 relative ">
       <h1 className="font-semibold text-2xl text-center ">
@@ -170,7 +159,7 @@ export const TerjemahRoute = () => {
                     border="border-black"
                     number={item?.number?.inSurah}
                   />
-                  <h1 className="text-right text-xl w-[90%] sm:text-2xl lg:text-3xl">
+                  <h1 className="text-right text-xl w-[90%] sm:text-2xl lg:text-4xl">
                     {item?.text?.arab}
                   </h1>
                 </div>
@@ -178,30 +167,39 @@ export const TerjemahRoute = () => {
                   <h1
                     className={`${
                       darkMode && ""
-                    } text-primary text-left mt-2 font-semibold lg:text-xl lg:my-6`}
+                    } text-primary text-left mt-2 font-semibold lg:text-2xl lg:my-6`}
                   >
                     {item?.text?.transliteration?.en}
                   </h1>
-                  <h1 className="text-left text-sm">{item?.translation?.id}</h1>
+                  <h1 className="text-left text-sm md:text-xl">
+                    {item?.translation?.id}
+                  </h1>
                 </div>
               </div>
               {terjemah === item?.number?.inSurah && (
-                <div className="absolute bg-primary w-full top-0 p-4 left-1/2 -translate-x-1/2 rounded-md shadow-lg z-10">
-                  <p
-                    className="text-white font-semibold cursor-pointer"
-                    onClick={() => setTerjemah(!terjemah)}
-                  >
-                    X
-                  </p>
-                  <h1 className="text-white font-semibold text-center text-2xl lg:my-4">
-                    surah{" "}
-                    {
-                      (data as DataGetAlQuranSurahById)?.data?.name
-                        ?.transliteration?.id
-                    }{" "}
-                    ayat {item?.number?.inSurah}
-                  </h1>
-                  <p className="text-center text-white">
+                <div className="relative w-full">
+                  <div className="flex justify-center w-full">
+                    {terjemah ? (
+                      <div className="flex justify-center">
+                        <Viewicon
+                          handler={() => setTerjemah(!terjemah)}
+                          fill={`${darkMode ? "white" : "black"}`}
+                        />
+                      </div>
+                    ) : (
+                      <Icon width="1em" height="1em" viewBox="0 0 24 24">
+                        <path
+                          fill=""
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={1.5}
+                          d="m19 15l-7-6l-7 6"
+                        ></path>{" "}
+                      </Icon>
+                    )}
+                  </div>
+                  <p className="text-center text-sm md:text-base ">
                     {item?.tafsir?.id?.short}
                   </p>
                   <div
@@ -215,13 +213,13 @@ export const TerjemahRoute = () => {
                     <p
                       className={`${
                         darkMode ? "text-white" : "text-black"
-                      } inline-block `}
+                      } inline-block cursor-pointer  `}
                     >
                       view More
                     </p>
                   </div>
                   {long ? (
-                    <p className="text-center text-white">
+                    <p className="text-center text-sm md:text-base">
                       {item?.tafsir?.id?.long}
                     </p>
                   ) : (
@@ -239,7 +237,6 @@ export const TerjemahRoute = () => {
           </div>
         )}
       </div>
-
       {audio && (
         <audio
           className="w-full fixed bottom-0 left-1/2 -translate-x-1/2"

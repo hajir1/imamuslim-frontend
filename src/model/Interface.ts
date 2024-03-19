@@ -7,6 +7,7 @@ export interface IconProps {
   handler?: (event?: any) => void;
   classIcon?: string;
   fill?: string;
+  id? : string | undefined
 }
 
 export interface Bookmark {

@@ -8,6 +8,7 @@ type PropsIcon = {
   height: string;
   viewBox: string;
   classIcon?: any;
+  id?: string | undefined;
 };
 
 const Icon = ({
@@ -16,13 +17,16 @@ const Icon = ({
   width,
   height,
   viewBox,
-  classIcon,handle2
+  id,
+  classIcon,
+  handle2,
 }: PropsIcon) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={width}
       height={height}
+      id={id}
       onCopy={handle2}
       onClick={handler}
       className={`${classIcon} cursor-pointer`}

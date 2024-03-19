@@ -22,7 +22,7 @@ const SurahQuranPage = () => {
         darkMode ? "bg-black text-white" : "bg-white text-slate-900"
       }`}
     >
-      <div className={`w-full p-2`}>
+      <div className={`w-full p-1`}>
         <div className="w-full">
           <h1 className={`text-3xl font-semibold text-center`}>
             {(data as DataGetAlQuranSurahById)?.data?.name?.transliteration?.id}
