@@ -200,4 +200,14 @@ export interface DataPrayer extends DataProvinceKabMapType {
   ];
 }
 
-
+export interface DataNews {
+  link: string;
+  title: string;
+  pubDate: string;
+  description: string;
+  thumbnail: string;
+  publisher: {
+    name: string;
+    image: any;
+  };
+}

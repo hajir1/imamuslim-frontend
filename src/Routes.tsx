@@ -8,6 +8,7 @@ import DoaDoaPage from "./page/DoaDoaPage";
 import JadwalSholatPage from "./page/JadwalSholatPage";
 import JuzPage from "./page/JuzPage";
 import DokumentasiPage from "./page/DokumentasiPage";
+import BeritaPage from "./page/BeritaPage";
 
 const Routes = createBrowserRouter([
   {
@@ -43,8 +44,8 @@ const Routes = createBrowserRouter([
     element: <JadwalSholatPage />,
   },
   {
-    path: "/dokumentasi",
-    element: <DokumentasiPage />,
+    path: "/berita",
+    element: <BeritaPage />,
   },
 ]);
 

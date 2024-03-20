@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Sekeleton from "../element/Sekeleton";
 import Border from "../element/Border";
 import Viewicon from "../element/Icon/Viewicon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetAlQuranSurah } from "../../state/Query";
 import ErrorConn from "../fragment/ErrorConn";
 import { useDarkmode } from "../../state/Zustand";
@@ -23,6 +23,9 @@ export const SurahRoute = () => {
       settafsir(dataId[0].number);
     }
   };
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
   return (
     <>
       {(dataSurah as any)?.data?.length > 0 ? (
@@ -113,6 +116,7 @@ export const SurahRoute = () => {
 };
 
 export const JuzRoute = () => {
+  const darkMode = useDarkmode((state) => state.darkMode);
   const skeletonArray: number[] = Array.from(
     { length: 30 },
     (_, index) => index
@@ -122,7 +126,9 @@ export const JuzRoute = () => {
       {skeletonArray.map((item) => (
         <Link
           to={`/quran/juz/${item + 1}`}
-          className="w-full h-20 border-primary border flex items-center justify-center"
+          className={`${
+            darkMode ? "border-white" : "border-primary "
+          } w-full h-20 border flex items-center justify-center`}
           key={item}
         >
           <h1 className="text-center font-semibold text-3xl">Juz {item + 1}</h1>{" "}

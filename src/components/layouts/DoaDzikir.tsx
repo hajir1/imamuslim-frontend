@@ -8,7 +8,7 @@ import { DataDoa } from "../../model/Interface";
 import Border from "../element/Border";
 import { useDarkmode } from "../../state/Zustand";
 import Sekeleton from "../element/Sekeleton";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BacaIcon from "../element/Icon/BacaIcon";
 import Terjemahicon from "../element/Icon/Terjemahicon";
 import ErrorConn from "../fragment/ErrorConn";
@@ -93,6 +93,9 @@ const RouteDoaDzikir = () => {
     boolean | React.Dispatch<React.SetStateAction<boolean>>
   >(false);
   const darkMode = useDarkmode((state) => state.darkMode);
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
   return (
     <div className="w-full p-2">
       <div className="w-full flex justify-evenly mt-4 p-2">

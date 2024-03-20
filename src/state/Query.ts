@@ -179,6 +179,60 @@ const useGetPrayer = (latitude: any, longitude: any) => {
   return { data, isError, isLoading };
 };
 
+const rssPaths: string[] = [
+  "https://api-berita-indonesia.vercel.app/republika/khazanah/",
+  "https://api-berita-indonesia.vercel.app/republika/islam/",
+  "https://api-berita-indonesia.vercel.app/sindonews/kalam/",
+];
+interface Publisher {
+  [key: string]: any;
+}
+
+interface Post {
+  [key: string]: any;
+}
+
+interface NewsItem {
+  publisher: Publisher;
+  [key: string]: any;
+}
+
+const useGetNews = () => {
+  return useQuery<NewsItem[], Error>({
+    queryKey: ["news"],
+    queryFn: async () => {
+      const publishersPromises: Promise<Publisher>[] = rssPaths.map((rssPath) =>
+        fetch(rssPath)
+          .then((res) => {
+            if (!res.ok) {
+              throw new Error(`Failed to fetch: ${res.statusText}`);
+            }
+            return res.json();
+          })
+          .then((res) => res.data)
+      );
+
+      const publishers: Publisher[] = await Promise.all(publishersPromises);
+
+      const refactoredStructure: NewsItem[] = publishers
+        .flatMap(({ posts, ...publisher }) => {
+          return posts.map((post: Post) => {
+            return {
+              ...post,
+              publisher: publisher,
+            };
+          });
+        })
+        .sort(
+          (a: any, b: any) =>
+            new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime()
+        );
+
+      return refactoredStructure;
+    },
+  });
+};
+
 export {
   useGetAlQuranSurah,
   useGetAlQuranSurahBySurah,
@@ -192,4 +246,5 @@ export {
   useGetJadwalSholat,
   useGetProvince,
   useGetPrayer,
+  useGetNews,
 };

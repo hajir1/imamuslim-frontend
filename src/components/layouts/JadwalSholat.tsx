@@ -6,7 +6,11 @@ import {
 } from "../../state/Query";
 import { timeZone } from "../../helper/moment";
 import { useDarkmode } from "../../state/Zustand";
-import { DataPrayer, DataProvinceKabMapType, DataProvinceMapType } from "../../model/Interface";
+import {
+  DataPrayer,
+  DataProvinceKabMapType,
+  DataProvinceMapType,
+} from "../../model/Interface";
 
 const JadwalSholat = () => {
   const { data: dataProvince } = useGetJadwalSholat();
@@ -36,7 +40,9 @@ const JadwalSholat = () => {
   const hours = time.getHours().toString().padStart(2, "0");
   const minutes = time.getMinutes().toString().padStart(2, "0");
   const seconds = time.getSeconds().toString().padStart(2, "0");
-
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
   return (
     <div className="w-full">
       <div className="w-full p-2">
@@ -47,7 +53,8 @@ const JadwalSholat = () => {
       <div className="w-full flex justify-center flex-col-reverse flex-wrap ">
         <p className="my-4 text-center text-2xl ">
           {" "}
-          {(dataPrayer as DataPrayer)?.name} - {(dataPrayer as DataPrayer)?.province?.name}{" "}
+          {(dataPrayer as DataPrayer)?.name} -{" "}
+          {(dataPrayer as DataPrayer)?.province?.name}{" "}
         </p>
         <div className="flex justify-evenly gap-2">
           {(dataProvince as [])?.length > 0 ? (
@@ -76,7 +83,9 @@ const JadwalSholat = () => {
               name=""
               id=""
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-                const selectedCity = (dataKabupaten as DataProvinceKabMapType)?.cities?.find(
+                const selectedCity = (
+                  dataKabupaten as DataProvinceKabMapType
+                )?.cities?.find(
                   (city: DataProvinceMapType) => city.name === e.target.value
                 );
                 setValueKabId({
@@ -90,11 +99,13 @@ const JadwalSholat = () => {
                 darkMode ? "text-black" : ""
               } w-40 border border-black rounded-sm p-2 bg-white outline-none md:w-80 text-center`}
             >
-              {(dataKabupaten as DataProvinceKabMapType)?.cities?.map((item: any) => (
-                <option key={item?.id} value={item?.name}>
-                  {item?.name}
-                </option>
-              ))}
+              {(dataKabupaten as DataProvinceKabMapType)?.cities?.map(
+                (item: any) => (
+                  <option key={item?.id} value={item?.name}>
+                    {item?.name}
+                  </option>
+                )
+              )}
             </select>
           ) : (
             <select className="w-40 border border-black rounded-sm p-2 bg-white"></select>

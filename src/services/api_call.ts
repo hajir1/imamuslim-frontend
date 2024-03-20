@@ -51,3 +51,5 @@ export const APIgetPrayer = async (latitude: any, longitude: any) => {
   );
   return response.json();
 };
+
+

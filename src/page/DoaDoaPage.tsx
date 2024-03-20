@@ -4,6 +4,7 @@ import RouteDoaDzikir from "../components/layouts/DoaDzikir";
 
 const DoaDoaPage = () => {
   const darkMode = useDarkmode((state) => state.darkMode);
+  
   return (
     <div
       className={`${

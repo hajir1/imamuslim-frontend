@@ -3,11 +3,15 @@ import { DataAsmaulHusna } from "../../model/Interface";
 import Border from "../element/Border";
 import { useDarkmode } from "../../state/Zustand";
 import Sekeleton from "../element/Sekeleton";
+import { useEffect } from "react";
 
 const AsmaulHusna = () => {
   const { data } = useGetAsmaulHusna();
   const darkMode = useDarkmode((state) => state.darkMode);
   const skeletonArray: any = Array.from({ length: 20 }, (_, index) => index);
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
   return (
     <div className="w-full flex items-center flex-col">
       <div className="w-full flex justify-center bg-white ">
