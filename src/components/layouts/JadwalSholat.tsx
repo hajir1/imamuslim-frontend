@@ -152,7 +152,7 @@ const JadwalSholat = () => {
                       className={` ${
                         new Date(item?.date).toLocaleDateString() ===
                           new Date().toLocaleDateString() &&
-                        "bg-slate-800 text-white"
+                        "bg-slate-700 text-white"
                       } border-b border-neutral-200 `}
                     >
                       <td className="whitespace-nowrap px-6 py-4 font-medium">

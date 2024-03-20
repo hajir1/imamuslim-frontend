@@ -7,8 +7,8 @@ import AsmaulHusnaPage from "./page/AsmaulHusnaPage";
 import DoaDoaPage from "./page/DoaDoaPage";
 import JadwalSholatPage from "./page/JadwalSholatPage";
 import JuzPage from "./page/JuzPage";
-import DokumentasiPage from "./page/DokumentasiPage";
 import BeritaPage from "./page/BeritaPage";
+import NotFoundPage from "./page/NotFoundPage";
 
 const Routes = createBrowserRouter([
   {
@@ -46,6 +46,10 @@ const Routes = createBrowserRouter([
   {
     path: "/berita",
     element: <BeritaPage />,
+  },
+  {
+    path: "*",
+    element: <NotFoundPage />,
   },
 ]);
 

@@ -1,4 +1,3 @@
-// import React, { useState } from "react";
 
 import { Link } from "react-router-dom";
 import { useDarkmode } from "../../state/Zustand";
@@ -67,6 +66,7 @@ const Navbar = ({ type }: NavbarProps) => {
           {type === "doadoa" && <p className="text-white">doa dan dzikir</p>}
           {type === "jadwalsholat" && <p className="text-white">jadwal sholat</p>}
           {type === "berita" && <p className="text-white">berita</p>}
+          {type === "home" && <p className="text-white text-2xl">Im'a muslim</p>}
         </Link>
         <div className="w-[48%] h-full  flex items-center justify-end md:w-2/3 ">
           <label className="h-10 themeSwitcherTwo shadow-card relative inline-flex cursor-pointer select-none items-center justify-center rounded-md p-1">

@@ -2,16 +2,13 @@ import { useGetJuz } from "../../state/Query";
 import { DataGetJuz, DataGetJuzMap } from "../../model/Interface";
 import Border from "../element/Border";
 import { useDarkmode } from "../../state/Zustand";
-import AudioMatiIcon from "../element/Icon/AudioMatiIcon";
-import AudioHidupicon from "../element/Icon/AudioHidupicon";
 import { useEffect, useRef, useState } from "react";
-import Terjemahicon from "../element/Icon/Terjemahicon";
-import CopyIcon from "../element/Icon/CopyIcon";
 import Viewicon from "../element/Icon/Viewicon";
 import HomeIcon from "../element/Icon/Homeicon";
 import Sekeleton from "../element/Sekeleton";
 import { useParams } from "react-router-dom";
 import Icon from "../../helper/Icon";
+import Option from "../fragment/Option";
 
 const JuzById = () => {
   const { data } = useGetJuz();
@@ -132,37 +129,17 @@ const JuzById = () => {
               } w-full  p-1 `}
               key={item?.number?.inQuran}
             >
-              <div className="w-full flex gap-4 justify-center my-4 ">
-                {audio !== null && audio === item?.audio?.primary ? (
-                  <AudioMatiIcon
-                    handler={() => setAudio(null)}
-                    fill={`${darkMode ? "white" : "black"}`}
-                  />
-                ) : (
-                  <AudioHidupicon
-                    fill={`${darkMode ? "white" : "black"}`}
-                    handler={(e: React.MouseEvent<SVGSVGElement>) =>
-                      handleAudio(e, item?.audio?.primary)
-                    }
-                  />
-                )}
-                <Terjemahicon
-                  handler={() => handleTerjemah(item?.number?.inQuran)}
-                  fill={`${darkMode ? "white" : "black"}`}
-                />
-
-                <CopyIcon
-                  handler={(e: React.MouseEvent<SVGSVGElement>) =>
-                    handleCopy(
-                      e,
-                      item?.text?.arab,
-                      item?.text?.transliteration?.en,
-                      item?.translation?.id
-                    )
-                  }
-                  fill={`${darkMode ? "white" : "black"}`}
-                />
-              </div>
+              <Option
+                handleBookMark={() => {}}
+                audio={audio}
+                handleAudio={handleAudio}
+                handleCopy={handleCopy}
+                data={data as DataGetJuz}
+                handleTerjemah={handleTerjemah}
+                item={item}
+                setAudio={setAudio}
+                type="juz"
+              />
               <div className="relative">
                 <div className="w-full flex items-center justify-beetwen gap-2">
                   <Border

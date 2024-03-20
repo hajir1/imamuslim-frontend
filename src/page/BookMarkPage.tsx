@@ -9,6 +9,7 @@ import Terjemahicon from "../components/element/Icon/Terjemahicon";
 import CopyIcon from "../components/element/Icon/CopyIcon";
 import Viewicon from "../components/element/Icon/Viewicon";
 import BookMarkMinicon from "../components/element/Icon/BookMarkMinicon";
+import Icon from "../helper/Icon";
 
 const BookMarkPage = () => {
   const { data } = useGetAlQuranSurahByAyat();
@@ -156,51 +157,59 @@ const BookMarkPage = () => {
             {bookMark?.translation?.id}
           </h1>
         </div>
-      </div>
-      {terjemah && (
-        <div className="absolute bg-primary w-[95%] top-16 p-4 left-1/2 -translate-x-1/2 rounded-md shadow-lg z-10">
-          <p
-            className="text-white font-semibold cursor-pointer"
-            onClick={() => setTerjemah(!terjemah)}
-          >
-            X
-          </p>
-          <h1 className="text-white font-semibold text-center text-2xl lg:my-4">
-            surah{" "}
-            {
-              (data as DataGetAlQuranSurahByAyat)?.data?.name?.transliteration
-                ?.id
-            }{" "}
-            ayat {bookMark?.number?.inSurah}
-          </h1>
-          <p className="text-center text-white">
-            {bookMark?.tafsir?.id?.short}
-          </p>
-          <div
-            onClick={() => setLong(!long)}
-            className="flex items-center w-full justify-center my-4 "
-          >
-            <Viewicon
-              fill={`${darkMode ? "white" : "black"}`}
-              classIcon={`${!long && "animate-bounce"}`}
-            />
-            <p
-              className={`${
-                darkMode ? "text-white" : "text-black"
-              } inline-block `}
+        {terjemah && (
+          <div className="relative w-full">
+            <div className="flex justify-center w-full">
+              {terjemah ? (
+                <div className="flex justify-center">
+                  <Viewicon
+                    handler={() => setTerjemah(!terjemah)}
+                    fill={`${darkMode ? "white" : "black"}`}
+                  />
+                </div>
+              ) : (
+                <Icon width="1em" height="1em" viewBox="0 0 24 24">
+                  <path
+                    fill=""
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="m19 15l-7-6l-7 6"
+                  ></path>{" "}
+                </Icon>
+              )}
+            </div>
+            <p className="text-center text-sm md:text-base ">
+              {bookMark?.tafsir?.id?.short}
+            </p>
+            <div
+              onClick={() => setLong(!long)}
+              className="flex items-center w-full justify-center my-4 "
             >
-              view More
-            </p>
+              <Viewicon
+                fill={`${darkMode ? "white" : "black"}`}
+                classIcon={`${!long && "animate-bounce"}`}
+              />
+              <p
+                className={`${
+                  darkMode ? "text-white" : "text-black"
+                } inline-block cursor-pointer  `}
+              >
+                view More
+              </p>
+            </div>
+            {long ? (
+              <p className="text-center text-sm md:text-base">
+                {bookMark?.tafsir?.id?.long}
+              </p>
+            ) : (
+              ""
+            )}
           </div>
-          {long ? (
-            <p className="text-center text-white">
-              {bookMark?.tafsir?.id?.long}
-            </p>
-          ) : (
-            ""
-          )}
-        </div>
-      )}
+        )}
+      </div>
+
       {audio !== null && (
         <audio
           className="w-full fixed bottom-0 left-1/2 -translate-x-1/2"

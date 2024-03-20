@@ -1,3 +1,5 @@
+import React from "react";
+
 export interface AlQuranSurahData {
   code: number;
   status: string;
@@ -210,4 +212,15 @@ export interface DataNews {
     name: string;
     image: any;
   };
+}
+export interface OptionProps {
+  item: any;
+  audio: any;
+  setAudio: React.Dispatch<React.SetStateAction<any>>;
+  handleAudio: (a: any, b: any) => void;
+  handleTerjemah: (a: number) => void;
+  handleBookMark: (a: number, b: number, c: number) => void;
+  data: any;
+  handleCopy: (e: any, a: string, b: string, c: string) => void;
+  type: string;
 }
