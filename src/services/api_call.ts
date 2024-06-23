@@ -58,12 +58,13 @@ export const APIgetHadist = async () => {
   return response.json();
 };
 
-export const APIgetHadistBySlug = async (
-  slug: any,
-  currentPage: any = 1
-) => {
+export const APIgetHadistBySlug = async (slug: any, currentPage: any = 1) => {
   const response = await fetch(
     `${API_BASE_URL_HADIST}/hadith/${slug}?page=${currentPage}`
   );
+  return response.json();
+};
+export const APIgetHadistById = async (slug: string, id: any) => {
+  const response = await fetch(`${API_BASE_URL_HADIST}/hadith/${slug}/${id}`);
   return response.json();
 };

@@ -13,6 +13,7 @@ import {
   APIgetPrayer,
   APIgetHadist,
   APIgetHadistBySlug,
+  APIgetHadistById,
 } from "../services/api_call";
 import { MetaData } from "../model/Interface";
 import { useParams } from "react-router-dom";
@@ -244,9 +245,16 @@ const useGetHadist = () => {
 };
 const useGetHadistBySlug = (slug: any, currentPage?: any) => {
   const data = useQuery<MetaData, Error, unknown, string[]>({
-    queryKey: ["getHadistBySlug",slug,currentPage],
+    queryKey: ["getHadistBySlug", slug, currentPage],
     queryFn: () => APIgetHadistBySlug(slug, currentPage),
-    
+  });
+
+  return data;
+};
+const useGetHadistById = (slug:any,id: any) => {
+  const data = useQuery<MetaData, Error, unknown, string[]>({
+    queryKey: ["getHadistById", slug,id],
+    queryFn: () => APIgetHadistById(slug,id),
   });
 
   return data;
@@ -267,4 +275,5 @@ export {
   useGetNews,
   useGetHadist,
   useGetHadistBySlug,
+  useGetHadistById,
 };

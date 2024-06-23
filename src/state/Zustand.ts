@@ -55,9 +55,19 @@ type pageElement = {
   prevPage: (page: any) => void;
 };
 
-export const usePagination = create<pageElement>((set) => ({
+export const usePagination = create<pageElement>((set, get) => ({
   page: 1,
-  nextPage: () => set((state) => ({ page: state.page + 1 })),
-  prevPage: () => set((state) => ({ page: state.page - 1 })),
+  nextPage: (totalPage: number) => {
+    const page = get().page;
+    if (page < totalPage) {
+      set((state) => ({ page: state.page + 1 }));
+    }
+  },
+  prevPage: () => {
+    const page = get().page;
+    if (page > 1) {
+      set((state) => ({ page: state.page - 1 }));
+    }
+  },
   setPage: (page) => set({ page }),
 }));

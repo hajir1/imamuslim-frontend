@@ -21,7 +21,7 @@ const JuzById = () => {
     boolean | React.Dispatch<React.SetStateAction<boolean>>
   >(false);
   const audioRefPlay = useRef<HTMLAudioElement>(null);
-  const skeletonArray: any = Array.from({ length: 5 }, (_, index) => index);
+  // const skeletonArray: any = Array.from({ length: 5 }, (_, index) => index);
   const [currentAudio, setCurrentAudio] = useState<any | null>(null);
 
   const [audio, setAudio] = useState<any>(null);
