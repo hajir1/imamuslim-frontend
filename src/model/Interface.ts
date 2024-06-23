@@ -251,3 +251,12 @@ export interface HadistSlugType {
   };
   items: hadistSlug[];
 }
+interface Pagination {
+  currentPage: number;
+  totalPages: number;
+}
+
+export interface HadithPage {
+  pagination: Pagination;
+  data: any; 
+}

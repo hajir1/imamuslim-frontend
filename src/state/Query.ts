@@ -242,10 +242,11 @@ const useGetHadist = () => {
 
   return data;
 };
-const useGetHadistBySlug = (slug: any, currentPage?: number) => {
+const useGetHadistBySlug = (slug: any, currentPage?: any) => {
   const data = useQuery<MetaData, Error, unknown, string[]>({
-    queryKey: ["getHadistBySlug"],
+    queryKey: ["getHadistBySlug",slug,currentPage],
     queryFn: () => APIgetHadistBySlug(slug, currentPage),
+    
   });
 
   return data;

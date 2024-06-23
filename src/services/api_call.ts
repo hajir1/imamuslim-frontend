@@ -60,7 +60,7 @@ export const APIgetHadist = async () => {
 
 export const APIgetHadistBySlug = async (
   slug: any,
-  currentPage: number = 1
+  currentPage: any = 1
 ) => {
   const response = await fetch(
     `${API_BASE_URL_HADIST}/hadith/${slug}?page=${currentPage}`

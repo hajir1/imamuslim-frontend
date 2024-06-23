@@ -17,14 +17,14 @@ export const useBookMark = create(
     (set, get) => ({
       bookMark: [],
       addBookMark: (newBookmark: Bookmark) => {
-        const oldBookmarks = get().bookMark; 
+        const oldBookmarks = get().bookMark;
         const updatedBookmarks = Array.isArray(oldBookmarks)
           ? [...oldBookmarks, newBookmark]
           : [newBookmark];
         set({ bookMark: updatedBookmarks });
       },
       deleteBookMark: (ayat: number, surah: number) => {
-        const oldBookmarks = get().bookMark; 
+        const oldBookmarks = get().bookMark;
         const updatedBookmarks = Array.isArray(oldBookmarks)
           ? oldBookmarks.filter(
               (item) => !(item?.ayat === ayat && item?.surah === surah)
@@ -47,4 +47,17 @@ type darkModeElement = {
 export const useDarkmode = create<darkModeElement>((set) => ({
   darkMode: false,
   setDarkMode: (darkMode) => set({ darkMode }),
+}));
+type pageElement = {
+  page: any;
+  nextPage: (page: any) => void;
+  setPage: (page: any) => void;
+  prevPage: (page: any) => void;
+};
+
+export const usePagination = create<pageElement>((set) => ({
+  page: 1,
+  nextPage: () => set((state) => ({ page: state.page + 1 })),
+  prevPage: () => set((state) => ({ page: state.page - 1 })),
+  setPage: (page) => set({ page }),
 }));

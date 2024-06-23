@@ -41,7 +41,7 @@ const RoutingPage = () => {
         <img src="./icondoa.png" className="w-20 h-20" alt="" />
         <h1 className="font-semibold text-2xl">doa dan dzikir</h1>
         <p className="text-sm text-center font-normal">
-          doa dan dzikir yang sering digunakan setiap hari
+          doa dan dzikir yang sering digunakan
         </p>
       </Link>
       <Link
