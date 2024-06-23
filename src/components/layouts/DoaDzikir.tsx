@@ -7,7 +7,7 @@ import {
 import { DataDoa } from "../../model/Interface";
 import Border from "../element/Border";
 import { useDarkmode } from "../../state/Zustand";
-import Sekeleton from "../element/Sekeleton";
+import { Sekeleton } from "../element/Sekeleton";
 import React, { useEffect, useState } from "react";
 import BacaIcon from "../element/Icon/BacaIcon";
 import Terjemahicon from "../element/Icon/Terjemahicon";
@@ -92,35 +92,42 @@ const RouteDoaDzikir = () => {
   const [dzikir, setDzikir] = useState<
     boolean | React.Dispatch<React.SetStateAction<boolean>>
   >(false);
+  const { isLoading } = useGetDoa();
   const darkMode = useDarkmode((state) => state.darkMode);
   useEffect(() => {
     window.scrollTo({ top: 0 });
   }, []);
   return (
     <div className="w-full p-2">
-      <div className="w-full flex justify-evenly mt-4 p-2">
-        <button
-          onClick={() => setDzikir(false)}
-          className={`${!dzikir && "border-b-2 border-b-black"} ${
-            darkMode ? "text-white border-b-white" : "text-gray-800"
-          } font-bold py-2 px-4 rounded inline-flex items-center`}
-        >
-          <Terjemahicon />
-          <span className="mx-2">Doa</span>
-        </button>
-        <button
-          onClick={() => setDzikir(true)}
-          className={`${dzikir && "border-b-2 border-b-black"} ${
-            darkMode ? "text-white border-b-white" : "text-gray-800"
-          } font-bold py-2 px-4 rounded inline-flex items-center`}
-        >
-          <BacaIcon width="1.6rem" height="1.6rem" />
-          <span className="mx-2">Dzikir</span>
-        </button>
-      </div>
+      {isLoading ? (
+        <div className="w-full flex justify-evenly mt-4 p-2">
+          <div className="w-[45%] outline-none border rounded-md bg-gray-300  relative animate-pulse transition-all duration-300 h-14"></div>
+          <div className="w-[45%] outline-none border rounded-md bg-gray-300  relative animate-pulse transition-all duration-300 h-14"></div>
+        </div>
+      ) : (
+        <div className="w-full flex justify-evenly mt-4 p-2">
+          <button
+            onClick={() => setDzikir(false)}
+            className={`${!dzikir && "border-b-2 border-b-black"} ${
+              darkMode ? "text-white border-b-white" : "text-gray-800"
+            } font-bold py-2 px-4 rounded inline-flex items-center`}
+          >
+            <Terjemahicon />
+            <span className="mx-2">Doa</span>
+          </button>
+          <button
+            onClick={() => setDzikir(true)}
+            className={`${dzikir && "border-b-2 border-b-black"} ${
+              darkMode ? "text-white border-b-white" : "text-gray-800"
+            } font-bold py-2 px-4 rounded inline-flex items-center`}
+          >
+            <BacaIcon width="1.6rem" height="1.6rem" />
+            <span className="mx-2">Dzikir</span>
+          </button>
+        </div>
+      )}
       {dzikir ? <DzikirRoute /> : <DoaRoute />}
     </div>
   );
 };
-
 export default RouteDoaDzikir;

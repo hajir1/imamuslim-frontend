@@ -54,6 +54,16 @@ const RoutingPage = () => {
           menampilkan jadwal sholat seluruh Indonesia
         </p>
       </Link>
+      <Link
+        className={`w-4/5 flex flex-col items-center justify-center font-semibold text-xl  rounded-lg bg-slate-200 lg:w-[24%] h-52 `}
+        to={`/hadist`}
+      >
+        <img src="./hadits.png" className="w-40 h-20" alt="" />
+        <h1 className="font-semibold text-2xl">hadist</h1>
+        <p className="text-sm text-center font-normal">
+          hadist dan terjemah dari beberapa mufassir
+        </p>
+      </Link>
     </div>
   );
 };

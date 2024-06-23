@@ -8,11 +8,11 @@ const BookMark = () => {
   const { bookMark, deleteBookMark }: any = useBookMark();
   const darkMode = useDarkmode((state) => state.darkMode);
   return (
-    <div className="p-2 w-full lg:w-5/6">
+    <div className="p-2 w-full lg:flex lg:justify-center">
       <div
         className={`${
           darkMode ? "bg-primary" : "bg-primary"
-        } rounded-lg  w-full p-2`}
+        } rounded-lg  w-full p-2 lg:w-4/5`}
       >
         <div className="flex h-10 items-center w-full justify-evenly gap-2 p-2 border-b-2 border-b-white lg:justify-center">
           <SymbolMark />

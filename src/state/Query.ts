@@ -11,13 +11,15 @@ import {
   APIgetJadwalSholat,
   APIgetProvince,
   APIgetPrayer,
+  APIgetHadist,
+  APIgetHadistBySlug,
 } from "../services/api_call";
-import { AlQuranSurahData } from "../model/Interface";
+import { MetaData } from "../model/Interface";
 import { useParams } from "react-router-dom";
 
 const useGetAlQuranSurah = () => {
   const { data, isError, isLoading } = useQuery<
-    AlQuranSurahData,
+    MetaData,
     Error,
     unknown,
     string[]
@@ -32,7 +34,7 @@ const useGetAlQuranSurahBySurah = () => {
   const { surah }: any = useParams();
 
   const { data, isError, isLoading } = useQuery<
-    AlQuranSurahData,
+    MetaData,
     Error,
     unknown,
     string[]
@@ -47,7 +49,7 @@ const useGetJuz = () => {
   const { juz }: any = useParams();
 
   const { data, isError, isLoading } = useQuery<
-    AlQuranSurahData,
+    MetaData,
     Error,
     unknown,
     string[]
@@ -62,7 +64,7 @@ const useGetAlQuranSurahByAyat = () => {
   const { surah, ayat }: any = useParams();
 
   const { data, isError, isLoading } = useQuery<
-    AlQuranSurahData,
+    MetaData,
     Error,
     unknown,
     string[]
@@ -75,7 +77,7 @@ const useGetAlQuranSurahByAyat = () => {
 };
 const useGetAsmaulHusna = () => {
   const { data, isError, isLoading } = useQuery<
-    AlQuranSurahData,
+    MetaData,
     Error,
     unknown,
     string[]
@@ -88,7 +90,7 @@ const useGetAsmaulHusna = () => {
 };
 const useGetDoa = () => {
   const { data, isError, isLoading } = useQuery<
-    AlQuranSurahData,
+    MetaData,
     Error,
     unknown,
     string[]
@@ -101,7 +103,7 @@ const useGetDoa = () => {
 };
 const useGetDzikir = () => {
   const { data, isError, isLoading } = useQuery<
-    AlQuranSurahData,
+    MetaData,
     Error,
     unknown,
     string[]
@@ -114,7 +116,7 @@ const useGetDzikir = () => {
 };
 const useGetDzikirPagi = () => {
   const { data, isError, isLoading } = useQuery<
-    AlQuranSurahData,
+    MetaData,
     Error,
     unknown,
     string[]
@@ -127,7 +129,7 @@ const useGetDzikirPagi = () => {
 };
 const useGetDzikirSore = () => {
   const { data, isError, isLoading } = useQuery<
-    AlQuranSurahData,
+    MetaData,
     Error,
     unknown,
     string[]
@@ -140,7 +142,7 @@ const useGetDzikirSore = () => {
 };
 const useGetJadwalSholat = () => {
   const { data, isError, isLoading } = useQuery<
-    AlQuranSurahData,
+    MetaData,
     Error,
     unknown,
     string[]
@@ -154,7 +156,7 @@ const useGetJadwalSholat = () => {
 
 const useGetProvince = (provinceId: any) => {
   const { data, isError, isLoading } = useQuery<
-    AlQuranSurahData,
+    MetaData,
     Error,
     unknown,
     string[]
@@ -167,7 +169,7 @@ const useGetProvince = (provinceId: any) => {
 };
 const useGetPrayer = (latitude: any, longitude: any) => {
   const { data, isError, isLoading } = useQuery<
-    AlQuranSurahData,
+    MetaData,
     Error,
     unknown,
     string[]
@@ -232,7 +234,22 @@ const useGetNews = () => {
     },
   });
 };
+const useGetHadist = () => {
+  const data = useQuery<MetaData, Error, unknown, string[]>({
+    queryKey: ["getHadist"],
+    queryFn: APIgetHadist,
+  });
 
+  return data;
+};
+const useGetHadistBySlug = (slug: any, currentPage?: number) => {
+  const data = useQuery<MetaData, Error, unknown, string[]>({
+    queryKey: ["getHadistBySlug"],
+    queryFn: () => APIgetHadistBySlug(slug, currentPage),
+  });
+
+  return data;
+};
 export {
   useGetAlQuranSurah,
   useGetAlQuranSurahBySurah,
@@ -247,4 +264,6 @@ export {
   useGetProvince,
   useGetPrayer,
   useGetNews,
+  useGetHadist,
+  useGetHadistBySlug,
 };

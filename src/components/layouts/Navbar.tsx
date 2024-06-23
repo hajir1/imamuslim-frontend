@@ -60,6 +60,13 @@ const Navbar = ({ type }: NavbarProps) => {
               alt=""
             />
           )}
+          {type === "hadist" && (
+            <img
+              src="./hadits.png"
+              className="w-10 object-cover h-10"
+              alt=""
+            />
+          )}
 
           {type === "quran" && <p className="text-white">al-Quran</p>}
           {type === "asmaulhusna" && <p className="text-white">asmaul husna</p>}
@@ -67,6 +74,7 @@ const Navbar = ({ type }: NavbarProps) => {
           {type === "jadwalsholat" && <p className="text-white">jadwal sholat</p>}
           {type === "berita" && <p className="text-white">berita</p>}
           {type === "home" && <p className="text-white text-2xl">Im'a muslim</p>}
+          {type === "hadist" && <p className="text-white text-2xl">hadist</p>}
         </Link>
         <div className="w-[48%] h-full  flex items-center justify-end md:w-2/3 ">
           <label className="h-10 themeSwitcherTwo shadow-card relative inline-flex cursor-pointer select-none items-center justify-center rounded-md p-1">

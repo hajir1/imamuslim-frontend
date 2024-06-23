@@ -1,6 +1,6 @@
 import React from "react";
 
-export interface AlQuranSurahData {
+export interface MetaData {
   code: number;
   status: string;
   data: [];
@@ -213,6 +213,11 @@ export interface DataNews {
     image: any;
   };
 }
+export interface HadistType {
+  name: string;
+  slug: string;
+  total: string;
+}
 export interface OptionProps {
   item: any;
   audio: any;
@@ -223,4 +228,26 @@ export interface OptionProps {
   data: any;
   handleCopy: (e: any, a: string, b: string, c: string) => void;
   type: string;
+}
+export interface hadistSlug {
+  number: number;
+  arab: string;
+  id: string;
+}
+export interface HadistSlugType {
+  name: string;
+  slug: string;
+  total: number;
+  pagination: {
+    totalItems: number;
+    currentPage: number;
+    pageSize: number;
+    totalPages: number;
+    startPage: number;
+    endPage: number;
+    startIndex: number;
+    endIndex: number;
+    pages: [];
+  };
+  items: hadistSlug[];
 }

@@ -2,7 +2,7 @@ import { useGetAsmaulHusna } from "../../state/Query";
 import { DataAsmaulHusna } from "../../model/Interface";
 import Border from "../element/Border";
 import { useDarkmode } from "../../state/Zustand";
-import Sekeleton from "../element/Sekeleton";
+import {Sekeleton} from "../element/Sekeleton";
 import { useEffect } from "react";
 
 const AsmaulHusna = () => {
@@ -42,7 +42,7 @@ const AsmaulHusna = () => {
         ) : (
           <div className="flex justify-center flex-wrap gap-2 w-[95%]">
             {skeletonArray?.map((item: any) => (
-              <Sekeleton custom="h-32 lg-w-full" key={item} />
+              <Sekeleton position="asmaulHusna" custom="h-32 lg-w-full" key={item} />
             ))}
           </div>
         )}

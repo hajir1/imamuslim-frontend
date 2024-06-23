@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Border from "../element/Border";
 import { useBookMark, useDarkmode } from "../../state/Zustand";
-import Sekeleton from "../element/Sekeleton";
+import {Sekeleton, SekeletonPartQuranById} from "../element/Sekeleton";
 import {
   DataGetAlQuranSurahById,
   DataSurahByIdMap,
@@ -206,7 +206,7 @@ export const TerjemahRoute = () => {
         ) : (
           <div className="flex justify-center flex-wrap gap-2 w-full">
             {skeletonArray?.map((item: any) => (
-              <Sekeleton custom="h-72 lg-w-full" key={item} />
+              <SekeletonPartQuranById custom="h-72 lg-w-full" key={item} />
             ))}
           </div>
         )}

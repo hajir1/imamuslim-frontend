@@ -1,6 +1,6 @@
 import Icon from "../../helper/Icon";
 import { Link } from "react-router-dom";
-import Sekeleton from "../element/Sekeleton";
+import {Sekeleton} from "../element/Sekeleton";
 import Border from "../element/Border";
 import Viewicon from "../element/Icon/Viewicon";
 import { useEffect, useState } from "react";

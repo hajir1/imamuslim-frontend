@@ -1,6 +1,6 @@
 import { useDarkmode } from "../../state/Zustand";
 import Border from "../element/Border";
-import Sekeleton from "../element/Sekeleton";
+import {Sekeleton} from "../element/Sekeleton";
 
 const DzikirComponent = ({ data }: any) => {
   const darkMode = useDarkmode((state) => state.darkMode);

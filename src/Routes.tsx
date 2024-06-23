@@ -9,6 +9,7 @@ import JadwalSholatPage from "./page/JadwalSholatPage";
 import JuzPage from "./page/JuzPage";
 import BeritaPage from "./page/BeritaPage";
 import NotFoundPage from "./page/NotFoundPage";
+import { HadistPage, HadistBySlugPage } from "./page/HadistPage";
 
 const Routes = createBrowserRouter([
   {
@@ -46,6 +47,14 @@ const Routes = createBrowserRouter([
   {
     path: "/berita",
     element: <BeritaPage />,
+  },
+  {
+    path: "/hadist",
+    element: <HadistPage />,
+  },
+  {
+    path: "/hadist/:slug",
+    element: <HadistBySlugPage />,
   },
   {
     path: "*",
