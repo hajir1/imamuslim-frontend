@@ -40,7 +40,7 @@ const useGetAlQuranSurahBySurah = () => {
     unknown,
     string[]
   >({
-    queryKey: ["getAlQuranSurahBySurah"],
+    queryKey: ["getAlQuranSurahBySurah",surah],
     queryFn: () => APIgetAllSurahBySurah(surah),
   });
 
@@ -55,7 +55,7 @@ const useGetJuz = () => {
     unknown,
     string[]
   >({
-    queryKey: ["getAlQuranSurahBySurah"],
+    queryKey: ["getAlQuranSurahBySurah",juz],
     queryFn: () => APIgetJuz(juz),
   });
 

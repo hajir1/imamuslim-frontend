@@ -9,29 +9,26 @@ import {
 } from "../state/Query";
 import { HadistSlugType, HadistType, hadistSlug } from "../model/Interface";
 import Border from "../components/element/Border";
-import { Sekeleton } from "../components/element/Sekeleton";
-import React, {  useState } from "react";
+import { Sekeleton, SekeletonHadist } from "../components/element/Sekeleton";
+import React, { useEffect, useState } from "react";
 export const HadistPage = () => {
   const darkMode = useDarkmode((state) => state.darkMode);
   const { data, isLoading } = useGetHadist();
-  const skeletonArray: any = Array.from({ length: 5 }, (_, index) => index);
+  const skeletonArray: any = Array.from({ length: 9 }, (_, index) => index);
   return (
     <div
       className={`${
         darkMode ? "bg-black text-white" : "bg-white text-slate-900"
-      } flex flex-col`}
+      } flex flex-col w-full`}
     >
       <Navbar type="hadist" />
       <div className="w-full mt-20">
-        <div className="w-full">
+        <div className="w-full p-2">
           {isLoading ? (
             <div className="p-2 flex flex-wrap justify-evenly">
-              <Sekeleton keyS={skeletonArray} custom="h-20" />
-              <Sekeleton keyS={skeletonArray} custom="h-20" />
-              <Sekeleton keyS={skeletonArray} custom="h-20" />
-              <Sekeleton keyS={skeletonArray} custom="h-20" />
-              <Sekeleton keyS={skeletonArray} custom="h-20" />
-              <Sekeleton keyS={skeletonArray} custom="h-20" />
+              {skeletonArray?.map((item: any) => (
+                <Sekeleton custom="h-20 lg-w-[33%] mt-3" key={item} />
+              ))}
             </div>
           ) : (
             <div className="p-2 flex flex-wrap justify-evenly">
@@ -77,134 +74,159 @@ export const HadistBySlugPage = () => {
         darkMode ? "bg-black text-white" : "bg-white text-slate-900"
       } flex flex-col`}
     >
-      <div className="w-full mt-4">
-        <h1 className="text-center text-2xl">
-          HR {(data?.data as HadistSlugType)?.name}
-        </h1>
-        <h1 className="text-center">
-          halaman ke {(data?.data as HadistSlugType)?.pagination?.currentPage}
-        </h1>
-      </div>
-      {searchHadist !== "" ? (
-        <div>
-          {" "}
-          <div className="flex w-full mt-10 justify-center">
-            {" "}
-            <input
-              type="number"
-              onChange={(e: any) => {
-                setSearchHadist(e.target.value);
-              }}
-              value={searchHadist}
-              placeholder="cari hadist"
-              className="w-1/2 outline-none border p-2 pl-3 placeholder:tracking-wider border-gray-800 rounded-md"
-            />
-          </div>
-          <div className="w-full flex justify-center flex-wrap mt-10">
-            <div
-              key={(dataSearch?.data as any)?.number}
-              className="p-2 lg:w-5/6"
-            >
-              <Border
-                border="border-black"
-                numberClass={`${darkMode ? "text-white" : "text-black"}`}
-                number={(dataSearch?.data as any)?.number}
-              />{" "}
-              <h1 className="text-right text-2xl lg:text-4xl lg:tracking-wider leading-snug">
-                {(dataSearch?.data as any)?.arab}
-              </h1>
-              <h1 className="text-sm  my-4 lg:text-base leading-relaxed">
-                <span className="font-semibold">arti </span>:{" "}
-                {(dataSearch?.data as any)?.id}
-              </h1>
-            </div>
-          </div>
-        </div>
+      {data.isLoading ? (
+        <SekeletonHadist />
       ) : (
-        <div className="w-full">
-          <div className="w-full flex flex-wrap justify-center gap-1 mt-10">
-            {(data?.data as HadistSlugType)?.pagination?.pages.map(
-              (pagination: any) => (
-                <p
-                  onClick={() => setPage(pagination)}
-                  key={pagination}
-                  className={`${
-                    page === pagination
-                      ? "bg-gray-400 text-white"
-                      : "border border-black"
-                  }   w-8 h-8 grid place-content-center lg:w-12`}
+        <>
+          {" "}
+          <div className="w-full mt-4">
+            <h1 className="text-center text-2xl">
+              HR {(data?.data as HadistSlugType)?.name}
+            </h1>
+            <h1 className={`text-center`}>
+              halaman ke{" "}
+              {(data?.data as HadistSlugType)?.pagination?.currentPage}
+            </h1>
+          </div>
+          {searchHadist !== "" ? (
+            <div>
+              {" "}
+              <div className="flex w-full mt-10 justify-center">
+                {" "}
+                <input
+                  type="number"
+                  onChange={(e: any) => {
+                    setSearchHadist(e.target.value);
+                  }}
+                  value={searchHadist}
+                  placeholder="cari hadist"
+                  className={`text-black w-1/2 outline-none border p-2 pl-3 placeholder:tracking-wider border-gray-800 rounded-md lg:w-1/4 bg-gray-100`}
+                />
+              </div>
+              <div className="w-full flex justify-center flex-wrap mt-10">
+                <div
+                  key={(dataSearch?.data as any)?.number}
+                  className="p-2 lg:w-5/6"
                 >
-                  {pagination}
-                </p>
-              )
-            )}
-          </div>
-          <div className="flex w-full mt-10 justify-center">
-            {" "}
-            <input
-              type="number"
-              onChange={(e: any) => {
-                setSearchHadist(e.target.value);
-              }}
-              value={searchHadist}
-              placeholder="cari hadist"
-              className="w-1/2 outline-none border p-2 pl-3 placeholder:tracking-wider border-gray-800 rounded-md"
-            />
-          </div>
-          <div className="w-full flex justify-center flex-wrap mt-10">
-            {(data?.data as HadistSlugType)?.items?.map(
-              (hadits: hadistSlug) => (
-                <div key={hadits?.number} className="p-2 lg:w-5/6">
                   <Border
                     border="border-black"
                     numberClass={`${darkMode ? "text-white" : "text-black"}`}
-                    number={hadits?.number}
+                    number={(dataSearch?.data as any)?.number}
                   />{" "}
                   <h1 className="text-right text-2xl lg:text-4xl lg:tracking-wider leading-snug">
-                    {hadits?.arab}
+                    {(dataSearch?.data as any)?.arab}
                   </h1>
                   <h1 className="text-sm  my-4 lg:text-base leading-relaxed">
-                    <span className="font-semibold">arti </span>: {hadits?.id}
+                    <span className="font-semibold">arti </span>:{" "}
+                    {(dataSearch?.data as any)?.id}
                   </h1>
                 </div>
-              )
-            )}
-          </div>
-          <div className="w-full flex flex-wrap justify-center gap-1 mt-10">
-            {(data?.data as HadistSlugType)?.pagination?.pages.map(
-              (pagination: any) => (
-                <p
-                  onClick={() => setPage(pagination)}
-                  key={pagination}
+              </div>
+            </div>
+          ) : (
+            <div className="w-full">
+              <div className="w-full flex flex-wrap justify-center gap-1 mt-10">
+                {(data?.data as HadistSlugType)?.pagination?.pages.map(
+                  (pagination: any) => (
+                    <p
+                      onClick={() => setPage(pagination)}
+                      key={pagination}
+                      className={`${
+                        page === pagination
+                          ? "bg-gray-400 text-white"
+                          : darkMode
+                          ? "border border-white"
+                          : "border border-black"
+                      }   w-8 h-8 grid place-content-center lg:w-12`}
+                    >
+                      {pagination}
+                    </p>
+                  )
+                )}
+              </div>
+              <div className="flex w-full mt-10 justify-center">
+                {" "}
+                <input
+                  type="number"
+                  onChange={(e: any) => {
+                    setSearchHadist(e.target.value);
+                  }}
+                  value={searchHadist}
+                  placeholder="cari hadist"
+                  className={`w-1/2 outline-none border p-2 pl-3 placeholder:tracking-wider border-gray-800 rounded-md lg:w-1/4 bg-gray-100 text-black`}
+                />
+              </div>
+              <div className="w-full flex justify-center flex-wrap mt-10">
+                {(data?.data as HadistSlugType)?.items?.map(
+                  (hadits: hadistSlug) => (
+                    <div key={hadits?.number} className="p-2 lg:w-5/6">
+                      <Border
+                        border="border-black"
+                        numberClass={`${
+                          darkMode ? "text-white" : "text-black"
+                        }`}
+                        number={hadits?.number}
+                      />{" "}
+                      <h1 className="text-right text-2xl lg:text-4xl lg:tracking-wider leading-snug">
+                        {hadits?.arab}
+                      </h1>
+                      <h1 className="text-sm  my-4 lg:text-base leading-relaxed">
+                        <span className="font-semibold">arti </span>:{" "}
+                        {hadits?.id}
+                      </h1>
+                    </div>
+                  )
+                )}
+              </div>
+              <div className="w-full flex flex-wrap justify-center gap-1 mt-10">
+                {(data?.data as HadistSlugType)?.pagination?.pages.map(
+                  (pagination: any) => (
+                    <p
+                      onClick={() => setPage(pagination)}
+                      key={pagination}
+                      className={`${
+                        page === pagination
+                          ? "bg-gray-400 text-white"
+                          : darkMode
+                          ? "border border-white"
+                          : "border border-black"
+                      }   w-8 h-8 grid place-content-center lg:w-12`}
+                    >
+                      {pagination}
+                    </p>
+                  )
+                )}
+              </div>
+              <div className="w-full justify-evenly flex gap-2 my-2">
+                {" "}
+                <button
                   className={`${
-                    page === pagination
-                      ? "bg-gray-400 text-white"
-                      : "border border-black"
-                  }   w-8 h-8 grid place-content-center lg:w-12`}
+                    darkMode
+                      ? "bg-white text-black"
+                      : "bg-secondary  text-white "
+                  } p-1 rounded w-20`}
+                  onClick={prevPage}
                 >
-                  {pagination}
-                </p>
-              )
-            )}
-          </div>
-          <div className="w-full justify-evenly flex gap-2 my-2">
-            {" "}
-            <button
-              className="bg-secondary p-1 rounded w-20 text-white"
-              onClick={prevPage}
-            >
-              prev
-            </button>
-            <button
-              className="bg-secondary p-1 rounded w-20 text-white"
-              onClick={() =>
-                nextPage((data?.data as HadistSlugType)?.pagination?.totalPages)
-              }
-            >
-              next
-            </button>
-          </div>
-        </div>
+                  prev
+                </button>
+                <button
+                  className={`${
+                    darkMode
+                      ? "bg-white text-black"
+                      : "bg-secondary  text-white "
+                  } p-1 rounded w-20`}
+                  onClick={() =>
+                    nextPage(
+                      (data?.data as HadistSlugType)?.pagination?.totalPages
+                    )
+                  }
+                >
+                  next
+                </button>
+              </div>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

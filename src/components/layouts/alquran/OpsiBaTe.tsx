@@ -1,16 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
-import Border from "../element/Border";
-import { useBookMark, useDarkmode } from "../../state/Zustand";
-import {Sekeleton, SekeletonPartQuranById} from "../element/Sekeleton";
+import Border from "../../element/Border";
+import { useBookMark, useDarkmode } from "../../../state/Zustand";
+import { Sekeleton, SekeletonPartQuranById } from "../../element/Sekeleton";
 import {
   DataGetAlQuranSurahById,
   DataSurahByIdMap,
-} from "../../model/Interface";
-import { useGetAlQuranSurahBySurah } from "../../state/Query";
+} from "../../../model/Interface";
+import { useGetAlQuranSurahBySurah } from "../../../state/Query";
 
-import Viewicon from "../element/Icon/Viewicon";
-import Icon from "../../helper/Icon";
-import Option from "../fragment/Option";
+import Viewicon from "../../element/Icon/Viewicon";
+import Icon from "../../../helper/Icon";
+import Option from "../../fragment/Option";
+// import { useParams } from "react-router-dom";
 
 export const TerjemahRoute = () => {
   const { data, isLoading } = useGetAlQuranSurahBySurah();

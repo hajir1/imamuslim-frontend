@@ -1,3 +1,4 @@
+import BookMark from "../components/fragment/BookMark";
 import RoutingPage from "../components/fragment/RoutingPage";
 import Berita from "../components/layouts/Berita";
 import Footer from "../components/layouts/Footer";
@@ -9,14 +10,19 @@ const HomePage = () => {
   const { data: dataNews, isLoading } = useGetNews();
   const darkMode = useDarkmode((state) => state.darkMode);
   return (
-    <div className={`${darkMode?"bg-black text-black":""} w-full flex flex-col items-center`}>
+    <div
+      className={`${
+        darkMode ? "bg-black text-black" : ""
+      } w-full flex flex-col items-center`}
+    >
       <Navbar type="home" />
 
       <div className={`mt-20 flex justify-center flex-wrap`}>
         <Berita berita={dataNews} isLoading={isLoading} />
         <RoutingPage />
       </div>
-      <Footer/>
+      <BookMark />
+      <Footer />
     </div>
   );
 };

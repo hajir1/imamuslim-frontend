@@ -42,7 +42,7 @@ const AsmaulHusna = () => {
         ) : (
           <div className="flex justify-center flex-wrap gap-2 w-[95%]">
             {skeletonArray?.map((item: any) => (
-              <Sekeleton position="asmaulHusna" custom="h-32 lg-w-full" key={item} />
+              <Sekeleton position="full" custom="h-32 lg:w-full" key={item} />
             ))}
           </div>
         )}

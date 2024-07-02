@@ -1,16 +1,19 @@
 import { useState } from "react";
-import { useGetAlQuranSurahBySurah } from "../state/Query";
+import { useGetAlQuranSurahBySurah } from "../../state/Query";
 import { useParams } from "react-router-dom";
-import { useDarkmode } from "../state/Zustand";
-import { DataGetAlQuranSurahById } from "../model/Interface";
-import HomeIcon from "../components/element/Icon/Homeicon";
-import TerjemahbtnIcon from "../components/element/Icon/TerjemahbtnIcon";
-import BacaIcon from "../components/element/Icon/BacaIcon";
-import { BacaRoute, TerjemahRoute } from "../components/layouts/RouteSurahById";
-import ErrorConn from "../components/fragment/ErrorConn";
-import { SekeletonPartQuranByIdHeaders } from "../components/element/Sekeleton";
+import { useDarkmode } from "../../state/Zustand";
+import { DataGetAlQuranSurahById } from "../../model/Interface";
+import HomeIcon from "../../components/element/Icon/Homeicon";
+import TerjemahbtnIcon from "../../components/element/Icon/TerjemahbtnIcon";
+import BacaIcon from "../../components/element/Icon/BacaIcon";
+import {
+  BacaRoute,
+  TerjemahRoute,
+} from "../../components/layouts/alquran/OpsiBaTe";
+import ErrorConn from "../../components/fragment/ErrorConn";
+import { SekeletonPartQuranByIdHeaders } from "../../components/element/Sekeleton";
 
-const SurahQuranPage = () => {
+const SurahByIdPage = () => {
   const [read, setRead] = useState<
     boolean | React.Dispatch<React.SetStateAction<boolean>>
   >(false);
@@ -107,4 +110,4 @@ const SurahQuranPage = () => {
   );
 };
 
-export default SurahQuranPage;
+export default SurahByIdPage;
