@@ -12,7 +12,7 @@ export const useAudio = create<AudioElement>((set) => ({
   updateAudio: (audio) => set({ audio }),
 }));
 
-export const useBookMark = create(
+export const useBookMarkAlQuran = create(
   persist(
     (set, get) => ({
       bookMark: [],
@@ -34,11 +34,64 @@ export const useBookMark = create(
       },
     }),
     {
-      name: "bookMark",
+      name: "alquran",
       storage: createJSONStorage(() => localStorage),
     }
   )
 );
+export const useBookMarkAsmaulHusna = create(
+  persist(
+    (set, get) => ({
+      bookMark: [],
+      addBookMark: (newBookmark: Bookmark) => {
+        const oldBookmarks = get().bookMark;
+        const updatedBookmarks = Array.isArray(oldBookmarks)
+          ? [...oldBookmarks, newBookmark]
+          : [newBookmark];
+
+        set({ bookMark: updatedBookmarks });
+      },
+      deleteBookMark: (urutan: string) => {
+        const oldBookmarks = get().bookMark;
+        const updatedBookmarks = Array.isArray(oldBookmarks)
+          ? oldBookmarks.filter((item) => !(item?.urutan === urutan))
+          : [];
+        set({ bookMark: updatedBookmarks });
+      },
+    }),
+    {
+      name: "asmaulhusna",
+      storage: createJSONStorage(() => localStorage),
+    }
+  )
+);
+export const useBookMarkDzikir = create(
+  persist(
+    (set, get) => ({
+      bookMark: [],
+      addBookMark: (newBookmark: Bookmark) => {
+        const oldBookmarks = get().bookMark;
+        const updatedBookmarks = Array.isArray(oldBookmarks)
+          ? [...oldBookmarks, newBookmark]
+          : [newBookmark];
+
+        set({ bookMark: updatedBookmarks });
+      },
+      deleteBookMark: (id: string) => {
+        const oldBookmarks = get().bookMark;
+        const updatedBookmarks = Array.isArray(oldBookmarks)
+          ? oldBookmarks.filter((item) => !(item?.id === id))
+          : [];
+        set({ bookMark: updatedBookmarks });
+      },
+    }),
+    {
+      name: "dzikir",
+      storage: createJSONStorage(() => localStorage),
+    }
+  )
+);
+
 type darkModeElement = {
   darkMode: boolean;
   setDarkMode: (darkMode: boolean) => void;

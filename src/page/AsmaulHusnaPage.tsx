@@ -1,9 +1,34 @@
-import AsmaulHusna from "../components/layouts/AsmaulHusna";
+import  { useEffect, useState } from "react";
+import Border from "../components/element/Border";
+import LoveIcon from "../components/element/Icon/LoveIcon";
+import { Sekeleton } from "../components/element/Sekeleton";
 import Navbar from "../components/layouts/Navbar";
-import { useDarkmode } from "../state/Zustand";
+import { DataAsmaulHusna } from "../model/Interface";
+import { useGetAsmaulHusna } from "../state/Query";
+import { useBookMarkAsmaulHusna, useDarkmode } from "../state/Zustand";
 
 const AsmaulHusnaPage = () => {
   const darkMode = useDarkmode((state) => state.darkMode);
+  const { data } = useGetAsmaulHusna();
+  const [fillLove, setFillLove] = useState<any[]>([]);
+  const skeletonArray: any = Array.from({ length: 20 }, (_, index) => index);
+  const { addBookMark, bookMark }: any = useBookMarkAsmaulHusna();
+
+  const onHandleAddBookMark = (
+    urutan: string,
+    arab: string,
+    latin: string,
+    arti: string,
+    love = true
+  ) => {
+    addBookMark({ urutan, arab, latin, arti, love });
+  };
+
+  useEffect(() => {
+    const lovedItems = bookMark.filter((item: any) => item.love === true);
+    setFillLove(lovedItems);
+  }, [bookMark]);
+
   return (
     <div
       className={`${
@@ -12,7 +37,70 @@ const AsmaulHusnaPage = () => {
     >
       <Navbar type="asmaulhusna" />
       <div className="w-full mt-20">
-        <AsmaulHusna />
+        <div className="w-full flex items-center flex-col">
+          <div className="w-full flex justify-center bg-white">
+            <img
+              className="w-3/5 h-20 object-cover md:h-44 lg:w-2/5 lg:h-44"
+              src="./iconasmaulHusna.png"
+              alt=""
+            />
+          </div>
+          <div className="w-full flex flex-wrap gap-2 justify-center my-4 lg:p-4">
+            {(data as [])?.length > 0 ? (
+              (data as [])?.map((asmaulHusna: DataAsmaulHusna) => (
+                <div
+                  className={`${
+                    darkMode ? "border-b-2 border-b-white" : "border-even"
+                  } w-[95%]  p-2 lg:w-full`}
+                  key={asmaulHusna?.urutan}
+                >
+                  <div className="flex w-full justify-between">
+                    <Border
+                      number={`${asmaulHusna?.urutan}`}
+                      border="border-black"
+                    />
+                    <LoveIcon
+                      fill={
+                        fillLove.some((item) => item.urutan === asmaulHusna?.urutan)
+                          ? darkMode
+                            ? "white"
+                            : "black"
+                          : darkMode
+                          ? "black"
+                          : "white"
+                      }
+                      handleBookMark={() => {
+                        onHandleAddBookMark(
+                          asmaulHusna?.urutan,
+                          asmaulHusna?.arab,
+                          asmaulHusna?.latin,
+                          asmaulHusna?.arti
+                        );
+                      }}
+                    />
+                  </div>
+                  <h1 className="text-right text-3xl lg:text-4xl">
+                    {asmaulHusna?.arab}
+                  </h1>
+                  <p className="font-semibold text-primary lg:text-4xl">
+                    {asmaulHusna?.latin}
+                  </p>
+                  <p className="text-sm lg:text-2xl">{asmaulHusna?.arti}</p>
+                </div>
+              ))
+            ) : (
+              <div className="flex justify-center flex-wrap gap-2 w-[95%]">
+                {skeletonArray?.map((item: any) => (
+                  <Sekeleton
+                    position="full"
+                    custom="h-32 lg:w-full"
+                    key={item}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

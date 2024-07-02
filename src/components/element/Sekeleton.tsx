@@ -63,7 +63,7 @@ export const SekeletonHadist = () => {
       <div className="w-[38%] lg:w-1/6 outline-none border rounded-md bg-gray-300  relative animate-pulse transition-all duration-300 h-10 my-2"></div>
       <div className="w-[25%] lg:w-[8rem] outline-none border rounded-md bg-gray-300  relative animate-pulse transition-all duration-300 h-8"></div>
       <div className="w-[95%] lg:w-1/2 outline-none border rounded-md bg-gray-300  relative animate-pulse transition-all duration-300 h-10 my-8"></div>
-      <div className="w-[30%] outline-none border rounded-md bg-gray-300  relative animate-pulse transition-all duration-300 h-14 mt-4 mx-2"></div>
+      <div className="w-1/2 lg:w-[30%] outline-none border rounded-md bg-gray-300  relative animate-pulse transition-all duration-300 h-14 mt-4 mx-2"></div>
       <div className="flex justify-center w-full flex-wrap">
         {skeletonArray?.map((item: any) => (
           <Sekeleton position="full" custom="h-32 lg:w-5/6 mt-4" key={item} />

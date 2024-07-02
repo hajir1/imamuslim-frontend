@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useGetAlQuranSurahByAyat } from "../state/Query";
 import { DataGetAlQuranSurahByAyat } from "../model/Interface";
 import Border from "../components/element/Border";
-import { useBookMark, useDarkmode } from "../state/Zustand";
+import { useBookMarkAlQuran, useDarkmode } from "../state/Zustand";
 import AudioMatiIcon from "../components/element/Icon/AudioMatiIcon";
 import AudioHidupicon from "../components/element/Icon/AudioHidupicon";
 import Terjemahicon from "../components/element/Icon/Terjemahicon";
@@ -10,6 +10,7 @@ import CopyIcon from "../components/element/Icon/CopyIcon";
 import Viewicon from "../components/element/Icon/Viewicon";
 import BookMarkMinicon from "../components/element/Icon/BookMarkMinicon";
 import Icon from "../helper/Icon";
+import Navbar from "../components/layouts/Navbar";
 
 const BookMarkPage = () => {
   const { data } = useGetAlQuranSurahByAyat();
@@ -18,7 +19,7 @@ const BookMarkPage = () => {
   const darkMode = useDarkmode((state) => state.darkMode);
   const audioRefPlay = useRef<HTMLAudioElement>(null);
   const [currentAudio, setCurrentAudio] = useState<any | null>(null);
-  const { deleteBookMark }: any = useBookMark();
+  const { deleteBookMark }: any = useBookMarkAlQuran();
   const [long, setLong] = useState<
     boolean | React.Dispatch<React.SetStateAction<boolean>>
   >(false);
@@ -86,9 +87,10 @@ const BookMarkPage = () => {
     <div
       className={`${
         darkMode ? "bg-black text-black" : "bg-white text-black"
-      } w-full flex justify-center p-3 h-screen`}
+      } w-full flex flex-col`}
     >
-      <div className="relative w-full lg:w-4/5">
+      <Navbar type="quran" />
+      <div className="relative  w-full mt-20 p-2 ">
         <div className="flex gap-4 justify-center my-4  ">
           {audio !== null && audio === bookMark?.audio?.primary ? (
             <AudioMatiIcon

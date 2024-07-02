@@ -154,7 +154,7 @@ const JuzByIdPage = () => {
                             border="border-black"
                             number={item?.number?.inSurah}
                           />
-                          <h1 className="text-right text-xl w-[90%] sm:text-2xl lg:text-4xl">
+                          <h1 className="text-right text-2xl w-[90%] sm:text-2xl lg:text-4xl">
                             {item?.text?.arab}
                           </h1>
                         </div>
@@ -162,12 +162,12 @@ const JuzByIdPage = () => {
                           <h1
                             className={`${
                               darkMode && ""
-                            } text-primary text-left mt-2 font-semibold lg:text-2xl lg:my-6`}
+                            } text-primary text-left text-xl font-sans mt-2 font-semibold lg:text-2xl lg:my-6`}
                           >
                             {item?.text?.transliteration?.en}
                           </h1>
-                          <h1 className="text-left text-sm md:text-base">
-                            {item?.translation?.id}
+                          <h1 className="text-left text-base font-sans md:text-base">
+                           <span className="font-semibold">artinya</span>  {item?.translation?.id}
                           </h1>
                         </div>
                       </div>

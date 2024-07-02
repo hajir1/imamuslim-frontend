@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Border from "../../element/Border";
-import { useBookMark, useDarkmode } from "../../../state/Zustand";
+import { useBookMarkAlQuran, useDarkmode } from "../../../state/Zustand";
 import { Sekeleton, SekeletonPartQuranById } from "../../element/Sekeleton";
 import {
   DataGetAlQuranSurahById,
@@ -24,7 +24,7 @@ export const TerjemahRoute = () => {
   >(false);
   const audioRefPlay = useRef<HTMLAudioElement>(null);
   const [currentAudio, setCurrentAudio] = useState<any | null>(null);
-  const { addBookMark }: any = useBookMark();
+  const { addBookMark }: any = useBookMarkAlQuran();
 
   const skeletonArray: any = Array.from({ length: 20 }, (_, index) => index);
   const darkMode = useDarkmode((state) => state.darkMode);
@@ -44,8 +44,8 @@ export const TerjemahRoute = () => {
 
     setLong(false);
   };
-  const handleBookMark = (juz: number, surah: number, ayat: number) => {
-    addBookMark({ juz, surah, ayat });
+  const handleBookMark = (juz: number, surah: number, ayat: number, love = true) => {
+    addBookMark({ juz, surah, ayat ,love});
     alert(`sukses menambahkan ke bookMark`);
   };
   const handleCopy = (
@@ -133,7 +133,7 @@ export const TerjemahRoute = () => {
                       border="border-black"
                       number={item?.number?.inSurah}
                     />
-                    <h1 className="text-right text-xl w-[90%] sm:text-2xl lg:text-4xl">
+                    <h1 className="text-right w-[90%] text-2xl lg:text-4xl">
                       {item?.text?.arab}
                     </h1>
                   </div>
@@ -141,12 +141,12 @@ export const TerjemahRoute = () => {
                     <h1
                       className={`${
                         darkMode && ""
-                      } text-primary text-left mt-2 font-semibold lg:text-2xl lg:my-6`}
+                      } text-primary text-left mt-2 capitalize font-sans text-xl font-semibold lg:text-2xl lg:my-6`}
                     >
                       {item?.text?.transliteration?.en}
                     </h1>
-                    <h1 className="text-left text-sm md:text-xl">
-                      {item?.translation?.id}
+                    <h1 className="text-left text-base font-sans  md:text-xl">
+                      <span className="font-semibold">artinya : </span> {item?.translation?.id}
                     </h1>
                   </div>
                 </div>

@@ -44,7 +44,8 @@ const Option = ({
             handleBookMark(
               item?.meta?.juz,
               (data as any).data.number,
-              item?.number?.inSurah
+              item?.number?.inSurah,
+              
             )
           }
           fill={`${darkMode ? "white" : "black"}`}

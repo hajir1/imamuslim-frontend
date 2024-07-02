@@ -13,7 +13,7 @@ const HomePage = () => {
     <div
       className={`${
         darkMode ? "bg-black text-black" : ""
-      } w-full flex flex-col items-center`}
+      } w-full flex flex-col`}
     >
       <Navbar type="home" />
 
