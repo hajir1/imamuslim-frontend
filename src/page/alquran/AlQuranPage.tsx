@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BookMark from "../../components/fragment/BookMark";
 import Navbar from "../../components/layouts/Navbar";
 import { useDarkmode } from "../../state/Zustand";
@@ -17,6 +17,9 @@ const AlQuranPage = () => {
   const [juz, setJuz] = useState<
     boolean | React.Dispatch<React.SetStateAction<boolean>>
   >(false);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const { isLoading } = useGetAlQuranSurah();
   return (
     <div

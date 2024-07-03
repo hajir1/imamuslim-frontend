@@ -2,21 +2,27 @@ import { Link } from "react-router-dom";
 import {
   useBookMarkAlQuran,
   useBookMarkAsmaulHusna,
+  useBookMarkDoa,
   useBookMarkDzikir,
+  useBookMarkHadist,
   useDarkmode,
 } from "../../state/Zustand";
 // import SymbolMark from "../element/Icon/SymbolMark";
 import BookMarkIcon from "../element/Icon/BookMarkIcon";
 import DeleteMarkicon from "../element/Icon/DeleteMarkicon";
 import LoveIcon from "../element/Icon/LoveIcon";
+import DoDzBookMark from "./DoDzBookMark";
 
 const BookMark = () => {
-  const { bookMark: alQuran, deleteBookMark: deleteAlQuran }: any =
+  const { bookMark: alQurans, deleteBookMark: deleteAlQuran }: any =
     useBookMarkAlQuran();
-  const { bookMark: asmaulHusna, deleteBookMark: deleteAsmaulHusna }: any =
+  const { bookMark: asmaulHusnas, deleteBookMark: deleteAsmaulHusna }: any =
     useBookMarkAsmaulHusna();
-  const { bookMark: dzikir, deleteBookMark: deleteDzikir }: any =
+  const { bookMark: doas, deleteBookMark: deleteDoa }: any = useBookMarkDoa();
+  const { bookMark: dzikirs, deleteBookMark: deleteDzikir }: any =
     useBookMarkDzikir();
+  const { bookMark: hadists, deleteBookMark: deleteHadist }: any =
+    useBookMarkHadist();
   const darkMode = useDarkmode((state) => state.darkMode);
   return (
     <div
@@ -27,11 +33,11 @@ const BookMark = () => {
       <h1 className="text-xl ml-2 font-semibold md:my-10">Bookmark</h1>
       <div className="w-full">
         {" "}
-        <h1 className="ml-2 my-2 lg:my-4">Al-Quran</h1>
+        <h1 className="ml-2 my-2 lg:my-4 font-semibold">Al-Quran</h1>
         <div className="flex justify-evenly gap-2 flex-wrap md:justify-start">
           {" "}
-          {alQuran?.length > 0 ? (
-            alQuran?.map((item: any) => (
+          {alQurans?.length > 0 ? (
+            alQurans?.map((quran: any) => (
               <div
                 key={Math.floor(Math.random() * 13267)}
                 className={`${
@@ -43,27 +49,27 @@ const BookMark = () => {
                   <DeleteMarkicon
                     fill={`${darkMode ? "black" : "white"}`}
                     handler={() => {
-                      deleteAlQuran(item?.ayat, item?.surah);
+                      deleteAlQuran(quran?.ayat, quran?.surah);
                     }}
                   />
                   <Link
                     className="flex items-center justify-evenly w-full"
-                    to={`/quran/surah/${item?.surah}/ayat/${item.ayat}`}
+                    to={`/quran/surah/${quran?.surah}/ayat/${quran.ayat}`}
                   >
                     <h1 className={`${darkMode ? "text-white" : "text-black"}`}>
-                      {item?.juz}
+                      {quran?.juz}
                     </h1>
                     <p className={`${darkMode ? "text-white" : "text-black"}`}>
                       |
                     </p>
                     <h1 className={`${darkMode ? "text-white" : "text-black"}`}>
-                      {item?.surah}
+                      {quran?.surah}
                     </h1>
                     <p className={`${darkMode ? "text-white" : "text-black"}`}>
                       |
                     </p>
                     <h1 className={`${darkMode ? "text-white" : "text-black"}`}>
-                      {item?.ayat}
+                      {quran?.ayat}
                     </h1>
                   </Link>
                 </div>
@@ -80,11 +86,11 @@ const BookMark = () => {
       </div>
       <div className="w-full mt-10 ">
         {" "}
-        <h1 className="ml-2 lg:my-4">asmaul-Husna</h1>
+        <h1 className="ml-2 lg:my-4 font-semibold">asmaul-Husna</h1>
         <div className="flex justify-evenly gap-2 flex-wrap lg:justify-start">
           {" "}
-          {asmaulHusna?.length > 0 ? (
-            asmaulHusna?.map((item: any) => (
+          {asmaulHusnas?.length > 0 ? (
+            asmaulHusnas?.map((asmaulhusna: any) => (
               <div
                 key={Math.floor(Math.random() * 13267)}
                 className={`${
@@ -93,18 +99,18 @@ const BookMark = () => {
               >
                 <div className="flex items-center flex-col justify-around w-full">
                   <div className="w-full flex items-center justify-between">
-                    <h1 className=" px-2">{item?.urutan}</h1>
+                    <h1 className=" px-2">{asmaulhusna?.urutan}</h1>
                     <p
                       className={`${
                         darkMode ? "text-white" : "text-gray-700"
                       } text-2xl  mx-2`}
                     >
-                      {item?.arab}
+                      {asmaulhusna?.arab}
                     </p>
                     <DeleteMarkicon
                       fill={`${darkMode ? "black" : "white"}`}
                       handler={() => {
-                        deleteAsmaulHusna(item?.urutan);
+                        deleteAsmaulHusna(asmaulhusna?.urutan);
                       }}
                     />
                   </div>
@@ -113,7 +119,7 @@ const BookMark = () => {
                       darkMode ? "text-white" : "text-gray-800"
                     } text-center text-sm my-2`}
                   >
-                    {item?.arti}
+                    {asmaulhusna?.arti}
                   </p>
                 </div>
               </div>
@@ -126,63 +132,21 @@ const BookMark = () => {
           )}
         </div>
       </div>
-      <div className="w-full mt-10 ">
-        {" "}
-        <h1 className="ml-2 lg:my-4 font-semibold">dzikir</h1>
-        <div className="flex justify-evenly gap-2 flex-wrap lg:justify-start">
-          {" "}
-          {dzikir?.length > 0 ? (
-            dzikir?.map((dzikir: any) => (
-              <div
-                key={Math.floor(Math.random() * 13267)}
-                className={`${
-                  darkMode ? "border-b-white" : "border-b-black"
-                } border-b-[1px] mt-2 w-[90%] rounded-md flex flex-col lg:my-4 lg:w-full`}
-              >
-                <div className="flex flex-col justify-around w-full ">
-                  <div className="flex justify-between w-full">
-                    <h1 className="text-center font-semibold uppercase text-sm lg:text-xl">{dzikir?.title}</h1>
-                    <DeleteMarkicon
-                      fill={`${darkMode ? "black" : "white"}`}
-                      handler={() => {
-                        deleteDzikir(dzikir?.id);
-                      }}
-                    />
-                  </div>
-                  <p
-                    className={`${
-                      darkMode ? "text-white" : "text-gray-700"
-                    } text-3xl  mx-2 text-right mt-4 mb-2 lg:text-4xl`}
-                  >
-                    {dzikir?.arabic}
-                  </p>
-
-                  <p
-                    className={`${
-                      darkMode ? "text-white" : "text-gray-800"
-                    } text-left text-base my-2 lg:text-xl`}
-                  >
-                    {dzikir?.latin}
-                  </p>
-                  <p
-                    className={`${
-                      darkMode ? "text-white" : "text-gray-800"
-                    } text-left text-sm my-2 md:text-base`}
-                  >
-                    <span className="font-semibold">artinya </span>:{" "}
-                    {dzikir?.translate}
-                  </p>
-                </div>
-              </div>
-            ))
-          ) : (
-            <div className="flex text-sm justify-center gap-2 p-2">
-              <p className="">klik icon</p> <LoveIcon fill={`white`} />
-              <p className="">untuk bookmark dzikir</p>
-            </div>
-          )}
-        </div>
-      </div>
+      <h1 className="ml-2 mt-10 lg:my-4 font-semibold">doa dan dzikir</h1>
+      <DoDzBookMark datas={doas} handleDelete={deleteDoa} type="" pesan="doa" />
+      <DoDzBookMark
+        datas={dzikirs}
+        type=""
+        handleDelete={deleteDzikir}
+        pesan="dzikir"
+      />
+      <h1 className="ml-2 mt-10 lg:my-4 font-semibold">hadist</h1>
+      <DoDzBookMark
+        type="hadist"
+        datas={hadists}
+        handleDelete={deleteHadist}
+        pesan="hadist"
+      />
     </div>
   );
 };

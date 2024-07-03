@@ -1,4 +1,8 @@
-import { useDarkmode, usePagination } from "../state/Zustand";
+import {
+  useBookMarkHadist,
+  useDarkmode,
+  usePagination,
+} from "../state/Zustand";
 import Navbar from "../components/layouts/Navbar";
 // import Hadist from "../components/layouts/Hadist";
 import { Link, useParams } from "react-router-dom";
@@ -11,10 +15,14 @@ import { HadistSlugType, HadistType, hadistSlug } from "../model/Interface";
 import Border from "../components/element/Border";
 import { Sekeleton, SekeletonHadist } from "../components/element/Sekeleton";
 import React, { useEffect, useState } from "react";
+import LoveIcon from "../components/element/Icon/LoveIcon";
 export const HadistPage = () => {
   const darkMode = useDarkmode((state) => state.darkMode);
   const { data, isLoading } = useGetHadist();
   const skeletonArray: any = Array.from({ length: 9 }, (_, index) => index);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div
       className={`${
@@ -64,10 +72,25 @@ export const HadistBySlugPage = () => {
   const { nextPage, page, setPage, prevPage } = usePagination();
   const darkMode = useDarkmode((state) => state.darkMode);
   const data = useGetHadistBySlug(slug, page);
+  const { bookMark, addBookMark }: any = useBookMarkHadist();
+  const [fillLove, setFillLove] = useState<[]>([]);
   const [searchHadist, setSearchHadist] = useState<
     any | React.Dispatch<React.SetStateAction<any>>
   >("");
   const dataSearch = useGetHadistById(slug, searchHadist);
+  const onHandleBookMark = (
+    id: number,
+    arabic: string,
+    translate: string,
+    love = true
+  ) => {
+    addBookMark({ id, arabic, translate, love, slug });
+  };
+  useEffect(() => {
+    const filtered = bookMark.filter((item: any) => item.love === true);
+    setFillLove(filtered);
+  }, [bookMark]);
+  
   return (
     <div
       className={`${
@@ -160,13 +183,35 @@ export const HadistBySlugPage = () => {
                 {(data?.data as HadistSlugType)?.items?.map(
                   (hadits: hadistSlug) => (
                     <div key={hadits?.number} className="p-2 lg:w-5/6">
-                      <Border
-                        border="border-black"
-                        numberClass={`${
-                          darkMode ? "text-white" : "text-black"
-                        }`}
-                        number={hadits?.number}
-                      />{" "}
+                      <div className="justify-between flex">
+                        <Border
+                          border="border-black"
+                          numberClass={`${
+                            darkMode ? "text-white" : "text-black"
+                          }`}
+                          number={hadits?.number}
+                        />{" "}
+                        <LoveIcon
+                          handleBookMark={() =>
+                            onHandleBookMark(
+                              hadits?.number,
+                              hadits?.arab,
+                              hadits?.id
+                            )
+                          }
+                          fill={
+                            fillLove.some(
+                              (data: any) => data.arabic === hadits.arab
+                            )
+                              ? darkMode
+                                ? "white"
+                                : "black"
+                              : darkMode
+                              ? "black"
+                              : "white"
+                          }
+                        />
+                      </div>
                       <h1 className="text-right text-2xl lg:text-4xl lg:tracking-wider leading-snug">
                         {hadits?.arab}
                       </h1>

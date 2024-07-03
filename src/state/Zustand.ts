@@ -65,6 +65,32 @@ export const useBookMarkAsmaulHusna = create(
     }
   )
 );
+export const useBookMarkDoa = create(
+  persist(
+    (set, get) => ({
+      bookMark: [],
+      addBookMark: (newBookmark: Bookmark) => {
+        const oldBookmarks = get().bookMark;
+        const updatedBookmarks = Array.isArray(oldBookmarks)
+          ? [...oldBookmarks, newBookmark]
+          : [newBookmark];
+
+        set({ bookMark: updatedBookmarks });
+      },
+      deleteBookMark: (id: string) => {
+        const oldBookmarks = get().bookMark;
+        const updatedBookmarks = Array.isArray(oldBookmarks)
+          ? oldBookmarks.filter((item) => !(item?.id === id))
+          : [];
+        set({ bookMark: updatedBookmarks });
+      },
+    }),
+    {
+      name: "doa",
+      storage: createJSONStorage(() => localStorage),
+    }
+  )
+);
 export const useBookMarkDzikir = create(
   persist(
     (set, get) => ({
@@ -87,6 +113,32 @@ export const useBookMarkDzikir = create(
     }),
     {
       name: "dzikir",
+      storage: createJSONStorage(() => localStorage),
+    }
+  )
+);
+export const useBookMarkHadist = create(
+  persist(
+    (set, get) => ({
+      bookMark: [],
+      addBookMark: (newBookmark: Bookmark) => {
+        const oldBookmarks = get().bookMark;
+        const updatedBookmarks = Array.isArray(oldBookmarks)
+          ? [...oldBookmarks, newBookmark]
+          : [newBookmark];
+
+        set({ bookMark: updatedBookmarks });
+      },
+      deleteBookMark: (arab: string) => {
+        const oldBookmarks = get().bookMark;
+        const updatedBookmarks = Array.isArray(oldBookmarks)
+          ? oldBookmarks.filter((item) => !(item?.arabic === arab))
+          : [];
+        set({ bookMark: updatedBookmarks });
+      },
+    }),
+    {
+      name: "hadist",
       storage: createJSONStorage(() => localStorage),
     }
   )

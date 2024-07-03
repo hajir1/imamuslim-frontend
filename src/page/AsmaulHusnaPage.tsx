@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Border from "../components/element/Border";
 import LoveIcon from "../components/element/Icon/LoveIcon";
 import { Sekeleton } from "../components/element/Sekeleton";
@@ -28,7 +28,9 @@ const AsmaulHusnaPage = () => {
     const lovedItems = bookMark.filter((item: any) => item.love === true);
     setFillLove(lovedItems);
   }, [bookMark]);
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div
       className={`${
@@ -61,7 +63,9 @@ const AsmaulHusnaPage = () => {
                     />
                     <LoveIcon
                       fill={
-                        fillLove.some((item) => item.urutan === asmaulHusna?.urutan)
+                        fillLove.some(
+                          (item) => item.urutan === asmaulHusna?.urutan
+                        )
                           ? darkMode
                             ? "white"
                             : "black"
@@ -85,7 +89,11 @@ const AsmaulHusnaPage = () => {
                   <p className="font-semibold text-primary lg:text-4xl">
                     {asmaulHusna?.latin}
                   </p>
-                  <p className="text-sm lg:text-2xl">{asmaulHusna?.arti}</p>
+                  <p className="text-sm lg:text-2xl">
+                    {" "}
+                    <span className="font-semibold">artinya : </span>{" "}
+                    {asmaulHusna?.arti}
+                  </p>
                 </div>
               ))
             ) : (

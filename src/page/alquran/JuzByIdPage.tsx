@@ -167,7 +167,7 @@ const JuzByIdPage = () => {
                             {item?.text?.transliteration?.en}
                           </h1>
                           <h1 className="text-left text-base font-sans md:text-base">
-                           <span className="font-semibold">artinya</span>  {item?.translation?.id}
+                           <span className="font-semibold">artinya : </span>  {item?.translation?.id}
                           </h1>
                         </div>
                       </div>

@@ -6,7 +6,7 @@ import {
 } from "../../state/Query";
 import { DataDoa } from "../../model/Interface";
 import Border from "../element/Border";
-import { useBookMarkDzikir, useDarkmode } from "../../state/Zustand";
+import { useBookMarkDoa, useDarkmode } from "../../state/Zustand";
 import { Sekeleton } from "../element/Sekeleton";
 // import React, { useEffect, useState } from "react";
 // import BacaIcon from "../element/Icon/BacaIcon";
@@ -21,7 +21,7 @@ export const DoaRoute = () => {
   const darkMode = useDarkmode((state) => state.darkMode);
   const [fillLove, setFillLove] = useState<[]>([]);
   const skeletonArray: any = Array.from({ length: 20 }, (_, index) => index);
-  const { bookMark, addBookMark }: any = useBookMarkDzikir();
+  const { bookMark, addBookMark }: any = useBookMarkDoa();
   const onHandleBookMark = (
     id : string,
     title: string,
@@ -79,18 +79,18 @@ export const DoaRoute = () => {
               />
             </div>
             <div className="w-full my-4">
-              <h1 className="text-right text-2xl lg:text-4xl">
+              <h1 className="text-right text-3xl lg:text-4xl">
                 {item?.arabic}
               </h1>
             </div>
             <div className="w-full my-4">
-              <h1 className="text-xl text-primary font-sans font-semibold">
+              <h1 className="text-xl text-primary lg:text-2xl font-sans font-semibold">
                 {item?.latin}
               </h1>
-              <p className={`${darkMode ? "" : "text-slate-800 font-sans"}`}>
-                {item?.translation}
+              <p className={`${darkMode ? "" : "text-slate-800 font-sans lg:text-xl"}`}>
+                <span className="font-semibold">artinya : </span>{item?.translation}
               </p>
-              <p className="text-center font-sans">
+              <p className="text-center font-sans lg:text-xl">
                 <span className="font-semibold block text-center my-4 ">
                   fawaid
                 </span>{" "}

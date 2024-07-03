@@ -1,7 +1,7 @@
 import Navbar from "../components/layouts/Navbar";
 import { useDarkmode } from "../state/Zustand";
 import { DoaRoute, DzikirRoute } from "../components/layouts/OpsiDoDz";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetDoa } from "../state/Query";
 import Terjemahicon from "../components/element/Icon/Terjemahicon";
 import BacaIcon from "../components/element/Icon/BacaIcon";
@@ -10,8 +10,12 @@ const DoaDoaPage = () => {
   const [dzikir, setDzikir] = useState<
     boolean | React.Dispatch<React.SetStateAction<boolean>>
   >(false);
+
   const { isLoading } = useGetDoa();
   const darkMode = useDarkmode((state) => state.darkMode);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div
       className={`${

@@ -1,15 +1,34 @@
-import { useDarkmode } from "../../state/Zustand";
+import { useEffect, useState } from "react";
+import { useBookMarkDzikir, useDarkmode } from "../../state/Zustand";
 import Border from "../element/Border";
-import {Sekeleton} from "../element/Sekeleton";
+import LoveIcon from "../element/Icon/LoveIcon";
+import { Sekeleton } from "../element/Sekeleton";
 
 const DzikirComponent = ({ data }: any) => {
   const darkMode = useDarkmode((state) => state.darkMode);
+  const [fillLove, setFillLove] = useState<[]>([]);
+  const { bookMark, addBookMark }: any = useBookMarkDzikir();
   const skeletonArray: any = Array.from({ length: 20 }, (_, index) => index);
+  useEffect(() => {
+    const filtered = bookMark.filter((dzikir: any) => dzikir.love === true);
+    setFillLove(filtered);
+  }, [bookMark]);
+
+  const onHandleBookMark = (
+    id: string,
+    title: string,
+    arabic: string,
+    latin: string,
+    translate: string,
+    love = true
+  ) => {
+    addBookMark({ id, title, arabic, latin, translate, love });
+  };
   return (
     <div className="w-full flex flex-col items-center">
       {" "}
       {(data as any)?.length > 0 ? (
-        (data as any)?.map((item: any, index: number) => (
+        (data as any)?.map((dzikir: any, index: number) => (
           <div
             className={`${
               darkMode && " border-b-2 border-b-white"
@@ -18,45 +37,72 @@ const DzikirComponent = ({ data }: any) => {
           >
             <div className="flex justify-evenly bg-secondary p-1 items-center">
               <Border
-                border="border-white"
+                border="border-white border-2"
                 numberClass={`${darkMode ? "" : "text-white"}`}
                 number={index + 1}
               />{" "}
-              <h1 className="w-[95%] font-semibold text-xl text-center text-white lg:text-2xl">
-                {item?.title}
+              <h1 className="w-[95%] text-xl text-center text-white lg:text-2xl">
+                {dzikir?.title}
+              </h1>
+            </div>
+            <div className="flex justify-end w-full mt-2">
+              <LoveIcon
+                handleBookMark={() =>
+                  onHandleBookMark(
+                    dzikir.id,
+                    dzikir.title,
+                    dzikir.arabic,
+                    dzikir.latin,
+                    dzikir.translation
+                  )
+                }
+                fill={
+                  fillLove.some((love: any) => dzikir.title === love.title)
+                    ? darkMode
+                      ? "white"
+                      : "black"
+                    : darkMode
+                    ? "black"
+                    : "white"
+                }
+              />
+            </div>
+            <div className="w-full my-4">
+              <h1 className="text-right text-3xl lg:text-4xl">
+                {dzikir?.arabic}
               </h1>
             </div>
             <div className="w-full my-4">
-              <h1 className="text-right text-2xl lg:text-4xl">
-                {item?.arabic}
+              <h1 className="text-xl font-sans text-primary font-semibold lg:text-2xl">
+                {dzikir?.latin}
               </h1>
-            </div>
-            <div className="w-full my-4">
-              <h1 className="text-xl text-primary font-semibold">
-                {item?.latin}
-              </h1>
-              <p className={`${darkMode ? "" : "text-slate-800"}`}>
-                {item?.translation}
+              <p className={`${darkMode ? "" : "text-slate-800"} font-sans lg:text-xl`}>
+                <span className="font-semibold">artinya : </span>
+                {dzikir?.translation}
               </p>
-              <p className={`${darkMode ? "" : "text-slate-800"}`}>
-                <span className="font-semibold">notes : {item?.notes}</span>
-              </p>
-              <p className={`${darkMode ? "" : "text-slate-800"}`}>
-                <span className="font-semibold">hadist : {item?.source}</span>
-              </p>
-              <p className="text-center">
+              <div className="my-2 font-sans">
+                <p className={`${darkMode ? "" : "text-slate-800"}`}>
+                  <span className="font-semibold">notes : {dzikir?.notes}</span>
+                </p>
+                <p className={`${darkMode ? "" : "text-slate-800"}`}>
+                  <span className="font-semibold">
+                    hadist : {dzikir?.source}
+                  </span>
+                </p>
+              </div>
+              <p className="text-center font-sans">
                 <span className="font-semibold block text-center my-4">
                   fawaid
                 </span>{" "}
-                {item?.fawaid}
+                {dzikir?.fawaid}
               </p>
             </div>
           </div>
         ))
       ) : (
         <div className="flex justify-center flex-wrap gap-2 w-[95%]">
-          {skeletonArray?.map((item: any) => (
-            <Sekeleton custom="h-40 lg:w-full" key={item} />
+          {skeletonArray?.map((dzikir: any) => (
+            <Sekeleton custom="h-40 lg:w-full" key={dzikir} />
           ))}
         </div>
       )}

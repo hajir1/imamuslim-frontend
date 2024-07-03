@@ -140,7 +140,7 @@ const BookMarkPage = () => {
           <h1
             className={`${
               darkMode ? "text-white" : "text-black"
-            } text-right text-xl w-[90%] lg:text-3xl`}
+            } text-right text-2xl w-[90%] lg:text-3xl`}
           >
             {bookMark?.text?.arab}
           </h1>
@@ -149,13 +149,16 @@ const BookMarkPage = () => {
           <h1
             className={`${
               darkMode ? "text-white" : "text-black"
-            } text-left mt-2 font-semibold lg:text-xl lg:my-6`}
+            } text-left mt-2 text-xl font-sans text-secondary font-semibold lg:text-xl lg:my-6`}
           >
             {bookMark?.text?.transliteration?.en}
           </h1>
           <h1
-            className={`${darkMode ? "text-white" : "text-black"}  text-left`}
+            className={`${
+              darkMode ? "text-white" : "text-black"
+            } font-sans text-left`}
           >
+            <span className="font-semibold">artinya : </span>
             {bookMark?.translation?.id}
           </h1>
         </div>
