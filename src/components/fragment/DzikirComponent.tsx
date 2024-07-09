@@ -68,16 +68,16 @@ const DzikirComponent = ({ data }: any) => {
               />
             </div>
             <div className="w-full my-4">
-              <h1 className="text-right text-3xl lg:text-4xl">
+              <h1 dir="rtl" className="font-arabic leading-loose text-3xl lg:text-4xl">
                 {dzikir?.arabic}
               </h1>
             </div>
-            <div className="w-full my-4">
+            <div className="w-full mt-4">
               <h1 className="text-xl font-sans text-primary font-semibold lg:text-2xl">
                 {dzikir?.latin}
               </h1>
               <p className={`${darkMode ? "" : "text-slate-800"} font-sans lg:text-xl`}>
-                <span className="font-semibold">artinya : </span>
+                <span className="font-bold font-sans">artinya : </span>
                 {dzikir?.translation}
               </p>
               <div className="my-2 font-sans">

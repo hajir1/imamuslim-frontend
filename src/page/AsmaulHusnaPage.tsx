@@ -83,13 +83,13 @@ const AsmaulHusnaPage = () => {
                       }}
                     />
                   </div>
-                  <h1 className="text-right font-arabic text-4xl">
+                  <h1 className="text-right font-sans lg:tracking-wide text-4xl">
                     {asmaulHusna?.arab}
                   </h1>
-                  <p className="font-semibold text-2xl font-sans text-primary lg:text-4xl">
+                  <p className="font-semibold text-2xl font-sans text-primary lg:text-xl">
                     {asmaulHusna?.latin}
                   </p>
-                  <p className="text-base font-sans lg:text-2xl">
+                  <p className="text-base font-sans lg:text-base">
                     {" "}
                     <span className="font-semibold">artinya : </span>{" "}
                     {asmaulHusna?.arti}

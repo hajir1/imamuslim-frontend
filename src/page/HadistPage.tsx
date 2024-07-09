@@ -136,11 +136,14 @@ export const HadistBySlugPage = () => {
                     numberClass={`${darkMode ? "text-white" : "text-black"}`}
                     number={(dataSearch?.data as any)?.number}
                   />{" "}
-                  <h1 className="text-right text-2xl lg:text-4xl lg:tracking-wider leading-snug">
+                  <h1
+                    dir="rtl"
+                    className="font-arabic leading-loose text-3xl lg:text-4xl"
+                  >
                     {(dataSearch?.data as any)?.arab}
                   </h1>
-                  <h1 className="text-sm  my-4 lg:text-base leading-relaxed">
-                    <span className="font-semibold">arti </span>:{" "}
+                  <h1 className="text-base font-sans  my-4 lg:text-base leading-relaxed">
+                    <span className="font-bold font-sans">artinya </span>:{" "}
                     {(dataSearch?.data as any)?.id}
                   </h1>
                 </div>
@@ -179,18 +182,19 @@ export const HadistBySlugPage = () => {
                   className={`w-1/2 outline-none border p-2 pl-3 placeholder:tracking-wider border-gray-800 rounded-md lg:w-1/4 bg-gray-100 text-black`}
                 />
               </div>
-              <div className="w-full flex justify-center flex-wrap mt-10">
+              <div className="w-full flex justify-center flex-wrap mt-10 p-2">
                 {(data?.data as HadistSlugType)?.items?.map(
                   (hadits: hadistSlug) => (
-                    <div key={hadits?.number} className="p-2 lg:w-5/6">
+                    <div
+                      key={hadits?.number}
+                      className={`${
+                        darkMode
+                          ? "border-b-white "
+                          : "border-b-gray-500 lg:border-b-gray-200"
+                      } w-full border-b-[1px] mt-2 lg:p-3 lg:w-5/6`}
+                    >
                       <div className="justify-between flex">
-                        <Border
-                          border="border-black"
-                          numberClass={`${
-                            darkMode ? "text-white" : "text-black"
-                          }`}
-                          number={hadits?.number}
-                        />{" "}
+                        <h1>{hadits?.number}</h1>
                         <LoveIcon
                           handleBookMark={() =>
                             onHandleBookMark(
@@ -212,11 +216,15 @@ export const HadistBySlugPage = () => {
                           }
                         />
                       </div>
-                      <h1 className="text-right text-3xl font-arabic lg:text-4xl lg:tracking-wider leading-snug">
+                      <h1
+                        dir="rtl"
+                        className="font-arabic leading-loose text-3xl lg:text-4xl"
+                      >
                         {hadits?.arab}
                       </h1>
+
                       <h1 className="text-base font-sans  my-4 lg:text-base leading-relaxed">
-                        <span className="font-semibold">arti </span>:{" "}
+                        <span className="font-bold font-sans">artinya </span>:{" "}
                         {hadits?.id}
                       </h1>
                     </div>

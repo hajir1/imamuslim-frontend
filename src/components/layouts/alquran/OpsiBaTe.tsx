@@ -137,12 +137,16 @@ export const TerjemahRoute = () => {
                   data={data as DataGetAlQuranSurahById}
                 />
                 <div className="relative">
-                  <div className="w-full flex items-center justify-beetwen gap-2">
-                    <Border
-                      border="border-black"
-                      number={item?.number?.inSurah}
-                    />
-                    <h1 className="text-right w-full font-sans leading-snug text-3xl lg:text-4xl">
+                  <div className="w-full justify-start">
+                    <h1 className="font-bold font-sans">
+                      {item?.number?.inSurah}
+                    </h1>
+                  </div>
+                  <div className="w-full ">
+                    <h1
+                      dir="rtl"
+                      className="w-full font-sans lg:tracking-wide leading-relaxed lg:leading-loose text-3xl"
+                    >
                       {item?.text?.arab}
                     </h1>
                   </div>
@@ -150,11 +154,11 @@ export const TerjemahRoute = () => {
                     <h1
                       className={`${
                         darkMode && ""
-                      } text-primary text-left mt-2 font-sans text-lg lg:text-2xl lg:mt-2`}
+                      } text-primary lg:text-black text-left mt-2 font-sans text-lg lg:text-xl lg:mt-2`}
                     >
                       {item?.text?.transliteration?.en}
                     </h1>
-                    <h1 className="text-left text-base font-sans  md:text-xl">
+                    <h1 className="text-left text-base font-sans  md:text-base">
                       <span className="font-sans font-bold">artinya : </span>{" "}
                       {item?.translation?.id}
                     </h1>
@@ -240,7 +244,7 @@ export const BacaRoute = () => {
   const { data } = useGetAlQuranSurahBySurah();
   const darkMode = useDarkmode((state) => state.darkMode);
   return (
-    <div className="p-1">
+    <div className="p-1 w-full">
       {(data as DataGetAlQuranSurahById)?.data?.verses?.length > 0
         ? (data as DataGetAlQuranSurahById)?.data?.verses?.map(
             (item: DataSurahByIdMap) => (
@@ -249,11 +253,11 @@ export const BacaRoute = () => {
                   darkMode
                     ? "border-b-2 border-b-white"
                     : "border-b-gray-500 lg:border-b-gray-200"
-                } p-1 flex items-center gap-4 justify-between border-b-[1px] my-4 lg:p-2 lg:tracking-wide`}
+                } p-1 flex flex-col gap-2 border-b-[1px] my-4 lg:p-2 lg:tracking-wide`}
                 key={item?.number?.inQuran}
               >
-                <Border border="border-black" number={item?.number?.inSurah} />
-                <h1 className="text-right font-sans text-3xl leading-relaxed w-[90%]">
+                <h1 className="font-sans font-bold">{item?.number?.inSurah}</h1>
+                <h1 dir="rtl" className="w-full font-sans tracking-wide text-3xl leading-relaxed">
                   {item?.text?.arab}
                 </h1>
               </div>

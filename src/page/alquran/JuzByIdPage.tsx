@@ -133,8 +133,10 @@ const JuzByIdPage = () => {
                   (item: DataGetJuzMap) => (
                     <div
                       className={`${
-                        darkMode ? "border-b-white border-b-2" : "border-even "
-                      } w-full  p-1 `}
+                        darkMode
+                          ? "border-b-white border-b-2"
+                          : "border-b-gray-500 lg:border-b-gray-200"
+                      } w-full  p-1 border-b-[1px]`}
                       key={item?.number?.inQuran}
                     >
                       <Option
@@ -154,7 +156,7 @@ const JuzByIdPage = () => {
                             border="border-black"
                             number={item?.number?.inSurah}
                           />
-                          <h1 className="text-right text-2xl w-[90%] sm:text-2xl lg:text-4xl">
+                          <h1 className="text-right w-full font-sans lg:tracking-wide leading-loose text-3xl ">
                             {item?.text?.arab}
                           </h1>
                         </div>
@@ -162,12 +164,13 @@ const JuzByIdPage = () => {
                           <h1
                             className={`${
                               darkMode && ""
-                            } text-primary text-left text-xl font-sans mt-2 font-semibold lg:text-2xl lg:my-6`}
+                            } text-primary lg:text-black text-left text-xl font-sans mt-2 lg:text-2xl lg:mt-6`}
                           >
                             {item?.text?.transliteration?.en}
                           </h1>
                           <h1 className="text-left text-base font-sans md:text-base">
-                           <span className="font-semibold">artinya : </span>  {item?.translation?.id}
+                            <span className="font-semibold">artinya : </span>{" "}
+                            {item?.translation?.id}
                           </h1>
                         </div>
                       </div>

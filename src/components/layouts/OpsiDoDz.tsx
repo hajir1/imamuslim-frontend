@@ -23,14 +23,14 @@ export const DoaRoute = () => {
   const skeletonArray: any = Array.from({ length: 20 }, (_, index) => index);
   const { bookMark, addBookMark }: any = useBookMarkDoa();
   const onHandleBookMark = (
-    id : string,
+    id: string,
     title: string,
     translate: string,
     arabic: string,
     latin: string,
     love = true
   ) => {
-    addBookMark({ id,title, translate, arabic, love, latin });
+    addBookMark({ id, title, translate, arabic, love, latin });
   };
   useEffect(() => {
     const filtered = bookMark.filter((item: any) => item.love === true);
@@ -78,17 +78,22 @@ export const DoaRoute = () => {
                 }
               />
             </div>
-            <div className="w-full my-4">
-              <h1 className="text-right text-3xl lg:text-4xl">
+            <div className="w-full my-t">
+              <h1 dir="rtl" className="font-arabic leading-loose text-3xl lg:text-4xl">
                 {item?.arabic}
               </h1>
             </div>
-            <div className="w-full my-4">
+            <div className="w-full mt-4">
               <h1 className="text-xl text-primary lg:text-2xl font-sans font-semibold">
                 {item?.latin}
               </h1>
-              <p className={`${darkMode ? "" : "text-slate-800 font-sans lg:text-xl"}`}>
-                <span className="font-semibold">artinya : </span>{item?.translation}
+              <p
+                className={`${
+                  darkMode ? "" : "text-slate-800 font-sans lg:text-xl"
+                }`}
+              >
+                <span className="font-bold font-sans">artinya : </span>
+                {item?.translation}
               </p>
               <p className="text-center font-sans lg:text-xl">
                 <span className="font-semibold block text-center my-4 ">
