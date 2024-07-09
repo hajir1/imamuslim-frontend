@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
-import BookMark from "../../components/fragment/BookMark";
+import { useEffect, } from "react";
 import Navbar from "../../components/layouts/Navbar";
-import { useDarkmode } from "../../state/Zustand";
+import { useDarkmode, useOpsiSurahJuz } from "../../state/Zustand";
 import Terjemahicon from "../../components/element/Icon/Terjemahicon";
 import BacaIcon from "../../components/element/Icon/BacaIcon";
 import {
@@ -14,9 +13,7 @@ import { Sekeleton } from "../../components/element/Sekeleton";
 const AlQuranPage = () => {
   const darkMode = useDarkmode((state) => state.darkMode);
   const skeletonArray: any = Array.from({ length: 20 }, (_, index) => index);
-  const [juz, setJuz] = useState<
-    boolean | React.Dispatch<React.SetStateAction<boolean>>
-  >(false);
+  const { juz, setJuz }: any = useOpsiSurahJuz();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

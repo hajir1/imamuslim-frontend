@@ -153,26 +153,47 @@ export const useDarkmode = create<darkModeElement>((set) => ({
   darkMode: false,
   setDarkMode: (darkMode) => set({ darkMode }),
 }));
-type pageElement = {
-  page: any;
-  nextPage: (page: any) => void;
-  setPage: (page: any) => void;
-  prevPage: (page: any) => void;
-};
 
-export const usePagination = create<pageElement>((set, get) => ({
-  page: 1,
-  nextPage: (totalPage: number) => {
-    const page = get().page;
-    if (page < totalPage) {
-      set((state) => ({ page: state.page + 1 }));
-    }
-  },
-  prevPage: () => {
-    const page = get().page;
-    if (page > 1) {
-      set((state) => ({ page: state.page - 1 }));
-    }
-  },
-  setPage: (page) => set({ page }),
-}));
+export const usePagination = create(
+  persist(
+    (set, get) => ({
+      page: 1,
+      nextPage: (totalPage: number) => {
+        const page = get().page;
+        if (page < totalPage) {
+          set((state: any) => ({ page: state.page + 1 }));
+        }
+      },
+      prevPage: () => {
+        const page = get().page;
+        if (page > 1) {
+          set((state: any) => ({ page: state.page - 1 }));
+        }
+      },
+      setPage: (page: number) => set({ page }),
+    }),
+    { name: "page" }
+  )
+);
+export const useOpsiSurahJuz = create(
+  persist(
+    (set) => ({
+      juz: false,
+      setJuz: (data: any) => {
+        set({ juz: data });
+      },
+    }),
+    { name: "opsiSurahJuz" }
+  )
+);
+export const useOpsiDoaDzikir = create(
+  persist(
+    (set) => ({
+      dzikir: false,
+      setDzikir: (data: any) => {
+        set({ dzikir: data });
+      },
+    }),
+    { name: "opsiDoaDzikir" }
+  )
+);

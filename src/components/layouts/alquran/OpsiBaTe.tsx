@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Border from "../../element/Border";
 import { useBookMarkAlQuran, useDarkmode } from "../../../state/Zustand";
-import { Sekeleton, SekeletonPartQuranById } from "../../element/Sekeleton";
+import { SekeletonPartQuranById } from "../../element/Sekeleton";
 import {
   DataGetAlQuranSurahById,
   DataSurahByIdMap,
@@ -11,7 +11,6 @@ import { useGetAlQuranSurahBySurah } from "../../../state/Query";
 import Viewicon from "../../element/Icon/Viewicon";
 import Icon from "../../../helper/Icon";
 import Option from "../../fragment/Option";
-// import { useParams } from "react-router-dom";
 
 export const TerjemahRoute = () => {
   const { data, isLoading } = useGetAlQuranSurahBySurah();
@@ -34,6 +33,9 @@ export const TerjemahRoute = () => {
       audioRefPlay.current.play();
     }
   }, [currentAudio]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const handleTerjemah = (id: number) => {
     const dataId = (data as DataGetAlQuranSurahById)?.data?.verses?.find(
       (item: any) => item?.number?.inSurah === id
@@ -44,8 +46,13 @@ export const TerjemahRoute = () => {
 
     setLong(false);
   };
-  const handleBookMark = (juz: number, surah: number, ayat: number, love = true) => {
-    addBookMark({ juz, surah, ayat ,love});
+  const handleBookMark = (
+    juz: number,
+    surah: number,
+    ayat: number,
+    love = true
+  ) => {
+    addBookMark({ juz, surah, ayat, love });
     alert(`sukses menambahkan ke bookMark`);
   };
   const handleCopy = (
@@ -99,10 +106,10 @@ export const TerjemahRoute = () => {
 
   return (
     <div className="w-full mt-4 relative ">
-      <h1 className="font-semibold text-2xl text-center ">
+      <h1 className="text-3xl text-center font-sans">
         {(data as DataGetAlQuranSurahById)?.data?.preBismillah?.text?.arab}
       </h1>
-      <p className="font-normal text-center mt-2 text-slate-900">
+      <p className="font-normal text-center mt-2 text-slate-900 font-sans ">
         {(data as DataGetAlQuranSurahById)?.data?.preBismillah?.translation?.id}
       </p>
       <div className="w-full mt-4 flex flex-col items-center gap-5">
@@ -112,8 +119,10 @@ export const TerjemahRoute = () => {
             (item: DataSurahByIdMap) => (
               <div
                 className={`${
-                  darkMode ? "border-b-white border-b-2" : "border-even "
-                } w-full  p-1 `}
+                  darkMode
+                    ? "border-b-white "
+                    : "border-b-gray-500 lg:border-b-gray-200"
+                } w-full border-b-[1px] p-1 lg:p-3`}
                 key={item?.number?.inQuran}
               >
                 <Option
@@ -133,20 +142,21 @@ export const TerjemahRoute = () => {
                       border="border-black"
                       number={item?.number?.inSurah}
                     />
-                    <h1 className="text-right w-[90%] text-2xl lg:text-4xl">
+                    <h1 className="text-right w-full font-sans leading-snug text-3xl lg:text-4xl">
                       {item?.text?.arab}
                     </h1>
                   </div>
-                  <div className="w-full">
+                  <div className="w-full lg:mt-10">
                     <h1
                       className={`${
                         darkMode && ""
-                      } text-primary text-left mt-2 capitalize font-sans text-xl font-semibold lg:text-2xl lg:my-6`}
+                      } text-primary text-left mt-2 font-sans text-lg lg:text-2xl lg:mt-2`}
                     >
                       {item?.text?.transliteration?.en}
                     </h1>
                     <h1 className="text-left text-base font-sans  md:text-xl">
-                      <span className="font-semibold">artinya : </span> {item?.translation?.id}
+                      <span className="font-sans font-bold">artinya : </span>{" "}
+                      {item?.translation?.id}
                     </h1>
                   </div>
                 </div>
@@ -236,12 +246,14 @@ export const BacaRoute = () => {
             (item: DataSurahByIdMap) => (
               <div
                 className={`${
-                  darkMode ? "border-b-2 border-b-white" : "border-even "
-                } p-1 flex items-center gap-4 justify-between my-3`}
+                  darkMode
+                    ? "border-b-2 border-b-white"
+                    : "border-b-gray-500 lg:border-b-gray-200"
+                } p-1 flex items-center gap-4 justify-between border-b-[1px] my-4 lg:p-2 lg:tracking-wide`}
                 key={item?.number?.inQuran}
               >
                 <Border border="border-black" number={item?.number?.inSurah} />
-                <h1 className="text-right text-3xl w-[90%]">
+                <h1 className="text-right font-sans text-3xl leading-relaxed w-[90%]">
                   {item?.text?.arab}
                 </h1>
               </div>

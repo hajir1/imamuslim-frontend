@@ -140,7 +140,7 @@ const BookMarkPage = () => {
           <h1
             className={`${
               darkMode ? "text-white" : "text-black"
-            } text-right text-2xl w-[90%] lg:text-3xl`}
+            } text-right text-3xl leading-snug w-[90%]`}
           >
             {bookMark?.text?.arab}
           </h1>

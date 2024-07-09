@@ -31,11 +31,16 @@ const DoDzBookMark = ({
             >
               <div className="flex flex-col justify-around w-full ">
                 <div className="flex justify-between w-full">
-                  <h1 className="text-center font-semibold uppercase text-sm lg:text-xl">
-                    hr {type === "hadist" && data?.slug} hadist ke &nbsp;
-                    {type === "hadist" && data?.id}
-                    {type === "" && data?.title}
-                  </h1>
+                  {type === "" && (
+                    <h1 className="text-center font-semibold uppercase text-sm lg:text-xl">
+                      {data?.title}
+                    </h1>
+                  )}
+                  {type === "hadist" && (
+                    <h1 className="text-center font-semibold uppercase text-sm lg:text-xl">
+                      hr {data?.slug} hadist ke &nbsp; {data?.id}
+                    </h1>
+                  )}
                   <DeleteMarkicon
                     fill={`${darkMode ? "black" : "white"}`}
                     handler={() => {
@@ -55,14 +60,14 @@ const DoDzBookMark = ({
                 <p
                   className={`${
                     darkMode ? "text-white" : "text-gray-800"
-                  } text-left text-base my-2 lg:text-xl`}
+                  } text-left text-lg my-2 lg:text-xl`}
                 >
                   {data?.latin}
                 </p>
                 <p
                   className={`${
                     darkMode ? "text-white" : "text-gray-800"
-                  } text-left text-sm my-2 md:text-base`}
+                  } text-left text-base my-2 md:text-base`}
                 >
                   <span className="font-semibold">artinya </span>:{" "}
                   {data?.translate}

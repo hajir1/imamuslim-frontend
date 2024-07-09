@@ -52,8 +52,8 @@ const AsmaulHusnaPage = () => {
               (data as [])?.map((asmaulHusna: DataAsmaulHusna) => (
                 <div
                   className={`${
-                    darkMode ? "border-b-2 border-b-white" : "border-even"
-                  } w-[95%]  p-2 lg:w-full`}
+                    darkMode ? " border-b-white" : "border-b-gray-500 lg:border-b-gray-200"
+                  } w-[95%]  p-2 border-b-[1px] lg:w-full`}
                   key={asmaulHusna?.urutan}
                 >
                   <div className="flex w-full justify-between">
@@ -83,13 +83,13 @@ const AsmaulHusnaPage = () => {
                       }}
                     />
                   </div>
-                  <h1 className="text-right text-3xl lg:text-4xl">
+                  <h1 className="text-right font-arabic text-4xl">
                     {asmaulHusna?.arab}
                   </h1>
-                  <p className="font-semibold text-primary lg:text-4xl">
+                  <p className="font-semibold text-2xl font-sans text-primary lg:text-4xl">
                     {asmaulHusna?.latin}
                   </p>
-                  <p className="text-sm lg:text-2xl">
+                  <p className="text-base font-sans lg:text-2xl">
                     {" "}
                     <span className="font-semibold">artinya : </span>{" "}
                     {asmaulHusna?.arti}

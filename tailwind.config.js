@@ -1,4 +1,4 @@
-const { addDynamicIconSelectors } = require("@iconify/tailwind");
+const { fontFamily } = require("tailwindcss/defaultTheme");
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
@@ -10,6 +10,9 @@ export default {
       },
       animation: {
         "spin-slow": "spin 3s linear infinite",
+      },
+      fontFamily: {
+        arabic: ["isep", "sans-serif"],
       },
     },
   },

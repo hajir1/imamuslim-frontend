@@ -69,7 +69,7 @@ export const HadistPage = () => {
 };
 export const HadistBySlugPage = () => {
   const { slug } = useParams();
-  const { nextPage, page, setPage, prevPage } = usePagination();
+  const { nextPage, page, setPage, prevPage }: any = usePagination();
   const darkMode = useDarkmode((state) => state.darkMode);
   const data = useGetHadistBySlug(slug, page);
   const { bookMark, addBookMark }: any = useBookMarkHadist();
@@ -90,7 +90,7 @@ export const HadistBySlugPage = () => {
     const filtered = bookMark.filter((item: any) => item.love === true);
     setFillLove(filtered);
   }, [bookMark]);
-  
+
   return (
     <div
       className={`${
@@ -212,10 +212,10 @@ export const HadistBySlugPage = () => {
                           }
                         />
                       </div>
-                      <h1 className="text-right text-2xl lg:text-4xl lg:tracking-wider leading-snug">
+                      <h1 className="text-right text-3xl font-arabic lg:text-4xl lg:tracking-wider leading-snug">
                         {hadits?.arab}
                       </h1>
-                      <h1 className="text-sm  my-4 lg:text-base leading-relaxed">
+                      <h1 className="text-base font-sans  my-4 lg:text-base leading-relaxed">
                         <span className="font-semibold">arti </span>:{" "}
                         {hadits?.id}
                       </h1>

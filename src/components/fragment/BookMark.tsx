@@ -103,7 +103,7 @@ const BookMark = () => {
                     <p
                       className={`${
                         darkMode ? "text-white" : "text-gray-700"
-                      } text-2xl  mx-2`}
+                      } text-3xl font-arabic  mx-2`}
                     >
                       {asmaulhusna?.arab}
                     </p>
@@ -117,7 +117,7 @@ const BookMark = () => {
                   <p
                     className={`${
                       darkMode ? "text-white" : "text-gray-800"
-                    } text-center text-sm my-2`}
+                    } text-center text-base font-sans my-2`}
                   >
                     {asmaulhusna?.arti}
                   </p>

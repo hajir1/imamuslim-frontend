@@ -53,7 +53,7 @@ export const SurahRoute = () => {
               </p>
             </div>
             <div className="flex flex-col items-center justify-center w-[37%] h-full ">
-              <p className="font-semibold text-base text-center">
+              <p className="text-lg font-semibold text-center">
                 {item?.name?.long}
               </p>
               <p
@@ -114,13 +114,13 @@ export const JuzRoute = () => {
     (_, index) => index
   );
   return (
-    <div className="w-full flex flex-col gap-4">
+    <div className="w-full flex flex-col gap-4 items-center">
       {skeletonArray.map((item) => (
         <Link
           to={`/quran/juz/${item + 1}`}
           className={`${
             darkMode ? "border-white" : "border-primary "
-          } w-full h-20 border flex items-center justify-center`}
+          } w-full h-20 border flex items-center justify-center lg:w-4/5`}
           key={item}
         >
           <h1 className="text-center font-semibold text-3xl">Juz {item + 1}</h1>{" "}

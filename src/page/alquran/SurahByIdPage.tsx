@@ -51,23 +51,23 @@ const SurahByIdPage = () => {
               <p className="mx-4">{`/ Surah ke ${surah}`}</p>
             </div>
             <div className="mt-4">
-              <p className={` font-semibold `}>deskripi : </p>
-              <p className="text-base ">
+              <p className={` font-semibold capitalize`}>deskripi : </p>
+              <p className="text-base font-sans">
                 {(data as DataGetAlQuranSurahById)?.data?.tafsir?.id}
               </p>
             </div>
             <div className="mt-1">
-              <p className="text-base font-semibold ">
+              <p className="text-base font-semibold capitalize">
                 jumlah ayat :{" "}
-                <span className="font-normal">
+                <span className="font-normal font-sans">
                   {(data as DataGetAlQuranSurahById)?.data?.numberOfVerses} ayat
                 </span>
               </p>
             </div>
             <div className="mt-1">
-              <p className="text-base font-semibold ">
+              <p className="text-base font-semibold capitalize">
                 wahyu diturunkan :{" "}
-                <span className="font-normal">
+                <span className="font-normal font-sans">
                   {(data as DataGetAlQuranSurahById)?.data?.revelation?.id} /{" "}
                   {(data as DataGetAlQuranSurahById)?.data?.revelation?.arab}
                 </span>
@@ -89,7 +89,7 @@ const SurahByIdPage = () => {
               } font-bold py-2 px-4 rounded inline-flex items-center`}
             >
               <TerjemahbtnIcon />
-              <span className="mx-2">Terjemah</span>
+              <span className="mx-2 font-sans">Terjemah</span>
             </button>
             <button
               onClick={() => setRead(true)}
@@ -98,7 +98,7 @@ const SurahByIdPage = () => {
               } font-bold py-2 px-4 rounded inline-flex items-center`}
             >
               <BacaIcon width="1rem" height="1rem" />
-              <span className="mx-2">Baca</span>
+              <span className="mx-2 font-sans">Baca</span>
             </button>
           </div>
         )}
