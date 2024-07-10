@@ -68,33 +68,42 @@ const DzikirComponent = ({ data }: any) => {
               />
             </div>
             <div className="w-full my-4">
-              <h1 dir="rtl" className="font-arabic leading-loose text-3xl lg:text-4xl">
+              <h1
+                dir="rtl"
+                className="font-sans lg:tracking-wide leading-relaxed lg:leading-loose text-3xl"
+              >
                 {dzikir?.arabic}
               </h1>
             </div>
             <div className="w-full mt-4">
-              <h1 className="text-xl font-sans text-primary font-semibold lg:text-2xl">
+              <h1 className="text-xl font-arabic text-primary lg:text-slate-900">
                 {dzikir?.latin}
               </h1>
-              <p className={`${darkMode ? "" : "text-slate-800"} font-sans lg:text-xl`}>
+              <p
+                className={`${
+                  darkMode ? "" : "text-slate-800"
+                } font-arabic lg:text-base lg:mt-4`}
+              >
                 <span className="font-bold font-sans">artinya : </span>
                 {dzikir?.translation}
               </p>
               <div className="my-2 font-sans">
                 <p className={`${darkMode ? "" : "text-slate-800"}`}>
-                  <span className="font-semibold">notes : {dzikir?.notes}</span>
+                  <span className="font-bold font-sans">
+                    notes : {dzikir?.notes}
+                  </span>
                 </p>
                 <p className={`${darkMode ? "" : "text-slate-800"}`}>
-                  <span className="font-semibold">
+                  <span className="font-bold font-arabic">
                     hadist : {dzikir?.source}
                   </span>
                 </p>
               </div>
-              <p className="text-center font-sans">
-                <span className="font-semibold block text-center my-4">
+              <p className="text-center font-arabic">
+                <span className="font-semibold block text-center uppercase mt-4">
                   fawaid
                 </span>{" "}
-                {dzikir?.fawaid}
+                {dzikir?.fawaid ? dzikir?.fawaid : " tidak ada fawaid"}
               </p>
             </div>
           </div>

@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import Border from "../../element/Border";
 import { useBookMarkAlQuran, useDarkmode } from "../../../state/Zustand";
 import { SekeletonPartQuranById } from "../../element/Sekeleton";
 import {
@@ -154,12 +153,12 @@ export const TerjemahRoute = () => {
                     <h1
                       className={`${
                         darkMode && ""
-                      } text-primary lg:text-black text-left mt-2 font-sans text-lg lg:text-xl lg:mt-2`}
+                      } text-primary lg:text-black text-left mt-2 font-arabic text-lg lg:text-xl lg:mt-2`}
                     >
                       {item?.text?.transliteration?.en}
                     </h1>
-                    <h1 className="text-left text-base font-sans  md:text-base">
-                      <span className="font-sans font-bold">artinya : </span>{" "}
+                    <h1 className="text-left text-base font-arabic  md:text-base lg:mt-4">
+                      <span className="font-arabic font-bold">artinya : </span>{" "}
                       {item?.translation?.id}
                     </h1>
                   </div>

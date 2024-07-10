@@ -12,7 +12,6 @@ import {
   useGetHadistBySlug,
 } from "../state/Query";
 import { HadistSlugType, HadistType, hadistSlug } from "../model/Interface";
-import Border from "../components/element/Border";
 import { Sekeleton, SekeletonHadist } from "../components/element/Sekeleton";
 import React, { useEffect, useState } from "react";
 import LoveIcon from "../components/element/Icon/LoveIcon";
@@ -123,7 +122,7 @@ export const HadistBySlugPage = () => {
                   }}
                   value={searchHadist}
                   placeholder="cari hadist"
-                  className={`text-black w-1/2 outline-none border p-2 pl-3 placeholder:tracking-wider border-gray-800 rounded-md lg:w-1/4 bg-gray-100`}
+                  className={`text-black w-1/2 outline-none border p-2 pl-3 placeholder:tracking-wider border-primary rounded-md lg:w-1/4 bg-gray-100`}
                 />
               </div>
               <div className="w-full flex justify-center flex-wrap mt-10">
@@ -131,19 +130,38 @@ export const HadistBySlugPage = () => {
                   key={(dataSearch?.data as any)?.number}
                   className="p-2 lg:w-5/6"
                 >
-                  <Border
-                    border="border-black"
-                    numberClass={`${darkMode ? "text-white" : "text-black"}`}
-                    number={(dataSearch?.data as any)?.number}
-                  />{" "}
+                  <div className="justify-between flex">
+                    <h1>{(dataSearch?.data as any)?.number}</h1>
+                    <LoveIcon
+                      handleBookMark={() =>
+                        onHandleBookMark(
+                          (dataSearch?.data as any)?.number,
+                          (dataSearch?.data as any)?.arab,
+                          (dataSearch?.data as any)?.id
+                        )
+                      }
+                      fill={
+                        fillLove.some(
+                          (data: any) =>
+                            data.arabic === (dataSearch?.data as any)?.arab
+                        )
+                          ? darkMode
+                            ? "white"
+                            : "black"
+                          : darkMode
+                          ? "black"
+                          : "white"
+                      }
+                    />
+                  </div>
                   <h1
                     dir="rtl"
-                    className="font-arabic leading-loose text-3xl lg:text-4xl"
+                    className="font-sans lg:tracking-wide leading-relaxed lg:leading-loose text-3xl"
                   >
                     {(dataSearch?.data as any)?.arab}
                   </h1>
-                  <h1 className="text-base font-sans  my-4 lg:text-base leading-relaxed">
-                    <span className="font-bold font-sans">artinya </span>:{" "}
+                  <h1 className="text-base font-arabic lg:tracking-wide  my-4 lg:text-base leading-relaxed">
+                    <span className="font-bold font-arabic">artinya </span>:{" "}
                     {(dataSearch?.data as any)?.id}
                   </h1>
                 </div>
@@ -159,10 +177,10 @@ export const HadistBySlugPage = () => {
                       key={pagination}
                       className={`${
                         page === pagination
-                          ? "bg-gray-400 text-white"
+                          ? "bg-primary text-white"
                           : darkMode
                           ? "border border-white"
-                          : "border border-black"
+                          : "border border-primary"
                       }   w-8 h-8 grid place-content-center lg:w-12`}
                     >
                       {pagination}
@@ -179,7 +197,7 @@ export const HadistBySlugPage = () => {
                   }}
                   value={searchHadist}
                   placeholder="cari hadist"
-                  className={`w-1/2 outline-none border p-2 pl-3 placeholder:tracking-wider border-gray-800 rounded-md lg:w-1/4 bg-gray-100 text-black`}
+                  className={`w-1/2 outline-none border p-2 pl-3 placeholder:tracking-wider border-primary rounded-md lg:w-1/4 bg-gray-100 text-black`}
                 />
               </div>
               <div className="w-full flex justify-center flex-wrap mt-10 p-2">
@@ -218,13 +236,13 @@ export const HadistBySlugPage = () => {
                       </div>
                       <h1
                         dir="rtl"
-                        className="font-arabic leading-loose text-3xl lg:text-4xl"
+                        className="font-sans lg:tracking-wide leading-relaxed lg:leading-loose text-3xl"
                       >
                         {hadits?.arab}
                       </h1>
 
-                      <h1 className="text-base font-sans  my-4 lg:text-base leading-relaxed">
-                        <span className="font-bold font-sans">artinya </span>:{" "}
+                      <h1 className="text-base font-arabic lg:tracking-wide  my-4 lg:text-base leading-relaxed">
+                        <span className="font-bold font-arabic">artinya </span>:{" "}
                         {hadits?.id}
                       </h1>
                     </div>
@@ -239,10 +257,10 @@ export const HadistBySlugPage = () => {
                       key={pagination}
                       className={`${
                         page === pagination
-                          ? "bg-gray-400 text-white"
+                          ? "bg-primary text-white"
                           : darkMode
                           ? "border border-white"
-                          : "border border-black"
+                          : "border border-primary"
                       }   w-8 h-8 grid place-content-center lg:w-12`}
                     >
                       {pagination}

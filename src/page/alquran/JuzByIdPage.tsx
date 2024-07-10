@@ -6,7 +6,6 @@ import { DataGetJuz, DataGetJuzMap } from "../../model/Interface";
 import { SekeletonPartQuranJuzById } from "../../components/element/Sekeleton";
 import HomeIcon from "../../components/element/Icon/Homeicon";
 import Option from "../../components/fragment/Option";
-import Border from "../../components/element/Border";
 import Viewicon from "../../components/element/Icon/Viewicon";
 import Icon from "../../helper/Icon";
 
@@ -151,25 +150,32 @@ const JuzByIdPage = () => {
                         type="juz"
                       />
                       <div className="relative">
-                        <div className="w-full flex items-center justify-beetwen gap-2">
-                          <Border
-                            border="border-black"
-                            number={item?.number?.inSurah}
-                          />
-                          <h1 className="text-right w-full font-sans lg:tracking-wide leading-loose text-3xl ">
+                        <div className="w-full justify-start">
+                          <h1 className="font-bold font-sans">
+                            {item?.number?.inSurah}
+                          </h1>
+                        </div>
+                        <div className="w-full ">
+                          <h1
+                            dir="rtl"
+                            className="w-full font-sans lg:tracking-wide leading-relaxed lg:leading-loose text-3xl"
+                          >
                             {item?.text?.arab}
                           </h1>
                         </div>
-                        <div className="w-full">
+
+                        <div className="w-full lg:mt-10">
                           <h1
                             className={`${
                               darkMode && ""
-                            } text-primary lg:text-black text-left text-xl font-sans mt-2 lg:text-2xl lg:mt-6`}
+                            } text-primary lg:text-black text-left mt-2 font-arabic text-lg lg:text-xl lg:mt-2`}
                           >
                             {item?.text?.transliteration?.en}
                           </h1>
-                          <h1 className="text-left text-base font-sans md:text-base">
-                            <span className="font-semibold">artinya : </span>{" "}
+                          <h1 className="text-left text-base font-arabic  lg:mt-4">
+                            <span className="font-sans font-bold">
+                              artinya :{" "}
+                            </span>{" "}
                             {item?.translation?.id}
                           </h1>
                         </div>

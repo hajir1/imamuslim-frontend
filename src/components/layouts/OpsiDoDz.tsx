@@ -79,27 +79,32 @@ export const DoaRoute = () => {
               />
             </div>
             <div className="w-full my-t">
-              <h1 dir="rtl" className="font-arabic leading-loose text-3xl lg:text-4xl">
+              <h1
+                dir="rtl"
+                className="font-sans lg:tracking-wide leading-relaxed lg:leading-loose text-3xl"
+              >
                 {item?.arabic}
               </h1>
             </div>
             <div className="w-full mt-4">
-              <h1 className="text-xl text-primary lg:text-2xl font-sans font-semibold">
+              <h1 className="text-xl text-primary font-arabic lg:text-slate-900">
                 {item?.latin}
               </h1>
               <p
                 className={`${
-                  darkMode ? "" : "text-slate-800 font-sans lg:text-xl"
+                  darkMode
+                    ? ""
+                    : "text-slate-800 font-arabic lg:text-base lg:mt-4"
                 }`}
               >
-                <span className="font-bold font-sans">artinya : </span>
+                <span className="font-bold font-arabic">artinya : </span>
                 {item?.translation}
               </p>
-              <p className="text-center font-sans lg:text-xl">
-                <span className="font-semibold block text-center my-4 ">
+              <p className="text-center font-sans lg:text-base">
+                <span className="font-semibold block uppercase text-center mt-4 ">
                   fawaid
                 </span>{" "}
-                {item?.fawaid}
+                {item?.fawaid ? item?.fawaid : " tidak ada fawaid"}
               </p>
             </div>
           </div>

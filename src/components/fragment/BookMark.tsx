@@ -33,7 +33,7 @@ const BookMark = () => {
       <h1 className="text-xl ml-2 font-semibold md:my-10">Bookmark</h1>
       <div className="w-full">
         {" "}
-        <h1 className="ml-2 my-2 lg:my-4 font-semibold">Al-Quran</h1>
+        <h1 className="ml-2 mt-10 lg:my-4 font-bold uppercase">- Al-Quran</h1>
         <div className="flex justify-evenly gap-2 flex-wrap md:justify-start">
           {" "}
           {alQurans?.length > 0 ? (
@@ -86,7 +86,7 @@ const BookMark = () => {
       </div>
       <div className="w-full mt-10 ">
         {" "}
-        <h1 className="ml-2 lg:my-4 font-semibold">asmaul-Husna</h1>
+        <h1 className="ml-2 mt-10 lg:my-4 font-bold uppercase">- asmaul-Husna</h1>
         <div className="flex justify-evenly gap-2 flex-wrap lg:justify-start">
           {" "}
           {asmaulHusnas?.length > 0 ? (
@@ -103,7 +103,7 @@ const BookMark = () => {
                     <p
                       className={`${
                         darkMode ? "text-white" : "text-gray-700"
-                      } text-3xl font-arabic  mx-2`}
+                      } font-sans lg:tracking-wide leading-relaxed lg:leading-loose text-3xl`}
                     >
                       {asmaulhusna?.arab}
                     </p>
@@ -132,7 +132,7 @@ const BookMark = () => {
           )}
         </div>
       </div>
-      <h1 className="ml-2 mt-10 lg:my-4 font-semibold">doa dan dzikir</h1>
+      <h1 className="ml-2 mt-10 lg:my-4 font-bold uppercase">- doa dan dzikir</h1>
       <DoDzBookMark datas={doas} handleDelete={deleteDoa} type="" pesan="doa" />
       <DoDzBookMark
         datas={dzikirs}
@@ -140,7 +140,7 @@ const BookMark = () => {
         handleDelete={deleteDzikir}
         pesan="dzikir"
       />
-      <h1 className="ml-2 mt-10 lg:my-4 font-semibold">hadist</h1>
+      <h1 className="ml-2 mt-10 lg:my-4 font-bold uppercase">- hadist</h1>
       <DoDzBookMark
         type="hadist"
         datas={hadists}
