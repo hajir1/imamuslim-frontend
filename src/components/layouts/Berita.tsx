@@ -1,14 +1,14 @@
 import { DataNews } from "../../model/Interface";
 
-const Berita = ({berita , isLoading}: any) => {
- 
+const Berita = ({ berita, isLoading }: any) => {
   return (
     <div className="w-[96%] flex justify-center md:justify-evenly flex-wrap gap-2 ">
       {isLoading ? (
         <h1>loading...</h1>
       ) : (
         (berita as [])?.slice(0, 5).map((news: DataNews, index: number) => (
-          <div
+          <a
+            href={news.link}
             className={`${
               index > 1
                 ? "w-full md:w-[30%] h-[250px] "
@@ -31,7 +31,7 @@ const Berita = ({berita , isLoading}: any) => {
                       index > 1 ? "text-lg leading-snug" : "text-2xl"
                     }`}
                   >
-                    <a href={news.link}>{news.title}</a>
+                    <div>{news.title}</div>
                   </h2>
                   <div className="flex flex-col gap-2">
                     <time className="text-sm" dateTime={news.pubDate}>
@@ -56,7 +56,7 @@ const Berita = ({berita , isLoading}: any) => {
                 index > 1 ? "h-[250px]" : "h-[360px]"
               }`}
             />
-          </div>
+          </a>
         ))
       )}
     </div>
