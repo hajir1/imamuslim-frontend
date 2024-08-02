@@ -21,8 +21,11 @@ const BeritaPage = () => {
       <div className="w-full mt-20 flex justify-center">
         <Berita berita={dataNews} isLoading={isLoading} />
       </div>
-      <div className={`w-[96%] flex justify-center md:justify-evenly flex-wrap gap-2 mt-2`}>
-        {(dataNews as [])?.slice(5, 120)
+      <div
+        className={`w-[96%] flex justify-center md:justify-evenly flex-wrap gap-2 mt-2`}
+      >
+        {(dataNews as [])
+          ?.slice(5, 120)
           ?.map((news: DataNews, index: number) => (
             <div
               className={`${
@@ -32,7 +35,8 @@ const BeritaPage = () => {
             >
               <div className="">
                 {" "}
-                <div
+                <a
+                  href={news.link}
                   className="h-full w-full absolute text-white z-10"
                   style={{
                     background:
@@ -41,7 +45,7 @@ const BeritaPage = () => {
                 >
                   <div className="absolute bottom-0 flex flex-col w-full gap-4 p-6">
                     <h2 className={`font-bold text-lg leading-snug`}>
-                      <a href={news.link}>{news.title}</a>
+                      <div>{news.title}</div>
                     </h2>
                     <div className="flex flex-col gap-2">
                       <time className="text-sm" dateTime={news.pubDate}>
@@ -57,7 +61,7 @@ const BeritaPage = () => {
                       />
                     </div>
                   </div>
-                </div>
+                </a>
               </div>
               <img
                 src={news.thumbnail}
