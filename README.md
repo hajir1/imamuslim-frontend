@@ -1,9 +1,22 @@
-cara menggunakan aplikasi ini
+# react movie
+
+# getting started
 
 
-#masuk ke terminal
-#ketik git clone https://github.com/hajir1/qurankuV2fe.git nama_folder
-#masuk ke folder
-#pastikan sudah terinstall nodejs dan npm
-#ketik npm install pada terminal folder
-#dan ketik npm run dev
+```bash
+git clone https://github.com/hajir1/qurankuV2fe.git {nama folder}
+
+```
+
+## usage
+
+```bash
+npm install
+
+```
+```bash
+npm run dev
+
+```
+
+# open localhost:5173 in browser
