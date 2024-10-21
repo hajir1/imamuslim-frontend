@@ -1,6 +1,6 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useGetJuz } from "../../state/Query";
-import { useDarkmode } from "../../state/Zustand";
+import { useAudioActive, useDarkmode } from "../../state/TypeHooks";
 import { useEffect, useRef, useState } from "react";
 import { DataGetJuz, DataGetJuzMap } from "../../model/Interface";
 import { SekeletonPartQuranJuzById } from "../../components/element/Sekeleton";
@@ -8,10 +8,15 @@ import HomeIcon from "../../components/element/Icon/Homeicon";
 import Option from "../../components/fragment/Option";
 import Viewicon from "../../components/element/Icon/Viewicon";
 import Icon from "../../helper/Icon";
+import { LoaderCircle } from "lucide-react";
+import Navbar from "../../components/layouts/Navbar";
+import { BreadCrumbV1 } from "../../components/fragment/Breadcrumb";
+import Border from "../../components/element/Border";
 
 const JuzByIdPage = () => {
-  const { data, isLoading } = useGetJuz();
-  const { juz } = useParams();
+  const { juz: idJuzPage }: any = useParams();
+  const { data, isLoading: loadingJuz } = useGetJuz(idJuzPage);
+  const { audioActive, setAudioActive } = useAudioActive();
   const darkMode = useDarkmode((state) => state.darkMode);
   const [terjemah, setTerjemah] = useState<
     number | null | React.Dispatch<React.SetStateAction<null | number>>
@@ -20,10 +25,10 @@ const JuzByIdPage = () => {
     boolean | React.Dispatch<React.SetStateAction<boolean>>
   >(false);
   const audioRefPlay = useRef<HTMLAudioElement>(null);
-  // const skeletonArray: any = Array.from({ length: 5 }, (_, index) => index);
   const [currentAudio, setCurrentAudio] = useState<any | null>(null);
 
   const [audio, setAudio] = useState<any>(null);
+  const navigate = useNavigate();
   useEffect(() => {
     if (audioRefPlay.current && currentAudio) {
       audioRefPlay.current.src = currentAudio;
@@ -32,7 +37,7 @@ const JuzByIdPage = () => {
   }, [currentAudio]);
   useEffect(() => {
     window.scrollTo({ top: 0 });
-  }, [juz]);
+  }, [idJuzPage]);
   const handleTerjemah = (verses: number) => {
     const dataId = (data as DataGetJuz)?.data?.verses?.find(
       (item: DataGetJuzMap) => item?.number?.inQuran === verses
@@ -89,76 +94,85 @@ const JuzByIdPage = () => {
     }
   };
   return (
-    <div
-      className={`${
-        darkMode ? "bg-black text-white" : "bg-white text-slate-900"
-      }`}
-    >
+    <div className={`${darkMode && "dark-mode"} `}>
       <div className="w-full flex justify-center">
-        {isLoading ? (
-          <SekeletonPartQuranJuzById />
+        {loadingJuz ? (
+          <div className="w-full min-h-screen grid place-content-center">
+            {" "}
+            <LoaderCircle className="animate-spin  w-20 h-20" />
+          </div>
         ) : (
-          <div className="w-full p-2 lg:w-[95%]">
-            <div
-              className={`${
-                darkMode ? "border-b-white" : "border-b-black"
-              } flex justify-evenly items-center mt-3 mb-10 border-b-2 lg:mt-10 `}
-            >
-              <span className="text-sm font-normal text-left lg:text-2xl">
-                {(data as DataGetJuz)?.data?.juzStartInfo}{" "}
-              </span>{" "}
-              <h1 className="font-semibold text-center text-3xl">
-                Juz {(data as DataGetJuz)?.data?.juz}{" "}
-              </h1>
-              <span className="text-sm font-normal text-left lg:text-2xl">
-                {(data as DataGetJuz)?.data?.juzEndInfo}
-              </span>{" "}
-            </div>
-            <div
-              className={`${
-                (data as DataGetJuz)?.data?.juz === undefined && "hidden"
-              } w-full flex items-center`}
-            >
-              <HomeIcon
-                fill={`${darkMode ? "white" : "black"}`}
-                handler={() => (window.location.href = `/quran`)}
+          <div className="w-full flex flex-col items-center">
+            <Navbar type="quran" />
+            <div className="w-full h-24 mt-16 lg:px-5 lg:flex flex-col items-center">
+              <BreadCrumbV1
+                firstRoute="al-Quran"
+                type="juzById"
+                secondRoute="Juz"
+                thirdRoute={`juz ${idJuzPage}`}
+                response={data}
               />
-              <p className="mx-2">{`/ Juz ke ${
-                (data as DataGetJuz)?.data?.juz
-              }`}</p>
+              <div className="flex w-full justify-between gap-2 px-4 ">
+                <button
+                  className="font-semibold text-sm "
+                  onClick={() => {
+                    if (parseInt(idJuzPage) > 1) {
+                      navigate(`/quran/juz/${parseInt(idJuzPage) - 1}`);
+                    }
+                  }}
+                >
+                  &laquo;&nbsp;&nbsp;Juz Sebelumnya
+                </button>
+
+                <div
+                  className={`${
+                    audioActive === null && "invisible"
+                  } flex relative`}
+                >
+                  <LoaderCircle className="animate-spin w-7 h-7" />
+                  <span className="inline-block text-xs absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2">
+                    {audioActive?.number?.inSurah}
+                  </span>
+                </div>
+                {/* <ArrowDownFromLine className={`${!itemData && "hidden"}`} /> */}
+                <button
+                  className="font-semibold text-sm "
+                  onClick={() => {
+                    if (parseInt(idJuzPage) < 30) {
+                      navigate(`/quran/juz/${parseInt(idJuzPage) + 1}`);
+                    }
+                  }}
+                >
+                  Juz Berikutnya&nbsp;&nbsp;&raquo;
+                </button>
+              </div>
             </div>
             {(data as DataGetJuz)?.data?.verses?.length > 0
               ? (data as DataGetJuz)?.data?.verses?.map(
                   (item: DataGetJuzMap) => (
                     <div
-                      className={`${
-                        darkMode
-                          ? "border-b-white border-b-2"
-                          : "border-b-gray-500 lg:border-b-gray-200"
-                      } w-full  p-1 border-b-[1px]`}
+                      className={`w-full md:w-5/6 p-4 border-b border-b-slate-200 md:mt-4 lg:mt-10 lg:p-3`}
                       key={item?.number?.inQuran}
                     >
-                      <Option
-                        handleBookMark={() => {}}
-                        audio={audio}
-                        handleAudio={handleAudio}
-                        handleCopy={handleCopy}
-                        data={data as DataGetJuz}
-                        handleTerjemah={handleTerjemah}
-                        item={item}
-                        setAudio={setAudio}
-                        type="juz"
-                      />
                       <div className="relative">
-                        <div className="w-full justify-start">
-                          <h1 className="font-bold font-sans">
-                            {item?.number?.inSurah}
-                          </h1>
-                        </div>
-                        <div className="w-full ">
+                      <div className="w-full flex justify-between">
+                        <Border
+                          number={item?.number?.inSurah}
+                          color={"black"}
+                          animate={
+                            item?.audio?.primary === audio &&
+                            "animate-ping-custom"
+                          }
+                          numberClass={
+                            item?.audio?.primary === audio &&
+                            "animate-ping-custom"
+                          }
+                        />
+                      </div>
+                        <div className="w-full lg:my-5 ">
                           <h1
                             dir="rtl"
-                            className="w-full font-sans lg:tracking-wide leading-relaxed lg:leading-loose text-3xl"
+                            className="w-full font-medium leading-relaxed lg:leading-normal text-4xl"
                           >
                             {item?.text?.arab}
                           </h1>
@@ -166,75 +180,19 @@ const JuzByIdPage = () => {
 
                         <div className="w-full lg:mt-10">
                           <h1
-                            className={`${
-                              darkMode && ""
-                            } text-primary lg:text-black text-left mt-2 font-arabic text-lg lg:text-xl lg:mt-2`}
+                            className={`text-base capitalize tracking-wider mt-4 mb-2 font-semibold text-left lg:text-md lg:mt-2`}
                           >
-                            {item?.text?.transliteration?.en}
+                            {item?.text?.transliteration?.en.split(" ").join(" - ")}
                           </h1>
-                          <h1 className="text-left text-base font-arabic  lg:mt-4">
-                            <span className="font-sans font-bold">
+                          <h1 className="text-left text-sm font-normal md:text-base lg:mt-2">
+                            <span className="font-semibold">
                               artinya :{" "}
                             </span>{" "}
                             {item?.translation?.id}
                           </h1>
                         </div>
                       </div>
-                      {terjemah === item?.number?.inQuran && (
-                        <div className="relative w-full">
-                          <div className="flex justify-center w-full">
-                            {terjemah ? (
-                              <div className="flex justify-center">
-                                <Viewicon
-                                  handler={() => setTerjemah(null)}
-                                  fill={`${darkMode ? "white" : "black"}`}
-                                />
-                              </div>
-                            ) : (
-                              <Icon
-                                width="1em"
-                                height="1em"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  fill=""
-                                  stroke="currentColor"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={1.5}
-                                  d="m19 15l-7-6l-7 6"
-                                ></path>{" "}
-                              </Icon>
-                            )}
-                          </div>
-                          <p className="text-center text-sm md:text-base ">
-                            {item?.tafsir?.id?.short}
-                          </p>
-                          <div
-                            onClick={() => setLong(!long)}
-                            className="flex items-center w-full justify-center my-4 "
-                          >
-                            <Viewicon
-                              fill={`${darkMode ? "white" : "black"}`}
-                              classIcon={`${!long && "animate-bounce"}`}
-                            />
-                            <p
-                              className={`${
-                                darkMode ? "text-white" : "text-black"
-                              } inline-block cursor-pointer  `}
-                            >
-                              view More
-                            </p>
-                          </div>
-                          {long ? (
-                            <p className="text-center text-sm md:text-base">
-                              {item?.tafsir?.id?.long}
-                            </p>
-                          ) : (
-                            ""
-                          )}
-                        </div>
-                      )}
+                     
                     </div>
                   )
                 )
@@ -251,6 +209,17 @@ const JuzByIdPage = () => {
             ref={audioRefPlay}
           ></audio>
         )}
+        {/* <Option
+          handleBookMark={() => {}}
+          audio={audio}
+          handleAudio={handleAudio}
+          handleCopy={handleCopy}
+          data={data as DataGetJuz}
+          handleTerjemah={handleTerjemah}
+          item={item}
+          setAudio={setAudio}
+          type="juz"
+        /> */}
       </div>
     </div>
   );

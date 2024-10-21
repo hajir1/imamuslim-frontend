@@ -1,8 +1,8 @@
-
 import { Link } from "react-router-dom";
-import { useDarkmode } from "../../state/Zustand";
+import { useDarkmode } from "../../state/TypeHooks";
 import DarkModeixon from "../element/Icon/DarkModeixon";
 import LightModeIcon from "../element/Icon/LightModeIcon";
+
 
 type NavbarProps = {
   type: string;
@@ -61,19 +61,19 @@ const Navbar = ({ type }: NavbarProps) => {
             />
           )}
           {type === "hadist" && (
-            <img
-              src="./hadits.png"
-              className="w-10 object-cover h-10"
-              alt=""
-            />
+            <img src="./hadits.png" className="w-10 object-cover h-10" alt="" />
           )}
 
           {type === "quran" && <p className="text-white">al-Quran</p>}
           {type === "asmaulhusna" && <p className="text-white">asmaul husna</p>}
           {type === "doadoa" && <p className="text-white">doa dan dzikir</p>}
-          {type === "jadwalsholat" && <p className="text-white">jadwal sholat</p>}
+          {type === "jadwalsholat" && (
+            <p className="text-white">jadwal sholat</p>
+          )}
           {type === "berita" && <p className="text-white">berita</p>}
-          {type === "home" && <p className="text-white text-2xl">Im'a muslim</p>}
+          {type === "home" && (
+            <p className="text-white text-2xl">Im'a muslim</p>
+          )}
           {type === "hadist" && <p className="text-white text-2xl">hadist</p>}
         </Link>
         <div className="w-[48%] h-full  flex items-center justify-end md:w-2/3 ">
@@ -110,3 +110,5 @@ const Navbar = ({ type }: NavbarProps) => {
 };
 
 export default Navbar;
+
+

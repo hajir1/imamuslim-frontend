@@ -1,5 +1,5 @@
 import DeleteMarkicon from "../element/Icon/DeleteMarkicon";
-import { useDarkmode } from "../../state/Zustand";
+import { useDarkmode } from "../../state/TypeHooks";
 import LoveIcon from "../element/Icon/LoveIcon";
 
 type DoDzBookMarkType = {

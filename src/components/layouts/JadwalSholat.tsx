@@ -5,7 +5,7 @@ import {
   useGetProvince,
 } from "../../state/Query";
 import { timeZone } from "../../helper/moment";
-import { useDarkmode } from "../../state/Zustand";
+import { useDarkmode } from "../../state/TypeHooks";
 import {
   DataPrayer,
   DataProvinceKabMapType,

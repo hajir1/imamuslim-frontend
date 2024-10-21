@@ -4,20 +4,32 @@ import { Link } from "react-router-dom";
 import Border from "../../element/Border";
 import Viewicon from "../../element/Icon/Viewicon";
 import { useEffect, useState } from "react";
-import { useGetAlQuranSurah } from "../../../state/Query";
+import { useGetSurah } from "../../../state/Query";
 import ErrorConn from "../../fragment/ErrorConn";
-import { useDarkmode } from "../../../state/Zustand";
-import { AlQuranSurahDatamap } from "../../../model/Interface";
+import { useDarkmode } from "../../../state/TypeHooks";
+import { LoaderCircle } from "lucide-react";
+
+export type surahMap = {
+  number: number;
+  name: {
+    translation: { id: string; en: string };
+    transliteration: { id: string; en: string };
+    long: string;
+    short: string;
+  };
+  numberOfVerses: number;
+  revelation: { id: number };
+  tafsir: { id: string };
+};
 
 export const SurahRoute = () => {
   const [tafsir, settafsir] = useState<any>();
   const darkMode = useDarkmode((state) => state.darkMode);
-  const { data: dataSurah, isError } = useGetAlQuranSurah();
-  // const skeletonArray: any = Array.from({ length: 20 }, (_, index) => index);
+  const { data: dataSurah, isLoading: surahLoading } = useGetSurah();
   const handleTafsir = (e: React.MouseEvent<SVGSVGElement>, id: number) => {
     e.preventDefault();
     const dataId = (dataSurah as any).data.filter(
-      (item: AlQuranSurahDatamap) => item.number === id
+      (surah: surahMap) => surah.number === id
     );
     if (dataId) {
       settafsir(dataId[0].number);
@@ -28,81 +40,72 @@ export const SurahRoute = () => {
   }, []);
   return (
     <>
-      {(dataSurah as any)?.data?.map((item: AlQuranSurahDatamap) => (
-        <Link
-          to={`/quran/surah/${item?.number}`}
-          className={`${tafsir === item?.number ? "h-96 lg:h-72" : "h-20"} ${
-            darkMode ? "border-white" : " border-primary"
-          } w-full outline-none border rounded-md md:w-[47%] lg:w-[30%] relative hover:border-[2px] transition-all duration-300 hover:shadow-primary hover:shadow-sm group `}
-          key={item?.number}
-        >
-          <div className="w-full h-20 flex items-center justify-evenly p-1  ">
-            <Border
-              numberClass={`${darkMode ? "text-white" : "text-slate-600"}`}
-              number={item.number}
-              border="border-primary"
-            />
-            <div className="flex flex-col w-[55%] items-center  h-full justify-center ">
-              <h1 className="font-bold">{item?.name?.transliteration?.id}</h1>
-              <p
-                className={`${
-                  darkMode ? "text-white" : "text-slate-600"
-                } text-center text-sm `}
-              >
-                {item?.name?.translation?.id}
-              </p>
-            </div>
-            <div className="flex flex-col items-center justify-center w-[37%] h-full ">
-              <p className="text-lg font-semibold text-center">
-                {item?.name?.long}
-              </p>
-              <p
-                className={`${
-                  darkMode ? "text-white" : "text-slate-600"
-                } text-sm `}
-              >
-                {item.numberOfVerses} / {item.revelation.id}
-              </p>
-            </div>
-          </div>
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 ">
-            {tafsir === item.number ? (
-              <Icon width="1em" height="1em" viewBox="0 0 24 24">
-                <path
-                  fill=""
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="m19 15l-7-6l-7 6"
-                ></path>{" "}
-              </Icon>
-            ) : (
-              <Viewicon
-                fill={darkMode ? "white" : "black"}
-                classIcon="w-[1rem]"
-                handler={(e: React.MouseEvent<SVGSVGElement>) =>
-                  handleTafsir(e, item.number)
-                }
+      {surahLoading ? (
+        <div className="w-full min-h-screen grid place-content-center">
+          <LoaderCircle className="animate-spin  w-20 h-20" />
+        </div>
+      ) : (
+        (dataSurah as any)?.data?.map((surah: surahMap) => (
+          <Link
+            to={`/quran/surah/${surah?.number}`}
+            className={`${tafsir === surah?.number ? "h-96 lg:h-72" : "h-20"} ${
+              darkMode ? "border-gray-100" : " border-slate-700"
+            } w-full outline-none border rounded-md md:w-[47%] lg:w-[30%] relative transition-all duration-300 hover:border-2 hover:shadow-sm group `}
+            key={surah?.number}
+          >
+            <div className="w-full h-20 flex items-center justify-evenly p-1  ">
+              <Border
+                numberClass={`${darkMode ? "text-white" : "text-slate-900"}`}
+                number={surah.number}
+                color="bg-primary"
               />
-            )}
-          </div>
-          {tafsir === item.number && (
-            <div
-              className={` absolute w-full h-72 overflow-y-auto lg:scroll-auto p-2 z-20 bottom-4 lg:h-52`}
-            >
-              <p
-                className={`${
-                  darkMode ? "text-white" : "text-slate-600"
-                } text-center  text-sm`}
-              >
-                {item?.tafsir?.id}
-              </p>
+              <div className="flex flex-col w-[55%] items-center  h-full justify-center ">
+                <h1 className="font-semibold">
+                  {surah?.name?.transliteration?.id}
+                </h1>
+                <p className={` text-center text-sm `}>
+                  {surah?.name?.translation?.id}
+                </p>
+              </div>
+              <div className="flex flex-col items-center justify-center w-[37%] h-full ">
+                <p className="text-sm font-semibold text-center">
+                  {surah.revelation.id}
+                </p>
+                <p className={` text-xs`}>{surah.numberOfVerses} Ayat</p>
+              </div>
             </div>
-          )}{" "}
-        </Link>
-      ))}
-      {isError && <ErrorConn />}
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 ">
+              {tafsir === surah.number ? (
+                <Icon width="1em" height="1em" viewBox="0 0 24 24">
+                  <path
+                    fill=""
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="m19 15l-7-6l-7 6"
+                  ></path>{" "}
+                </Icon>
+              ) : (
+                <Viewicon
+                  fill={darkMode ? "white" : "black"}
+                  classIcon="w-[1rem]"
+                  handler={(e: React.MouseEvent<SVGSVGElement>) =>
+                    handleTafsir(e, surah.number)
+                  }
+                />
+              )}
+            </div>
+            {tafsir === surah.number && (
+              <div
+                className={` absolute w-full h-72 overflow-y-auto lg:scroll-auto p-2 z-20 bottom-4 lg:h-52`}
+              >
+                <p className={`text-center  text-sm`}>{surah?.tafsir?.id}</p>
+              </div>
+            )}{" "}
+          </Link>
+        ))
+      )}
     </>
   );
 };
@@ -114,18 +117,20 @@ export const JuzRoute = () => {
     (_, index) => index
   );
   return (
-    <div className="w-full flex flex-col gap-4 items-center">
-      {skeletonArray.map((item) => (
+    <>
+      {skeletonArray.map((index) => (
         <Link
-          to={`/quran/juz/${item + 1}`}
+          to={`/quran/juz/${index + 1}`}
           className={`${
-            darkMode ? "border-white" : "border-primary "
-          } w-full h-20 border flex items-center justify-center lg:w-4/5`}
-          key={item}
+            darkMode ? "border-gray-100" : "border-slate-700 "
+          } w-full  md:w-[47%] lg:w-[30%] rounded-md h-20 border hover:border-2 flex items-center justify-center`}
+          key={index}
         >
-          <h1 className="text-center font-semibold text-3xl">Juz {item + 1}</h1>{" "}
+          <h1 className="text-center font-semibold text-3xl">
+            Juz {index + 1}
+          </h1>{" "}
         </Link>
       ))}
-    </div>
+    </>
   );
 };

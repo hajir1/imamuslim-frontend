@@ -1,15 +1,40 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { Bookmark } from "../model/Interface";
+import { Bookmark, TypeDataSurahByIdMap } from "../model/Interface";
 
-type AudioElement = {
+type TypeAudio = {
   audio: HTMLAudioElement | null;
   updateAudio: (audio: HTMLAudioElement | null) => void;
 };
-
-export const useAudio = create<AudioElement>((set) => ({
+export const useAudio = create<TypeAudio>((set) => ({
   audio: null,
   updateAudio: (audio) => set({ audio }),
+}));
+
+type TypeBottomNavigation = {
+  bottomNavigation: null | number;
+  setBottomNavigation: (bottomNavigation: number | null) => void;
+};
+export const useBottomNavigation = create<TypeBottomNavigation>((set) => ({
+  bottomNavigation: null,
+  setBottomNavigation: (bottomNavigation: null | number) =>
+    set({ bottomNavigation }),
+}));
+type TypeAudioActive = {
+  audioActive: null | TypeDataSurahByIdMap;
+  setAudioActive: (data: TypeDataSurahByIdMap | null) => void;
+};
+export const useAudioActive = create<TypeAudioActive>((set) => ({
+  audioActive: null,
+  setAudioActive: (data: TypeDataSurahByIdMap | null) => set({ audioActive: data }),
+}));
+type TypeTerjemahkOption = {
+  terjemahOption: null | number;
+  setTerjemahOption: (data: number | null) => void;
+};
+export const useTerjemahOption = create<TypeTerjemahkOption>((set) => ({
+  terjemahOption: null,
+  setTerjemahOption: (data: number | null) => set({ terjemahOption: data }),
 }));
 
 export const useBookMarkAlQuran = create(
@@ -175,15 +200,15 @@ export const usePagination = create(
     { name: "page" }
   )
 );
-export const useOpsiSurahJuz = create(
+export const useAlQuranOption = create(
   persist(
     (set) => ({
-      juz: false,
-      setJuz: (data: any) => {
-        set({ juz: data });
+      alQuranOption: "Surah",
+      setAlquranOption: (data: any) => {
+        set({ alQuranOption: data });
       },
     }),
-    { name: "opsiSurahJuz" }
+    { name: "alQuranOption" }
   )
 );
 export const useOpsiDoaDzikir = create(

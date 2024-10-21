@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useBookMarkDzikir, useDarkmode } from "../../state/Zustand";
+import { useBookMarkDzikir, useDarkmode } from "../../state/TypeHooks";
 import Border from "../element/Border";
 import LoveIcon from "../element/Icon/LoveIcon";
 import { Sekeleton } from "../element/Sekeleton";

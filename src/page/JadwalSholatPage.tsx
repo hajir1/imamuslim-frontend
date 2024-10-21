@@ -1,6 +1,6 @@
 import JadwalSholat from "../components/layouts/JadwalSholat";
 import Navbar from "../components/layouts/Navbar";
-import { useDarkmode } from "../state/Zustand";
+import { useDarkmode } from "../state/TypeHooks";
 
 const JadwalSholatPage = () => {
   const darkMode = useDarkmode((state) => state.darkMode);

@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Isep:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
 ::-webkit-scrollbar {
   width: 3px;
 }
@@ -8,35 +11,22 @@
   background-color: white;
   border: 1px solid black;
 }
-@font-face {
-  font-family: "isep";
-  font-style: normal;
-  font-weight: 400;
-  src: url("/public/fonts/isep.woff2") format("woff2"),
-    url("/public/fonts/isep.woff") format("woff");
-}
 
 body {
+  font-family: "Raleway", sans-serif;
   text-rendering: optimizeSpeed;
+  background-color: rgb(249 250 251);
 }
+
 html {
+  scroll-snap-align: y mandatory;
   scroll-behavior: smooth;
 }
 
-.tooltip:hover .tooltip-item {
-  visibility: visible;
+.font-primary {
+  font-family: "Isep", sans-serif;
 }
-.border-even:nth-child(2n) {
-  background-color: #f5f3f0;
-}
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-.spinner {
-  animation: spin 4s infinite;
+.dark-mode {
+  background-color: #171923;
+  color: #d3d9df;
 }

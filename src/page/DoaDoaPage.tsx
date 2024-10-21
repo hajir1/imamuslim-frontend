@@ -1,5 +1,5 @@
 import Navbar from "../components/layouts/Navbar";
-import { useDarkmode, useOpsiDoaDzikir } from "../state/Zustand";
+import { useDarkmode, useOpsiDoaDzikir } from "../state/TypeHooks";
 import { DoaRoute, DzikirRoute } from "../components/layouts/OpsiDoDz";
 import { useEffect } from "react";
 import { useGetDoa } from "../state/Query";

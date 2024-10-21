@@ -2,6 +2,7 @@
 import ReactDOM from "react-dom/client";
 import "./style/index.css";
 import "./style/Main.css";
+import "flowbite";
 import { RouterProvider } from "react-router-dom";
 import Routes from "./Routes";
 import OpsiProvider from "./state/OptionContext";

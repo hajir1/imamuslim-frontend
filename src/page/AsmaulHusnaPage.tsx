@@ -5,7 +5,7 @@ import { Sekeleton } from "../components/element/Sekeleton";
 import Navbar from "../components/layouts/Navbar";
 import { DataAsmaulHusna } from "../model/Interface";
 import { useGetAsmaulHusna } from "../state/Query";
-import { useBookMarkAsmaulHusna, useDarkmode } from "../state/Zustand";
+import { useBookMarkAsmaulHusna, useDarkmode } from "../state/TypeHooks";
 
 const AsmaulHusnaPage = () => {
   const darkMode = useDarkmode((state) => state.darkMode);
@@ -52,7 +52,9 @@ const AsmaulHusnaPage = () => {
               (data as [])?.map((asmaulHusna: DataAsmaulHusna) => (
                 <div
                   className={`${
-                    darkMode ? " border-b-white" : "border-b-gray-500 lg:border-b-gray-200"
+                    darkMode
+                      ? " border-b-white"
+                      : "border-b-gray-500 lg:border-b-gray-200"
                   } w-[95%]  p-2 border-b-[1px] lg:w-full`}
                   key={asmaulHusna?.urutan}
                 >

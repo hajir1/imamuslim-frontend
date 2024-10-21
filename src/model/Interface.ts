@@ -11,23 +11,13 @@ export interface IconProps {
   fill?: string;
   id?: string | undefined;
 }
-export type AlQuranSurahDatamap = {
-  number: number;
-  name: {
-    translation: { id: string; en: string };
-    transliteration: { id: string; en: string };
-    long: string;
-  };
-  numberOfVerses: number;
-  revelation: { id: number };
-  tafsir: { id: string };
-};
+
 export interface Bookmark {
   juz: number;
   surah: number;
   ayat: number;
 }
-export type DataSurahByIdMap = {
+export type TypeDataSurahByIdMap = {
   number: { inQuran: number; inSurah: number };
   text: { arab: string; transliteration: { en: string } };
   translation: { id: string };
@@ -42,7 +32,7 @@ export type DataSurahByIdMap = {
     };
   };
 };
-export interface DataGetAlQuranSurahById {
+export interface TypeDataSurahById {
   data: {
     preBismillah: {
       text: { arab: string };
@@ -60,7 +50,7 @@ export interface DataGetAlQuranSurahById {
     };
     revelation: { id: string; arab: string; en: string };
     number: number;
-    verses: DataSurahByIdMap[];
+    verses: TypeDataSurahByIdMap[];
   };
 }
 
@@ -258,5 +248,5 @@ interface Pagination {
 
 export interface HadithPage {
   pagination: Pagination;
-  data: any; 
+  data: any;
 }

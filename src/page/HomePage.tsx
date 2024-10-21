@@ -4,7 +4,7 @@ import Berita from "../components/layouts/Berita";
 import Footer from "../components/layouts/Footer";
 import Navbar from "../components/layouts/Navbar";
 import { useGetNews } from "../state/Query";
-import { useDarkmode } from "../state/Zustand";
+import { useDarkmode } from "../state/TypeHooks";
 
 const HomePage = () => {
   const { data: dataNews, isLoading } = useGetNews();

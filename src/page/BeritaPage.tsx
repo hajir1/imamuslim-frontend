@@ -1,6 +1,6 @@
 import Navbar from "../components/layouts/Navbar";
 import Berita from "../components/layouts/Berita";
-import { useDarkmode } from "../state/Zustand";
+import { useDarkmode } from "../state/TypeHooks";
 import { useGetNews } from "../state/Query";
 import { DataNews } from "../model/Interface";
 import { useEffect } from "react";
@@ -22,7 +22,7 @@ const BeritaPage = () => {
         <Berita berita={dataNews} isLoading={isLoading} />
       </div>
       <div
-        className={`w-[96%] flex justify-center md:justify-evenly flex-wrap gap-2 mt-2`}
+        className={`w-full p-2 flex justify-center md:justify-evenly flex-wrap gap-2 mt-2`}
       >
         {(dataNews as [])
           ?.slice(5, 120)

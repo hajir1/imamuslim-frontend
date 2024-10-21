@@ -6,7 +6,7 @@ import {
 } from "../../state/Query";
 import { DataDoa } from "../../model/Interface";
 import Border from "../element/Border";
-import { useBookMarkDoa, useDarkmode } from "../../state/Zustand";
+import { useBookMarkDoa, useDarkmode } from "../../state/TypeHooks";
 import { Sekeleton } from "../element/Sekeleton";
 // import React, { useEffect, useState } from "react";
 // import BacaIcon from "../element/Icon/BacaIcon";

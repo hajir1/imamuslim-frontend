@@ -1,110 +1,77 @@
-import { useState } from "react";
-import { useGetAlQuranSurahBySurah } from "../../state/Query";
-import { useParams } from "react-router-dom";
-import { useDarkmode } from "../../state/Zustand";
-import { DataGetAlQuranSurahById } from "../../model/Interface";
-import HomeIcon from "../../components/element/Icon/Homeicon";
-import TerjemahbtnIcon from "../../components/element/Icon/TerjemahbtnIcon";
-import BacaIcon from "../../components/element/Icon/BacaIcon";
+import React, { useEffect, useRef, useState } from "react";
+import { useGetSurahById } from "../../state/Query";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAudioActive, useDarkmode } from "../../state/TypeHooks";
+import { TypeDataSurahById } from "../../model/Interface";
 import {
   BacaRoute,
   TerjemahRoute,
 } from "../../components/layouts/alquran/OpsiBaTe";
 import ErrorConn from "../../components/fragment/ErrorConn";
-import { SekeletonPartQuranByIdHeaders } from "../../components/element/Sekeleton";
+import { BreadCrumbV1 } from "../../components/fragment/Breadcrumb";
+import { LoaderCircle } from "lucide-react";
+import Navbar from "../../components/layouts/Navbar";
 
 const SurahByIdPage = () => {
-  const [read, setRead] = useState<
-    boolean | React.Dispatch<React.SetStateAction<boolean>>
-  >(false);
-  const { data, isError, isLoading } = useGetAlQuranSurahBySurah();
-  const { surah } = useParams();
+  const { audioActive } = useAudioActive();
+  const [optionSurah, setOptionSurah] = useState<
+    string | React.Dispatch<React.SetStateAction<string>>
+  >("Terjemah");
+  const { surah: idSurahPage }: any = useParams();
+  const response = useGetSurahById(idSurahPage);
+  const navigate = useNavigate();
+
   const darkMode = useDarkmode((state) => state.darkMode);
   return (
-    <div
-      className={`${
-        darkMode ? "bg-black text-white" : "bg-white text-slate-900"
-      } flex justify-center`}
-    >
-      <div className={`w-full p-1 lg:w-[95%]`}>
-        {isLoading ? (
-          <SekeletonPartQuranByIdHeaders />
-        ) : (
-          <div className="w-full p-1">
-            {" "}
-            <div className="w-full lg:mt-4">
-              <h1 className={` text-3xl font-semibold text-center`}>
-                {
-                  (data as DataGetAlQuranSurahById)?.data?.name?.transliteration
-                    ?.id
+    <div className={`${darkMode && "dark-mode"} flex justify-center`}>
+      <div className={`w-full`}>
+        <Navbar type="quran" />
+        <div className="w-full h-24 mt-16 lg:px-5 lg:flex flex-col items-center">
+          <BreadCrumbV1
+            type="surahById"
+            firstRoute="al-Quran"
+            secondRoute="Surah"
+            response={response}
+            option={optionSurah}
+            opsi1="Terjemah"
+            opsi2="Baca"
+            setOption={setOptionSurah}
+          />
+          <div className="flex w-full justify-between gap-2 px-4 ">
+            <button
+              className="font-semibold text-sm "
+              onClick={() => {
+                if (idSurahPage > 1) {
+                  navigate(`/quran/surah/${parseInt(idSurahPage) - 1}`);
                 }
-              </h1>
-              <p className="text-base text-center">
-                {(data as DataGetAlQuranSurahById)?.data?.name?.translation?.id}
-              </p>
-            </div>
-            <div className="w-full flex items-center">
-              <HomeIcon
-                fill={`${darkMode ? "white" : "black"}`}
-                handler={() => (window.location.href = `/quran`)}
-              />
-              <p className="mx-4">{`/ Surah ke ${surah}`}</p>
-            </div>
-            <div className="mt-4">
-              <p className={` font-semibold capitalize`}>deskripi : </p>
-              <p className="text-base font-sans">
-                {(data as DataGetAlQuranSurahById)?.data?.tafsir?.id}
-              </p>
-            </div>
-            <div className="mt-1">
-              <p className="text-base font-semibold capitalize">
-                jumlah ayat :{" "}
-                <span className="font-normal font-sans">
-                  {(data as DataGetAlQuranSurahById)?.data?.numberOfVerses} ayat
-                </span>
-              </p>
-            </div>
-            <div className="mt-1">
-              <p className="text-base font-semibold capitalize">
-                wahyu diturunkan :{" "}
-                <span className="font-normal font-sans">
-                  {(data as DataGetAlQuranSurahById)?.data?.revelation?.id} /{" "}
-                  {(data as DataGetAlQuranSurahById)?.data?.revelation?.arab}
-                </span>
-              </p>
-            </div>
-          </div>
-        )}
-        {isLoading ? (
-          <div className="w-full flex justify-evenly mt-4 p-2">
-            <div className="w-[45%] outline-none border rounded-md bg-gray-300  relative animate-pulse transition-all duration-300 h-10"></div>
-            <div className="w-[45%] outline-none border rounded-md bg-gray-300  relative animate-pulse transition-all duration-300 h-10"></div>
-          </div>
-        ) : (
-          <div className={`w-full flex justify-evenly mt-4 p-2`}>
-            <button
-              onClick={() => setRead(false)}
-              className={`${!read && "border-b-2 border-b-black"} ${
-                darkMode ? "text-white border-b-white" : "text-gray-800"
-              } font-bold py-2 px-4 rounded inline-flex items-center`}
+              }}
             >
-              <TerjemahbtnIcon />
-              <span className="mx-2 font-sans">Terjemah</span>
+              &laquo;&nbsp;&nbsp;Surah Sebelumnya
             </button>
-            <button
-              onClick={() => setRead(true)}
-              className={`${read && "border-b-2 border-b-black"} ${
-                darkMode ? "text-white border-b-white" : "text-gray-800"
-              } font-bold py-2 px-4 rounded inline-flex items-center`}
-            >
-              <BacaIcon width="1rem" height="1rem" />
-              <span className="mx-2 font-sans">Baca</span>
-            </button>
-          </div>
-        )}
 
-        {!read ? <TerjemahRoute /> : <BacaRoute />}
-        {isError && <ErrorConn />}
+            <div
+              className={`${audioActive === null && "invisible"} flex relative`}
+            >
+              <LoaderCircle className="animate-spin w-7 h-7" />
+              <span className="inline-block text-xs absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2">
+                {audioActive?.number?.inSurah}
+              </span>
+            </div>
+            {/* <ArrowDownFromLine className={`${!itemData && "hidden"}`} /> */}
+            <button
+              className="font-semibold text-sm "
+              onClick={() => {
+                if (idSurahPage < 114) {
+                  navigate(`/quran/surah/${parseInt(idSurahPage) + 1}`);
+                }
+              }}
+            >
+              Surah Berikutnya&nbsp;&nbsp;&raquo;
+            </button>
+          </div>
+        </div>
+        {optionSurah === "Terjemah" ? <TerjemahRoute /> : <BacaRoute />}
+        {response.isError && <ErrorConn />}
       </div>
     </div>
   );

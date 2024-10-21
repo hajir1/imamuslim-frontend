@@ -2,7 +2,7 @@ import {
   useBookMarkHadist,
   useDarkmode,
   usePagination,
-} from "../state/Zustand";
+} from "../state/TypeHooks";
 import Navbar from "../components/layouts/Navbar";
 // import Hadist from "../components/layouts/Hadist";
 import { Link, useParams } from "react-router-dom";
@@ -93,7 +93,7 @@ export const HadistBySlugPage = () => {
   return (
     <div
       className={`${
-        darkMode ? "bg-black text-white" : "bg-white text-slate-900"
+        darkMode ? "bg-black text-white" : "bg-white text-slate-900 "
       } flex flex-col`}
     >
       {data.isLoading ? (
@@ -102,7 +102,7 @@ export const HadistBySlugPage = () => {
         <>
           {" "}
           <div className="w-full mt-4">
-            <h1 className="text-center text-2xl">
+            <h1 className="text-center text-2xl  animate-ping">
               HR {(data?.data as HadistSlugType)?.name}
             </h1>
             <h1 className={`text-center`}>

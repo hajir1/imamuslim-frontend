@@ -1,39 +1,18 @@
-import { useDarkmode } from "../../state/Zustand";
+import { Hexagon } from "lucide-react";
+import { useDarkmode } from "../../state/TypeHooks";
 
 type BorderProps = {
   number: number | string;
-  border: string;
-  numberClass? : string
+  color: string;
+  numberClass?: any;
+  animate?: any;
 };
-const Border = ({ number, border, numberClass }: BorderProps) => {
+const Border = ({ number, numberClass, animate,color }: BorderProps) => {
   const darkMode = useDarkmode((state) => state.darkMode);
   return (
     <div className="flex w-12 h-12 items-center justify-center ">
-      <span
-        className={`border ${darkMode?"border-white": border} w-8 h-8 absolute group-hover:border-2  group-hover:animate-spin-slow group-hover:rounded-full rotate-[45deg]`}
-      ></span>
-      <span
-        className={`border ${darkMode?"border-white": border} w-8 h-8 absolute group-hover:border-2  group-hover:animate-spin-slow group-hover:rounded-full rotate-[90deg]`}
-      ></span>
-      <span
-        className={`border ${darkMode?"border-white": border} w-8 h-8 absolute group-hover:border-2  group-hover:animate-spin-slow group-hover:rounded-full rotate-[135deg`}
-      ></span>
-      <span
-        className={`border ${darkMode?"border-white": border} w-8 h-8 absolute group-hover:border-2  group-hover:animate-spin-slow group-hover:rounded-full rotate-[180deg`}
-      ></span>
-      <span
-        className={`border ${darkMode?"border-white": border} w-8 h-8 absolute group-hover:border-2  group-hover:animate-spin-slow group-hover:rounded-full rotate-[225deg`}
-      ></span>
-      <span
-        className={`border ${darkMode?"border-white": border} w-8 h-8 absolute group-hover:border-2  group-hover:animate-spin-slow group-hover:rounded-full rotate-[270deg`}
-      ></span>
-      <span
-        className={`border ${darkMode?"border-white": border} w-8 h-8 absolute group-hover:border-2  group-hover:animate-spin-slow group-hover:rounded-full rotate-[315deg`}
-      ></span>
-      <span
-        className={`border ${darkMode?"border-white": border} w-8 h-8 absolute group-hover:border-2  group-hover:animate-spin-slow group-hover:rounded-full rotate-[360deg`}
-      ></span>
-      <h1 className={numberClass}>{number}</h1>
+      <Hexagon size={48} color={color} strokeWidth={0.75} className={animate} />
+      <h1 className={`${numberClass} absolute`}>{number}</h1>
     </div>
   );
 };

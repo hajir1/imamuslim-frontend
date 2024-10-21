@@ -6,7 +6,7 @@ import {
   useBookMarkDzikir,
   useBookMarkHadist,
   useDarkmode,
-} from "../../state/Zustand";
+} from "../../state/TypeHooks";
 // import SymbolMark from "../element/Icon/SymbolMark";
 import BookMarkIcon from "../element/Icon/BookMarkIcon";
 import DeleteMarkicon from "../element/Icon/DeleteMarkicon";
@@ -86,7 +86,9 @@ const BookMark = () => {
       </div>
       <div className="w-full mt-10 ">
         {" "}
-        <h1 className="ml-2 mt-10 lg:my-4 font-bold uppercase">- asmaul-Husna</h1>
+        <h1 className="ml-2 mt-10 lg:my-4 font-bold uppercase">
+          - asmaul-Husna
+        </h1>
         <div className="flex justify-evenly gap-2 flex-wrap lg:justify-start">
           {" "}
           {asmaulHusnas?.length > 0 ? (
@@ -132,7 +134,9 @@ const BookMark = () => {
           )}
         </div>
       </div>
-      <h1 className="ml-2 mt-10 lg:my-4 font-bold uppercase">- doa dan dzikir</h1>
+      <h1 className="ml-2 mt-10 lg:my-4 font-bold uppercase">
+        - doa dan dzikir
+      </h1>
       <DoDzBookMark datas={doas} handleDelete={deleteDoa} type="" pesan="doa" />
       <DoDzBookMark
         datas={dzikirs}

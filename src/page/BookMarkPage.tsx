@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useGetAlQuranSurahByAyat } from "../state/Query";
 import { DataGetAlQuranSurahByAyat } from "../model/Interface";
 import Border from "../components/element/Border";
-import { useBookMarkAlQuran, useDarkmode } from "../state/Zustand";
+import { useBookMarkAlQuran, useDarkmode } from "../state/TypeHooks";
 import AudioMatiIcon from "../components/element/Icon/AudioMatiIcon";
 import AudioHidupicon from "../components/element/Icon/AudioHidupicon";
 import Terjemahicon from "../components/element/Icon/Terjemahicon";

@@ -1,10 +1,11 @@
 import { DataNews } from "../../model/Interface";
 
+import { SekeletonV1 } from "../element/Sekeleton";
 const Berita = ({ berita, isLoading }: any) => {
   return (
     <div className="w-[96%] flex justify-center md:justify-evenly flex-wrap gap-2 ">
       {isLoading ? (
-        <h1>loading...</h1>
+        <SekeletonV1/>
       ) : (
         (berita as [])?.slice(0, 5).map((news: DataNews, index: number) => (
           <a

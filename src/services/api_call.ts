@@ -2,14 +2,6 @@ const API_BASE_URL = "https://qurankuv2.vercel.app";
 const API_BASE_URL_2 = "https://quranku-alpha.vercel.app";
 const API_BASE_URL_PRAYER = "https://waktu-sholat.vercel.app";
 const API_BASE_URL_HADIST = "https://hadis-api-id.vercel.app";
-export const APIgetAllSurah = async () => {
-  const response = await fetch(`${API_BASE_URL}/surah`);
-  return response.json();
-};
-export const APIgetAllSurahBySurah = async (id: any) => {
-  const response = await fetch(`${API_BASE_URL}/surah/${id}`);
-  return response.json();
-};
 export const APIgetJuz = async (id: any) => {
   const response = await fetch(`${API_BASE_URL}/juz/${id}`);
   return response.json();

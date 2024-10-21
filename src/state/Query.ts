@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
+const API_BASE_URL = "https://qurankuv2.vercel.app";
 import {
-  APIgetAllSurah,
-  APIgetAllSurahBySurah,
   APIgetAllSurahByAyat,
   APIgetAllAsmaulHusna,
   APIgetAllDoaDoa,
@@ -18,48 +17,39 @@ import {
 import { MetaData } from "../model/Interface";
 import { useParams } from "react-router-dom";
 
-const useGetAlQuranSurah = () => {
-  const { data, isError, isLoading } = useQuery<
-    MetaData,
-    Error,
-    unknown,
-    string[]
-  >({
+const useGetSurah = () => {
+  const responses = useQuery<MetaData, Error, unknown, string[]>({
     queryKey: ["getAlQuranSurah"],
-    queryFn: () => APIgetAllSurah(),
+    queryFn: async () => {
+      const response = await fetch(`${API_BASE_URL}/surah`);
+      return response.json();
+    },
   });
 
-  return { data, isError, isLoading };
+  return responses;
 };
-const useGetAlQuranSurahBySurah = () => {
-  const { surah }: any = useParams();
-
-  const { data, isError, isLoading } = useQuery<
-    MetaData,
-    Error,
-    unknown,
-    string[]
-  >({
-    queryKey: ["getAlQuranSurahBySurah",surah],
-    queryFn: () => APIgetAllSurahBySurah(surah),
+const useGetSurahById = (surah: any) => {
+  const responses = useQuery<MetaData, Error, unknown, string[]>({
+    queryKey: ["useGetSurahById", surah],
+    queryFn: async () => {
+      const response = await fetch(`${API_BASE_URL}/surah/${surah}`);
+      return response.json();
+    },
+    enabled: surah !== null && surah !== undefined,
   });
 
-  return { data, isError, isLoading };
+  return responses;
 };
-const useGetJuz = () => {
-  const { juz }: any = useParams();
-
-  const { data, isError, isLoading } = useQuery<
-    MetaData,
-    Error,
-    unknown,
-    string[]
-  >({
-    queryKey: ["getAlQuranSurahBySurah",juz],
-    queryFn: () => APIgetJuz(juz),
+const useGetJuz = (juz: any) => {
+  const responses = useQuery<MetaData, Error, unknown, string[]>({
+    queryKey: ["getAlQuranSurahBySurah", juz],
+    queryFn: async () => {
+      const response = await fetch(`${API_BASE_URL}/juz/${juz}`);
+      return response.json();
+    },
   });
 
-  return { data, isError, isLoading };
+  return responses;
 };
 const useGetAlQuranSurahByAyat = () => {
   const { surah, ayat }: any = useParams();
@@ -251,17 +241,17 @@ const useGetHadistBySlug = (slug: any, currentPage?: any) => {
 
   return data;
 };
-const useGetHadistById = (slug:any,id: any) => {
+const useGetHadistById = (slug: any, id: any) => {
   const data = useQuery<MetaData, Error, unknown, string[]>({
-    queryKey: ["getHadistById", slug,id],
-    queryFn: () => APIgetHadistById(slug,id),
+    queryKey: ["getHadistById", slug, id],
+    queryFn: () => APIgetHadistById(slug, id),
   });
 
   return data;
 };
 export {
-  useGetAlQuranSurah,
-  useGetAlQuranSurahBySurah,
+  useGetSurah,
+  useGetSurahById,
   useGetAlQuranSurahByAyat,
   useGetAsmaulHusna,
   useGetDoa,
