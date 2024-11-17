@@ -3,7 +3,7 @@ import IconBerita from "../element/Icon/IconBerita";
 
 const RoutingPage = () => {
   return (
-    <div className="flex flex-wrap justify-center gap-4 mt-4  w-full">
+    <div className="flex flex-wrap justify-center gap-4 mt-4 w-full md:p-8">
       <Link
         className={`w-4/5 flex flex-col items-center justify-center font-semibold text-xl  rounded-lg bg-slate-200 lg:w-[24%] h-52 `}
         to={`/berita`}

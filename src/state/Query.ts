@@ -6,7 +6,6 @@ import {
   APIgetAllDoaDoa,
   APIgetAllDzikir,
   APIgetAllDzikirPagi,
-  APIgetJuz,
   APIgetJadwalSholat,
   APIgetProvince,
   APIgetPrayer,

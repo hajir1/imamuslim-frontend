@@ -54,7 +54,7 @@ export interface TypeDataSurahById {
   };
 }
 
-export type DataGetJuzMap = {
+export type TypeDataJuzMap = {
   audio: {
     primary: HTMLAudioElement;
     secondary: [];
@@ -88,7 +88,7 @@ export type DataGetJuzMap = {
     id: string;
   };
 };
-export interface DataGetJuz {
+export interface TypeDataJuz {
   data: {
     juz: number;
     juzEndInfo: string;
@@ -96,7 +96,7 @@ export interface DataGetJuz {
     juzStartInfo: string;
     juzStartSurahNumber: number;
     totalVerses: number;
-    verses: DataGetJuzMap[];
+    verses: TypeDataJuzMap[];
   };
 }
 export interface DataGetAlQuranSurahByAyat {

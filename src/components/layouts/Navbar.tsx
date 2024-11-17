@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useDarkmode } from "../../state/TypeHooks";
 import DarkModeixon from "../element/Icon/DarkModeixon";
 import LightModeIcon from "../element/Icon/LightModeIcon";
-
+import { useEffect, useRef } from "react";
 
 type NavbarProps = {
   type: string;
@@ -14,48 +14,62 @@ const Navbar = ({ type }: NavbarProps) => {
   const handleCheckboxChange = () => {
     setDarkMode(!darkMode);
   };
+  const navbarRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const scrolling = () => {
+      if (navbarRef.current && window.scrollY > 50) {
+        navbarRef.current.style.backdropFilter =`blur(5px)`
+      }else if(navbarRef.current){
+        navbarRef.current.style.backdropFilter =`blur(0px)`
+
+      }
+    };
+    window.addEventListener("scroll", scrolling);
+    return () => {
+      window.removeEventListener("scroll", scrolling);
+    };
+  },[navbarRef]);
   return (
     <>
       <div
-        className={`${
-          darkMode && "border-b-2 border-b-white"
-        } bg-black w-full justify-around h-14 fixed z-20 flex items-center`}
+        ref={navbarRef}
+        className={` w-full justify-around h-14 fixed z-20 flex items-center`}
       >
         <Link
           to={`/`}
-          className="flex  items-center w[48%] gap-2 justify-evenly"
+          className="flex  items-center w-[48%] gap-2 justify-evenly md:justify-start md:ml-10"
         >
           {type === "quran" && (
             <img
-              src="./iconQuran.png"
+              src="/iconQuran.png"
               className="w-10 object-cover h-10"
               alt=""
             />
           )}
           {type === "asmaulhusna" && (
             <img
-              src="./iconasma.png"
+              src="/iconasma.png"
               className="w-10 object-cover h-10"
               alt=""
             />
           )}
           {type === "doadoa" && (
             <img
-              src="./icondoa.png"
+              src="/icondoa.png"
               className="w-10 object-cover h-10"
               alt=""
             />
           )}
           {type === "jadwalsholat" && (
             <img
-              src="./iconSholat.png"
+              src="/iconSholat.png"
               className="w-10 object-cover h-10"
               alt=""
             />
           )}
           {type === "berita" && (
             <img
-              src="./iconBerita.png"
+              src="/iconBerita.png"
               className="w-10 object-cover h-10"
               alt=""
             />
@@ -64,41 +78,35 @@ const Navbar = ({ type }: NavbarProps) => {
             <img src="./hadits.png" className="w-10 object-cover h-10" alt="" />
           )}
 
-          {type === "quran" && <p className="text-white">al-Quran</p>}
-          {type === "asmaulhusna" && <p className="text-white">asmaul husna</p>}
-          {type === "doadoa" && <p className="text-white">doa dan dzikir</p>}
+          {type === "quran" && <p className="">al-Quran</p>}
+          {type === "asmaulhusna" && <p className="">asmaul husna</p>}
+          {type === "doadoa" && <p className="">doa dan dzikir</p>}
           {type === "jadwalsholat" && (
-            <p className="text-white">jadwal sholat</p>
+            <p className="">jadwal sholat</p>
           )}
-          {type === "berita" && <p className="text-white">berita</p>}
+          {type === "berita" && <p className="">berita</p>}
           {type === "home" && (
-            <p className="text-white text-2xl">Im'a muslim</p>
+            <p className=" text-2xl">Im'a muslim</p>
           )}
-          {type === "hadist" && <p className="text-white text-2xl">hadist</p>}
+          {type === "hadist" && <p className=" text-2xl">hadist</p>}
         </Link>
-        <div className="w-[48%] h-full  flex items-center justify-end md:w-2/3 ">
-          <label className="h-10 themeSwitcherTwo shadow-card relative inline-flex cursor-pointer select-none items-center justify-center rounded-md p-1">
+        <div className="w-[48%]  h-full flex items-center justify-end md:mr-10">
+          <label className={`${darkMode && "bg-[#d3d9df]"} h-10 themeSwitcherTwo shadow-card relative inline-flex cursor-pointer select-none items-center justify-center  rounded-md p-1`}>
             <input
               type="checkbox"
               className="sr-only"
               onChange={handleCheckboxChange}
             />
             <span
-              className={`h-8 flex items-center space-x-[6px] py-2 px-3 text-sm font-medium ${
-                !darkMode
-                  ? "text-secondary bg-slate-100"
-                  : "bg-white text-black"
-              }`}
+              className={`h-8 flex items-center space-x-[6px] py-2 px-3 text-sm font-medium `}
             >
               <LightModeIcon
-                classIcon={`fill-curent`}
-                fill={`${darkMode ? "white" : "white"}`}
+                // classIcon={`fill-curent`}
+                classIcon={darkMode ? "white" : "black"}
               />
             </span>
             <span
-              className={`h-8 flex items-center space-x-[6px] py-2 px-3 text-sm font-medium ${
-                darkMode ? "text-secondary bg-slate-100" : "bg-white"
-              }`}
+              className={`h-8 flex items-center space-x-[6px] py-2 px-3 text-sm font-medium `}
             >
               <DarkModeixon classIcon={`fill-curent`} />
             </span>
@@ -110,5 +118,3 @@ const Navbar = ({ type }: NavbarProps) => {
 };
 
 export default Navbar;
-
-

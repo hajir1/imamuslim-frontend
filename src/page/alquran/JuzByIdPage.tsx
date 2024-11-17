@@ -1,32 +1,33 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetJuz } from "../../state/Query";
-import { useAudioActive, useDarkmode } from "../../state/TypeHooks";
+import {
+  useAudioActive,
+  useBottomNavigation,
+  useDarkmode,
+  useTerjemahOption,
+} from "../../state/TypeHooks";
 import { useEffect, useRef, useState } from "react";
-import { DataGetJuz, DataGetJuzMap } from "../../model/Interface";
-import { SekeletonPartQuranJuzById } from "../../components/element/Sekeleton";
-import HomeIcon from "../../components/element/Icon/Homeicon";
-import Option from "../../components/fragment/Option";
-import Viewicon from "../../components/element/Icon/Viewicon";
-import Icon from "../../helper/Icon";
+import { TypeDataJuz, TypeDataJuzMap } from "../../model/Interface";
+
 import { LoaderCircle } from "lucide-react";
 import Navbar from "../../components/layouts/Navbar";
 import { BreadCrumbV1 } from "../../components/fragment/Breadcrumb";
-import Border from "../../components/element/Border";
+import BoxTypeV1 from "../../components/fragment/BoxModel";
+import Option from "../../components/fragment/Option";
 
 const JuzByIdPage = () => {
   const { juz: idJuzPage }: any = useParams();
   const { data, isLoading: loadingJuz } = useGetJuz(idJuzPage);
   const { audioActive, setAudioActive } = useAudioActive();
   const darkMode = useDarkmode((state) => state.darkMode);
-  const [terjemah, setTerjemah] = useState<
-    number | null | React.Dispatch<React.SetStateAction<null | number>>
-  >(null);
-  const [long, setLong] = useState<
-    boolean | React.Dispatch<React.SetStateAction<boolean>>
-  >(false);
+  const [scrollToTerjemah, setScrollToTerjemah] = useState<number | null>(null);
+  const [itemData, setItemData] = useState<
+    TypeDataJuzMap | any | React.Dispatch<React.SetStateAction<TypeDataJuzMap>>
+  >();
   const audioRefPlay = useRef<HTMLAudioElement>(null);
   const [currentAudio, setCurrentAudio] = useState<any | null>(null);
-
+  const { bottomNavigation, setBottomNavigation } = useBottomNavigation();
+  const { terjemahOption, setTerjemahOption } = useTerjemahOption();
   const [audio, setAudio] = useState<any>(null);
   const navigate = useNavigate();
   useEffect(() => {
@@ -39,14 +40,34 @@ const JuzByIdPage = () => {
     window.scrollTo({ top: 0 });
   }, [idJuzPage]);
   const handleTerjemah = (verses: number) => {
-    const dataId = (data as DataGetJuz)?.data?.verses?.find(
-      (item: DataGetJuzMap) => item?.number?.inQuran === verses
+    const dataId = (data as TypeDataJuz)?.data?.verses?.find(
+      (item: TypeDataJuzMap) => item?.number?.inQuran === verses
     );
     if (dataId) {
-      setTerjemah(dataId?.number?.inQuran);
+      setTerjemahOption(dataId?.number?.inQuran);
+      setScrollToTerjemah(verses);
     }
-    setLong(false);
   };
+  useEffect(() => {
+    const dataId = (data as TypeDataJuz)?.data?.verses.find(
+      (verse: TypeDataJuzMap) => verse.audio?.primary === audio
+    );
+    if (dataId) {
+      setAudioActive(dataId);
+    } else if (audio === null) {
+      setAudioActive(null);
+    }
+  }, [audio]);
+  useEffect(() => {
+    if (scrollToTerjemah !== null) {
+      const scrolling = document.getElementById(`terjemah-${scrollToTerjemah}`);
+      if (scrolling) {
+        scrolling.scrollIntoView({ behavior: "smooth" });
+      }
+      // Reset setelah scroll selesai
+      setScrollToTerjemah(null);
+    }
+  }, [scrollToTerjemah]);
 
   const handleCopy = (
     e: React.MouseEvent<SVGSVGElement>,
@@ -79,20 +100,29 @@ const JuzByIdPage = () => {
     setCurrentAudio(audio);
   };
   const handleAudioEnded = () => {
-    const currentIndex = (data as DataGetJuz)?.data?.verses.findIndex(
+    const currentIndex = (data as TypeDataJuz)?.data?.verses.findIndex(
       (verse: any) => verse.audio?.primary === audio
     );
     if (
       currentIndex !== -1 &&
-      currentIndex + 1 < (data as DataGetJuz).data.verses.length
+      currentIndex + 1 < (data as TypeDataJuz).data.verses.length
     ) {
       setAudio(
-        (data as DataGetJuz).data.verses[currentIndex + 1].audio?.primary
+        (data as TypeDataJuz).data.verses[currentIndex + 1].audio?.primary
       );
     } else {
       setAudio(null);
     }
   };
+  const handleBottomNavigation = (id: number) => {
+    const response = (data as TypeDataJuz)?.data?.verses?.find(
+      (data: TypeDataJuzMap) => data?.number?.inQuran === id
+    );
+    if (response) {
+      setBottomNavigation(response?.number?.inQuran);
+    }
+  };
+
   return (
     <div className={`${darkMode && "dark-mode"} `}>
       <div className="w-full flex justify-center">
@@ -147,53 +177,17 @@ const JuzByIdPage = () => {
                 </button>
               </div>
             </div>
-            {(data as DataGetJuz)?.data?.verses?.length > 0
-              ? (data as DataGetJuz)?.data?.verses?.map(
-                  (item: DataGetJuzMap) => (
-                    <div
-                      className={`w-full md:w-5/6 p-4 border-b border-b-slate-200 md:mt-4 lg:mt-10 lg:p-3`}
-                      key={item?.number?.inQuran}
-                    >
-                      <div className="relative">
-                      <div className="w-full flex justify-between">
-                        <Border
-                          number={item?.number?.inSurah}
-                          color={"black"}
-                          animate={
-                            item?.audio?.primary === audio &&
-                            "animate-ping-custom"
-                          }
-                          numberClass={
-                            item?.audio?.primary === audio &&
-                            "animate-ping-custom"
-                          }
-                        />
-                      </div>
-                        <div className="w-full lg:my-5 ">
-                          <h1
-                            dir="rtl"
-                            className="w-full font-medium leading-relaxed lg:leading-normal text-4xl"
-                          >
-                            {item?.text?.arab}
-                          </h1>
-                        </div>
-
-                        <div className="w-full lg:mt-10">
-                          <h1
-                            className={`text-base capitalize tracking-wider mt-4 mb-2 font-semibold text-left lg:text-md lg:mt-2`}
-                          >
-                            {item?.text?.transliteration?.en.split(" ").join(" - ")}
-                          </h1>
-                          <h1 className="text-left text-sm font-normal md:text-base lg:mt-2">
-                            <span className="font-semibold">
-                              artinya :{" "}
-                            </span>{" "}
-                            {item?.translation?.id}
-                          </h1>
-                        </div>
-                      </div>
-                     
-                    </div>
+            {(data as TypeDataJuz)?.data?.verses?.length > 0
+              ? (data as TypeDataJuz)?.data?.verses?.map(
+                  (data: TypeDataJuzMap) => (
+                    <BoxTypeV1
+                      audio={audio}
+                      bottomNavigation={bottomNavigation}
+                      data={data}
+                      handleBottomNavigation={handleBottomNavigation}
+                      setItemData={setItemData}
+                      terjemahOption={terjemahOption}
+                    />
                   )
                 )
               : ""}
@@ -201,7 +195,7 @@ const JuzByIdPage = () => {
         )}
         {audio && (
           <audio
-            className="w-full fixed bottom-0 left-1/2 -translate-x-1/2 z-20"
+            className="hidden"
             controls
             autoPlay
             onEnded={handleAudioEnded}
@@ -209,17 +203,19 @@ const JuzByIdPage = () => {
             ref={audioRefPlay}
           ></audio>
         )}
-        {/* <Option
-          handleBookMark={() => {}}
-          audio={audio}
-          handleAudio={handleAudio}
-          handleCopy={handleCopy}
-          data={data as DataGetJuz}
-          handleTerjemah={handleTerjemah}
-          item={item}
-          setAudio={setAudio}
-          type="juz"
-        /> */}
+        {bottomNavigation === itemData?.number?.inQuran && (
+          <Option
+            handleBookMark={() => {}}
+            audio={audio}
+            handleAudio={handleAudio}
+            handleCopy={handleCopy}
+            data={data as TypeDataJuz}
+            handleTerjemah={handleTerjemah}
+            item={itemData}
+            setAudio={setAudio}
+            type="juz"
+          />
+        )}
       </div>
     </div>
   );

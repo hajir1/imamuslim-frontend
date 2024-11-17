@@ -1,4 +1,4 @@
-import React, {  useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   useAudioActive,
   useBookMarkAlQuran,
@@ -15,6 +15,7 @@ import Option from "../../fragment/Option";
 import Border from "../../element/Border";
 import { useParams } from "react-router-dom";
 import { LoaderCircle } from "lucide-react";
+import BoxTypeV1 from "../../fragment/BoxModel";
 
 export const TerjemahRoute = () => {
   const { surah: idSurahPage } = useParams();
@@ -162,70 +163,16 @@ export const TerjemahRoute = () => {
           <div className="w-full flex flex-col items-center gap-5">
             {(data as TypeDataSurahById)?.data?.verses?.length > 0 &&
               (data as TypeDataSurahById)?.data?.verses?.map(
-                (item: TypeDataSurahByIdMap) => (
-                  <div
-                    onClick={() => {
-                      handleBottomNavigation(item?.number?.inQuran);
-                      setItemData(item);
-                    }}
-                    className={`${
-                      bottomNavigation && "pointer-events-none"
-                    } w-full md:w-5/6 p-4 border-b border-b-slate-200 md:mt-4 lg:mt-10 lg:p-3`}
-                    key={item?.number?.inQuran}
-                  >
-                    <div
-                      className={`relative`}
-                    >
-                      <div className="w-full flex justify-between">
-                        <Border
-                          number={item?.number?.inSurah}
-                          color={"black"}
-                          animate={
-                            item?.audio?.primary === audio &&
-                            "animate-ping-custom"
-                          }
-                          numberClass={
-                            item?.audio?.primary === audio &&
-                            "animate-ping-custom"
-                          }
-                        />
-                      </div>
-                      <div className="w-full lg:my-5">
-                        <h1
-                          dir="rtl"
-                          className="w-full font-medium leading-relaxed lg:leading-normal text-4xl"
-                        >
-                          {item?.text?.arab}
-                        </h1>
-                      </div>
-                      <div className="w-full lg:mt-10">
-                        <h1
-                          className={` text-base capitalize tracking-wider mt-4 mb-2 font-semibold text-left lg:text-md lg:mt-2`}
-                        >
-                          {item?.text?.transliteration?.en
-                            .split(" ")
-                            .join(" - ")}
-                        </h1>
-                        <h1 className="text-left text-sm font-normal md:text-base lg:mt-2">
-                          <span className="font-semibold ">artinya : </span>
-                          {item?.translation?.id}
-                        </h1>
-                        {terjemahOption === item?.number?.inSurah && (
-                          <>
-                            <h1
-                              id={`terjemah-${item?.number?.inSurah}`}
-                              className="text-left text-xs font-normal md:text-sm lg:mt-2"
-                            >
-                              <span className="font-semibold ">
-                                terjemah :{" "}
-                              </span>
-                              {item?.tafsir?.id?.long}
-                            </h1>
-                          </>
-                        )}
-                      </div>
-                    </div>
-                  </div>
+                (data: TypeDataSurahByIdMap) => (
+                  // boxModel
+                  <BoxTypeV1
+                    audio={audio}
+                    bottomNavigation={bottomNavigation}
+                    data={data}
+                    handleBottomNavigation={handleBottomNavigation}
+                    setItemData={setItemData}
+                    terjemahOption={terjemahOption}
+                  />
                 )
               )}
           </div>

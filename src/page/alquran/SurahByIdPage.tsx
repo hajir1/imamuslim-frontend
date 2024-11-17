@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { useGetSurahById } from "../../state/Query";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAudioActive, useDarkmode } from "../../state/TypeHooks";
-import { TypeDataSurahById } from "../../model/Interface";
 import {
   BacaRoute,
   TerjemahRoute,

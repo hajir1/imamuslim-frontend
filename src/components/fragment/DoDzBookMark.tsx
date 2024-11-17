@@ -79,7 +79,7 @@ const DoDzBookMark = ({
             </div>
           ))
         ) : (
-          <div className="flex text-sm justify-center gap-2 p-2">
+          <div className="flex gap-2 text-sm">
             <p className="">klik icon</p> <LoveIcon fill={`white`} />
             <p className="">untuk bookmark {pesan}</p>
           </div>

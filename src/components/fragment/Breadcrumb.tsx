@@ -29,16 +29,16 @@ export const BreadCrumbV1 = ({
 }: TypeBreadCrumbV1) => {
   const { darkMode }: any = useDarkmode((state) => state.darkMode);
   return (
-    <nav className="flex gap-1 top-0 w-full p-4" aria-label="Breadcrumb">
+    <nav className={`flex gap-1 top-0 w-full p-1`} aria-label="Breadcrumb">
       <ol className="inline-flex flex-wrap items-center space-x-1 md:space-x-2 rtl:space-x-reverse lg:ml-10">
         <li className="inline-flex items-center">
           <Link
             to={`/`}
-            className="inline-flex items-center text-sm font-medium underline   dark:text-gray-400 dark:hover:text-white"
+            className="inline-flex items-center text-sm font-medium underline  "
           >
             <HomeIcon
               handler={() => (window.location.href = `/`)}
-              fill={`${darkMode ? "white" : "black"}`}
+              fill={darkMode ? "white" : "black"}
             />
             &nbsp;Home
           </Link>

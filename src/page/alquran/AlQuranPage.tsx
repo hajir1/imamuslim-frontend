@@ -1,13 +1,12 @@
 import { useEffect } from "react";
 import Navbar from "../../components/layouts/Navbar";
 import { useAlQuranOption, useDarkmode } from "../../state/TypeHooks";
-import Terjemahicon from "../../components/element/Icon/Terjemahicon";
-import BacaIcon from "../../components/element/Icon/BacaIcon";
 import { BreadCrumbV1 } from "../../components/fragment/Breadcrumb";
 import {
   JuzRoute,
   SurahRoute,
 } from "../../components/layouts/alquran/RoutingQuran";
+import MainLayouts from "../../components/layouts/Main";
 
 const AlQuranPage = () => {
   const darkMode = useDarkmode((state) => state.darkMode);
@@ -16,9 +15,8 @@ const AlQuranPage = () => {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <div className={`${darkMode && "dark-mode"} flex flex-col items-center`}>
-      <Navbar type="quran" />
-      <div className="w-full mt-16">
+    <MainLayouts>
+      <div className="w-full">
         <BreadCrumbV1
           opsi1="Surah"
           type=""
@@ -34,7 +32,7 @@ const AlQuranPage = () => {
           {alQuranOption === "Surah" ? <SurahRoute /> : <JuzRoute />}
         </div>
       </div>
-    </div>
+    </MainLayouts>
   );
 };
 

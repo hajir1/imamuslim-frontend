@@ -49,7 +49,7 @@ export const SurahRoute = () => {
           <Link
             to={`/quran/surah/${surah?.number}`}
             className={`${tafsir === surah?.number ? "h-96 lg:h-72" : "h-20"} ${
-              darkMode ? "border-gray-100" : " border-slate-700"
+              darkMode ? "border-gray-100" : " border-gray-300"
             } w-full outline-none border rounded-md md:w-[47%] lg:w-[30%] relative transition-all duration-300 hover:border-2 hover:shadow-sm group `}
             key={surah?.number}
           >
@@ -100,7 +100,7 @@ export const SurahRoute = () => {
               <div
                 className={` absolute w-full h-72 overflow-y-auto lg:scroll-auto p-2 z-20 bottom-4 lg:h-52`}
               >
-                <p className={`text-center  text-sm`}>{surah?.tafsir?.id}</p>
+                <p className={`md:mt-6  text-sm`}>{surah?.tafsir?.id}</p>
               </div>
             )}{" "}
           </Link>
@@ -122,7 +122,7 @@ export const JuzRoute = () => {
         <Link
           to={`/quran/juz/${index + 1}`}
           className={`${
-            darkMode ? "border-gray-100" : "border-slate-700 "
+            darkMode ? "border-gray-100" : "border-gray-300 "
           } w-full  md:w-[47%] lg:w-[30%] rounded-md h-20 border hover:border-2 flex items-center justify-center`}
           key={index}
         >

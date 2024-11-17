@@ -28,12 +28,12 @@ const BookMark = () => {
     <div
       className={`${
         darkMode ? "bg-black text-white" : "bg-white text-slate-900"
-      } p-2 w-full lg:w-4/5 md:ml-10`}
+      } p-2 w-full md:p-10`}
     >
-      <h1 className="text-xl ml-2 font-semibold md:my-10">Bookmark</h1>
+      <h2 className="text-4xl font-bold text-slate-900 dark:text-white">Bookmarks</h2>
       <div className="w-full">
         {" "}
-        <h1 className="ml-2 mt-10 lg:my-4 font-bold uppercase">- Al-Quran</h1>
+        <h1 className="mt-10 font-semibold">Al-Quran</h1>
         <div className="flex justify-evenly gap-2 flex-wrap md:justify-start">
           {" "}
           {alQurans?.length > 0 ? (
@@ -76,7 +76,7 @@ const BookMark = () => {
               </div>
             ))
           ) : (
-            <div className="flex text-sm justify-center gap-2 p-2">
+            <div className="flex text-sm gap-2">
               <p className="">klik icon</p>{" "}
               <BookMarkIcon fill={`${darkMode ? "white" : "black"}`} />
               <p className="">untuk bookmark AlQuran</p>
@@ -84,11 +84,9 @@ const BookMark = () => {
           )}
         </div>
       </div>
-      <div className="w-full mt-10 ">
+      <div className="w-full">
         {" "}
-        <h1 className="ml-2 mt-10 lg:my-4 font-bold uppercase">
-          - asmaul-Husna
-        </h1>
+        <h1 className="mt-10 font-semibold">Asmaul husna</h1>
         <div className="flex justify-evenly gap-2 flex-wrap lg:justify-start">
           {" "}
           {asmaulHusnas?.length > 0 ? (
@@ -127,15 +125,15 @@ const BookMark = () => {
               </div>
             ))
           ) : (
-            <div className="flex text-sm justify-center gap-2 p-2">
+            <div className="flex text-sm gap-2">
               <p className="">klik icon</p> <LoveIcon fill={`white`} />
               <p className="">untuk bookmark AsmaulHusna</p>
             </div>
           )}
         </div>
       </div>
-      <h1 className="ml-2 mt-10 lg:my-4 font-bold uppercase">
-        - doa dan dzikir
+      <h1 className="mt-10 font-semibold">
+        Doa dan Dzikir
       </h1>
       <DoDzBookMark datas={doas} handleDelete={deleteDoa} type="" pesan="doa" />
       <DoDzBookMark
@@ -144,7 +142,7 @@ const BookMark = () => {
         handleDelete={deleteDzikir}
         pesan="dzikir"
       />
-      <h1 className="ml-2 mt-10 lg:my-4 font-bold uppercase">- hadist</h1>
+      <h1 className="mt-10 font-semibold">Hadist</h1>
       <DoDzBookMark
         type="hadist"
         datas={hadists}
