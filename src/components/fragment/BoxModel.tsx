@@ -1,31 +1,31 @@
 import Border from "../element/Border";
 
 // untuk surah dan juz
-type BoxModelV1 = {
+type TypeBox = {
   data: any;
   handleBottomNavigation: (data : number) => void;
   bottomNavigation: null | number;
-  setItemData: any;
+  setCurrentData: any;
   audio: any;
   terjemahOption: number | null;
 };
-const BoxTypeV1 = ({
+const Box = ({
   data,
   handleBottomNavigation,
   bottomNavigation,
-  setItemData,
+  setCurrentData,
   audio,
   terjemahOption,
-}: BoxModelV1) => {
+}: TypeBox) => {
   return (
     <div
       onClick={() => {
         handleBottomNavigation(data?.number?.inQuran);
-        setItemData(data);
+        setCurrentData(data);
       }}
       className={`${
         bottomNavigation && "pointer-events-none"
-      } w-full md:w-5/6 p-4 border-b border-b-slate-200 md:mt-4 lg:mt-10 lg:p-3`}
+      } w-full md:w-11/12 p-4 border-b border-b-slate-200 md:mt-4 lg:mt-10 lg:p-3`}
       key={data?.number?.inQuran}
     >
       <div className={`relative`}>
@@ -74,4 +74,4 @@ const BoxTypeV1 = ({
   );
 };
 
-export default BoxTypeV1;
+export default Box;

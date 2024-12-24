@@ -209,7 +209,7 @@ export interface HadistType {
   total: string;
 }
 export interface OptionProps {
-  item: any;
+  currentData: any;
   audio: any;
   setAudio: React.Dispatch<React.SetStateAction<any>>;
   handleAudio: (a: any, b: any) => void;
@@ -217,7 +217,6 @@ export interface OptionProps {
   handleBookMark: (a: number, b: number, c: number) => void;
   data: any;
   handleCopy: (e: any, a: string, b: string, c: string) => void;
-  type: string;
 }
 export interface hadistSlug {
   number: number;

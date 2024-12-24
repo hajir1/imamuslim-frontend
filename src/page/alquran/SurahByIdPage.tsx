@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useGetSurahById } from "../../state/Query";
 import { useNavigate, useParams } from "react-router-dom";
-import { useAudioActive, useDarkmode } from "../../state/TypeHooks";
+import { useAudioActive } from "../../state/TypeHooks";
 import {
   BacaRoute,
   TerjemahRoute,
@@ -9,7 +9,8 @@ import {
 import ErrorConn from "../../components/fragment/ErrorConn";
 import { BreadCrumbV1 } from "../../components/fragment/Breadcrumb";
 import { LoaderCircle } from "lucide-react";
-import Navbar from "../../components/layouts/Navbar";
+import MainLayouts from "../../components/layouts/Main";
+import { TypeDataSurahById } from "../../model/Interface";
 
 const SurahByIdPage = () => {
   const { audioActive } = useAudioActive();
@@ -17,23 +18,47 @@ const SurahByIdPage = () => {
     string | React.Dispatch<React.SetStateAction<string>>
   >("Terjemah");
   const { surah: idSurahPage }: any = useParams();
-  const response = useGetSurahById(idSurahPage);
+  const {
+    data: dataSurah,
+    isLoading: isLoadingSurah,
+    isError: isErrorSurah,
+  } = useGetSurahById(idSurahPage);
   const navigate = useNavigate();
+  const SekeletonArray = Array.from({ length: 30 }, (_, index) => index);
 
-  const darkMode = useDarkmode((state) => state.darkMode);
   return (
-    <div className={`${darkMode && "dark-mode"} flex justify-center`}>
-      <div className={`w-full`}>
-        <Navbar type="quran" />
-        <div className="w-full h-24 mt-16 lg:px-5 lg:flex flex-col items-center">
+    <MainLayouts navbarType={"quran"}>
+    {isLoadingSurah ? (
+      <div className="w-full flex gap-2 flex-col p-2">
+        <div className="flex-shrink-0 flex justify-start gap-2">
+          <div className="bg-gray-200 h-8 md:ml-6 w-20 rounded-md animate-pulse"></div>
+          <div className="bg-gray-200 h-8 w-20 rounded-md animate-pulse"></div>
+          <div className="bg-gray-200 h-8 w-20 rounded-md animate-pulse"></div>
+        </div>
+        <div className="w-full flex gap-2 justify-between">
+          <div className="bg-gray-200 h-8 md:ml-6 w-32  rounded-md animate-pulse"></div>
+          <div className="bg-gray-200 h-8 w-32  rounded-md animate-pulse"></div>
+        </div>
+        <div className="flex flex-col items-center gap-2 p-2">
+         {SekeletonArray.map((skleton: any) => (
+           <div
+             key={skleton}
+             className="w-full bg-gray-200 h-44 md:h-64 md:w-11/12 rounded-md animate-pulse"
+           ></div>
+         ))}
+       </div>
+      </div>
+    ) : (
+      <>
+        <div className="w-full h-24 lg:px-5 flex flex-col items-center">
           <BreadCrumbV1
-            type="surahById"
-            firstRoute="al-Quran"
-            secondRoute="Surah"
-            response={response}
+            firstRoute={
+              (dataSurah as TypeDataSurahById)?.data?.name?.transliteration
+                ?.id
+            }
+            routeOption1="Terjemah"
+            routeOption2="Baca"
             option={optionSurah}
-            opsi1="Terjemah"
-            opsi2="Baca"
             setOption={setOptionSurah}
           />
           <div className="flex w-full justify-between gap-2 px-4 ">
@@ -49,10 +74,12 @@ const SurahByIdPage = () => {
             </button>
 
             <div
-              className={`${audioActive === null && "invisible"} flex relative`}
+              className={`${
+                audioActive === null && "invisible"
+              } flex relative`}
             >
-              <LoaderCircle className="animate-spin w-7 h-7" />
-              <span className="inline-block text-xs absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2">
+              <LoaderCircle className="animate-spin w-10 h-10" />
+              <span className="inline-block text-sm absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2">
                 {audioActive?.number?.inSurah}
               </span>
             </div>
@@ -69,10 +96,13 @@ const SurahByIdPage = () => {
             </button>
           </div>
         </div>
-        {optionSurah === "Terjemah" ? <TerjemahRoute /> : <BacaRoute />}
-        {response.isError && <ErrorConn />}
-      </div>
-    </div>
+        <>
+          {optionSurah === "Terjemah" ? <TerjemahRoute /> : <BacaRoute />}
+          {isErrorSurah && <ErrorConn />}
+        </>
+      </>
+    )}
+  </MainLayouts>
   );
 };
 

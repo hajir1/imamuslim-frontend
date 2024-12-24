@@ -8,7 +8,7 @@ const HomePage = () => {
   const { data: dataNews, isLoading } = useGetNews();
 
   return (
-    <MainLayouts>
+    <MainLayouts navbarType={"home"}>
      
       <Berita berita={dataNews} isLoading={isLoading} />
         <RoutingPage />

@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 const API_BASE_URL = "https://qurankuv2.vercel.app";
 import {
-  APIgetAllSurahByAyat,
   APIgetAllAsmaulHusna,
   APIgetAllDoaDoa,
   APIgetAllDzikir,
@@ -53,17 +52,15 @@ const useGetJuz = (juz: any) => {
 const useGetAlQuranSurahByAyat = () => {
   const { surah, ayat }: any = useParams();
 
-  const { data, isError, isLoading } = useQuery<
-    MetaData,
-    Error,
-    unknown,
-    string[]
-  >({
+  const response = useQuery<MetaData, Error, unknown, string[]>({
     queryKey: ["getAlQuranSurahByAyat"],
-    queryFn: () => APIgetAllSurahByAyat(surah, ayat),
+    queryFn: async () => {
+      const response = await fetch(`${API_BASE_URL}/surah/${surah}/${ayat}`);
+      return response.json();
+    },
   });
 
-  return { data, isError, isLoading };
+  return response;
 };
 const useGetAsmaulHusna = () => {
   const { data, isError, isLoading } = useQuery<

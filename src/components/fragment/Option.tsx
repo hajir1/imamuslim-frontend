@@ -10,11 +10,10 @@ import {
   useDarkmode,
   useTerjemahOption,
 } from "../../state/TypeHooks";
-import Border from "../element/Border";
 import { X } from "lucide-react";
 
 const Option = ({
-  item,
+  currentData,
   audio,
   setAudio,
   handleAudio,
@@ -22,7 +21,6 @@ const Option = ({
   handleBookMark,
   data,
   handleCopy,
-  type,
 }: OptionProps) => {
   const darkMode = useDarkmode((state) => state.darkMode);
   const optionRef = useRef<HTMLDivElement | null>(null);
@@ -53,6 +51,7 @@ const Option = ({
   //     setBottomNavigation(null);
   //   }
   // }, [audio]);
+
   return (
     <div>
       <div
@@ -66,7 +65,7 @@ const Option = ({
             type="button"
             className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group"
           >
-            {audio !== null && audio === item?.audio?.primary ? (
+            {audio !== null && audio === currentData?.audio?.primary ? (
               <AudioMatiIcon
                 handler={() => setAudio(null)}
                 fill={`${darkMode ? "white" : "black"}`}
@@ -75,7 +74,7 @@ const Option = ({
               <AudioHidupicon
                 fill={`${darkMode ? "white" : "black"}`}
                 handler={(e: React.MouseEvent<SVGSVGElement>) =>
-                  handleAudio(e, item?.audio?.primary)
+                  handleAudio(e, currentData?.audio?.primary)
                 }
               />
             )}
@@ -88,7 +87,7 @@ const Option = ({
             type="button"
             className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group"
           >
-            {terjemahOption === item?.number?.inSurah ? (
+            {terjemahOption === currentData?.number?.inSurah ? (
               <>
                 <X
                   onClick={() => {
@@ -102,7 +101,7 @@ const Option = ({
               <>
                 {" "}
                 <Terjemahicon
-                  handler={() => handleTerjemah(item?.number?.inSurah)}
+                  handler={() => handleTerjemah(currentData?.number?.inSurah)}
                   fill={`${darkMode ? "white" : "black"}`}
                 />
                 <span className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">
@@ -113,25 +112,23 @@ const Option = ({
           </button>
 
           <div className="flex items-center justify-center ">
-            <div>{item?.number?.inSurah}</div>
+            <div>{currentData?.number?.inSurah}</div>
           </div>
 
           <button
             type="button"
             className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group"
           >
-            {type === "notJuz" && (
-              <BookMarkIcon
-                handler={() =>
-                  handleBookMark(
-                    item?.meta?.juz,
-                    (data as any).data.number,
-                    item?.number?.inSurah
-                  )
-                }
-                fill={`${darkMode ? "white" : "black"}`}
-              />
-            )}
+            <BookMarkIcon
+              handler={() =>
+                handleBookMark(
+                  currentData?.meta?.juz,
+                  (data as any).data.number,
+                  currentData?.number?.inSurah
+                )
+              }
+              fill={`${darkMode ? "white" : "black"}`}
+            />
             <span className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">
               BookMark
             </span>
@@ -145,9 +142,9 @@ const Option = ({
               handler={(e: React.MouseEvent<SVGSVGElement>) =>
                 handleCopy(
                   e,
-                  item?.text?.arab,
-                  item?.text?.transliteration?.en,
-                  item?.translation?.id
+                  currentData?.text?.arab,
+                  currentData?.text?.transliteration?.en,
+                  currentData?.translation?.id
                 )
               }
               fill={`${darkMode ? "white" : "black"}`}

@@ -14,14 +14,13 @@ import { useGetSurahById } from "../../../state/Query";
 import Option from "../../fragment/Option";
 import Border from "../../element/Border";
 import { useParams } from "react-router-dom";
-import { LoaderCircle } from "lucide-react";
-import BoxTypeV1 from "../../fragment/BoxModel";
+import Box from "../../fragment/BoxModel";
 
 export const TerjemahRoute = () => {
   const { surah: idSurahPage } = useParams();
   const { setAudioActive } = useAudioActive();
   const audioRefPlay = useRef<HTMLAudioElement>(null);
-  const { data, isLoading: loadingSurah } = useGetSurahById(idSurahPage);
+  const { data : dataSurah } = useGetSurahById(idSurahPage);
   const [scrollToTerjemah, setScrollToTerjemah] = useState<number | null>(null);
 
   const { bottomNavigation, setBottomNavigation } = useBottomNavigation();
@@ -31,7 +30,7 @@ export const TerjemahRoute = () => {
 
   const [currentAudio, setCurrentAudio] = useState<any | null>(null);
   const { addBookMark }: any = useBookMarkAlQuran();
-  const [itemData, setItemData] = useState<
+  const [currentData, setCurrentData] = useState<
     | TypeDataSurahByIdMap
     | any
     | React.Dispatch<React.SetStateAction<TypeDataSurahByIdMap>>
@@ -49,7 +48,7 @@ export const TerjemahRoute = () => {
     setTerjemahOption(null);
   }, [idSurahPage]);
   useEffect(() => {
-    const dataId = (data as TypeDataSurahById)?.data?.verses.find(
+    const dataId = (dataSurah as TypeDataSurahById)?.data?.verses.find(
       (verse: TypeDataSurahByIdMap) => verse.audio?.primary === audio
     );
     if (dataId) {
@@ -70,7 +69,7 @@ export const TerjemahRoute = () => {
   }, [scrollToTerjemah]);
 
   const handleTerjemah = (id: number) => {
-    const dataId = (data as TypeDataSurahById)?.data?.verses?.find(
+    const dataId = (dataSurah as TypeDataSurahById)?.data?.verses?.find(
       (item: any) => item?.number?.inSurah === id
     );
     if (dataId) {
@@ -128,22 +127,22 @@ export const TerjemahRoute = () => {
     }
   };
   const handleAudioEnded = () => {
-    const currentIndex = (data as TypeDataSurahById)?.data?.verses.findIndex(
+    const currentIndex = (dataSurah as TypeDataSurahById)?.data?.verses.findIndex(
       (verse: TypeDataSurahByIdMap) => verse.audio?.primary === audio
     );
     if (
       currentIndex !== -1 &&
-      currentIndex + 1 < (data as TypeDataSurahById).data.verses.length
+      currentIndex + 1 < (dataSurah as TypeDataSurahById).data.verses.length
     ) {
       setAudio(
-        (data as TypeDataSurahById).data.verses[currentIndex + 1].audio?.primary
+        (dataSurah as TypeDataSurahById).data.verses[currentIndex + 1].audio?.primary
       );
     } else {
       setAudio(null);
     }
   };
   const handleBottomNavigation = (id: number) => {
-    const response = (data as TypeDataSurahById)?.data?.verses?.find(
+    const response = (dataSurah as TypeDataSurahById)?.data?.verses?.find(
       (data: TypeDataSurahByIdMap) => data?.number?.inQuran === id
     );
     if (response) {
@@ -153,53 +152,44 @@ export const TerjemahRoute = () => {
 
   return (
     <div className="w-full relative">
-      {loadingSurah ? (
-        <div className="w-full min-h-screen grid place-content-center">
-          {" "}
-          <LoaderCircle className="animate-spin  w-20 h-20" />
-        </div>
-      ) : (
-        <>
-          <div className="w-full flex flex-col items-center gap-5">
-            {(data as TypeDataSurahById)?.data?.verses?.length > 0 &&
-              (data as TypeDataSurahById)?.data?.verses?.map(
-                (data: TypeDataSurahByIdMap) => (
-                  // boxModel
-                  <BoxTypeV1
-                    audio={audio}
-                    bottomNavigation={bottomNavigation}
-                    data={data}
-                    handleBottomNavigation={handleBottomNavigation}
-                    setItemData={setItemData}
-                    terjemahOption={terjemahOption}
-                  />
-                )
-              )}
-          </div>
-          {bottomNavigation === itemData?.number?.inQuran && (
-            <Option
-              type="notJuz"
-              item={itemData}
-              audio={audio}
-              setAudio={setAudio}
-              handleAudio={handleAudio}
-              handleBookMark={handleBookMark}
-              handleCopy={handleCopy}
-              handleTerjemah={handleTerjemah}
-              data={data as TypeDataSurahById}
-            />
+      <div className="w-full flex flex-col items-center gap-5">
+        {(dataSurah as TypeDataSurahById)?.data?.verses?.length > 0 &&
+          (dataSurah as TypeDataSurahById)?.data?.verses?.map(
+            (data: TypeDataSurahByIdMap) => (
+              // boxModel
+              <Box
+                key={data?.number?.inQuran}
+                audio={audio}
+                bottomNavigation={bottomNavigation}
+                data={data}
+                handleBottomNavigation={handleBottomNavigation}
+                setCurrentData={setCurrentData}
+                terjemahOption={terjemahOption}
+              />
+            )
           )}
-          {audio && (
-            <audio
-              className="hidden"
-              autoPlay
-              controls
-              onEnded={handleAudioEnded}
-              src={audio}
-              ref={audioRefPlay}
-            ></audio>
-          )}
-        </>
+      </div>
+      {bottomNavigation === currentData?.number?.inQuran && (
+        <Option
+          currentData={currentData}
+          audio={audio}
+          setAudio={setAudio}
+          handleAudio={handleAudio}
+          handleBookMark={handleBookMark}
+          handleCopy={handleCopy}
+          handleTerjemah={handleTerjemah}
+          data={dataSurah as TypeDataSurahById}
+        />
+      )}
+      {audio && (
+        <audio
+          className="hidden"
+          autoPlay
+          controls
+          onEnded={handleAudioEnded}
+          src={audio}
+          ref={audioRefPlay}
+        ></audio>
       )}
     </div>
   );

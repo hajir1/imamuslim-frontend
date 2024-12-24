@@ -30,7 +30,7 @@ const BookMark = () => {
         darkMode ? "bg-black text-white" : "bg-white text-slate-900"
       } p-2 w-full md:p-10`}
     >
-      <h2 className="text-4xl font-bold text-slate-900 dark:text-white">Bookmarks</h2>
+      <h2 className="text-3xl mt-10 font-semibold text-slate-900 dark:text-white">Bookmarks</h2>
       <div className="w-full">
         {" "}
         <h1 className="mt-10 font-semibold">Al-Quran</h1>
@@ -76,7 +76,7 @@ const BookMark = () => {
               </div>
             ))
           ) : (
-            <div className="flex text-sm gap-2">
+            <div className="flex text-sm gap-2 w-full">
               <p className="">klik icon</p>{" "}
               <BookMarkIcon fill={`${darkMode ? "white" : "black"}`} />
               <p className="">untuk bookmark AlQuran</p>
@@ -125,7 +125,7 @@ const BookMark = () => {
               </div>
             ))
           ) : (
-            <div className="flex text-sm gap-2">
+            <div className="flex text-sm gap-2 w-full ">
               <p className="">klik icon</p> <LoveIcon fill={`white`} />
               <p className="">untuk bookmark AsmaulHusna</p>
             </div>

@@ -18,27 +18,23 @@ const Navbar = ({ type }: NavbarProps) => {
   useEffect(() => {
     const scrolling = () => {
       if (navbarRef.current && window.scrollY > 50) {
-        navbarRef.current.style.backdropFilter =`blur(5px)`
-      }else if(navbarRef.current){
-        navbarRef.current.style.backdropFilter =`blur(0px)`
-
+        navbarRef.current.style.background = `white`;
+      } else if (navbarRef.current) {
+        navbarRef.current.style.background = `transparent`;
       }
     };
     window.addEventListener("scroll", scrolling);
     return () => {
       window.removeEventListener("scroll", scrolling);
     };
-  },[navbarRef]);
+  }, [navbarRef]);
   return (
     <>
       <div
         ref={navbarRef}
-        className={` w-full justify-around h-14 fixed z-20 flex items-center`}
+        className={` w-full justify-around h-14 transition-all duration-150 fixed z-20 flex items-center`}
       >
-        <Link
-          to={`/`}
-          className="flex  items-center w-[48%] gap-2 justify-evenly md:justify-start md:ml-10"
-        >
+        <div className="flex  items-center w-[48%] gap-2 md:justify-start ml-4 md:ml-10">
           {type === "quran" && (
             <img
               src="/iconQuran.png"
@@ -54,11 +50,7 @@ const Navbar = ({ type }: NavbarProps) => {
             />
           )}
           {type === "doadoa" && (
-            <img
-              src="/icondoa.png"
-              className="w-10 object-cover h-10"
-              alt=""
-            />
+            <img src="/icondoa.png" className="w-10 object-cover h-10" alt="" />
           )}
           {type === "jadwalsholat" && (
             <img
@@ -78,20 +70,28 @@ const Navbar = ({ type }: NavbarProps) => {
             <img src="./hadits.png" className="w-10 object-cover h-10" alt="" />
           )}
 
-          {type === "quran" && <p className="">al-Quran</p>}
+          {type === "quran" && (
+            <Link to={"/quran"} className="text-2xl">
+              al-Quran
+            </Link>
+          )}
           {type === "asmaulhusna" && <p className="">asmaul husna</p>}
           {type === "doadoa" && <p className="">doa dan dzikir</p>}
-          {type === "jadwalsholat" && (
-            <p className="">jadwal sholat</p>
-          )}
+          {type === "jadwalsholat" && <p className="">jadwal sholat</p>}
           {type === "berita" && <p className="">berita</p>}
           {type === "home" && (
-            <p className=" text-2xl">Im'a muslim</p>
+            <Link to={"/"} className=" text-2xl">
+              Im'a muslim
+            </Link>
           )}
           {type === "hadist" && <p className=" text-2xl">hadist</p>}
-        </Link>
+        </div>
         <div className="w-[48%]  h-full flex items-center justify-end md:mr-10">
-          <label className={`${darkMode && "bg-[#d3d9df]"} h-10 themeSwitcherTwo shadow-card relative inline-flex cursor-pointer select-none items-center justify-center  rounded-md p-1`}>
+          <label
+            className={`${
+              darkMode && "bg-[#d3d9df]"
+            } h-10 themeSwitcherTwo shadow-card relative inline-flex cursor-pointer select-none items-center justify-center  rounded-md p-1`}
+          >
             <input
               type="checkbox"
               className="sr-only"

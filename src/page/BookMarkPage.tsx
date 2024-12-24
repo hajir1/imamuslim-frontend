@@ -132,11 +132,10 @@ const BookMarkPage = () => {
           />
         </div>
         <div className="w-full flex items-center justify-beetwen gap-2">
-          <Border
+          {/* <Border 
             numberClass={`${darkMode ? "text-white" : "text-black"}`}
-            border="border-black"
             number={bookMark?.number?.inSurah}
-          />
+          /> */}
           <h1
             className={`${
               darkMode ? "text-white" : "text-black"

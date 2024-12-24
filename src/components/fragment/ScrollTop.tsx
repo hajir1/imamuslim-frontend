@@ -9,7 +9,7 @@ const ScrollTop = () => {
   return (
     <div
       onClick={handleScrollTop}
-      className="fixed right-5 grid place-content-center rounded-full bottom-10 bg-blue-700 h-10 w-10 z-50"
+      className="fixed right-5 grid place-content-center rounded-full bottom-28 bg-blue-500 h-10 w-10 z-50"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -19,9 +19,9 @@ const ScrollTop = () => {
       >
         <path
           fill="white"
-          fill-rule="evenodd"
+          fillRule="evenodd"
           d="M12 20.75a.75.75 0 0 0 .75-.75v-9.25h-1.5V20c0 .414.336.75.75.75"
-          clip-rule="evenodd"
+          clipRule="evenodd"
           opacity="0.5"
         />
         <path
