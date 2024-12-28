@@ -2,15 +2,16 @@ import React, { useEffect, useRef } from "react";
 import AudioMatiIcon from "../element/Icon/AudioMatiIcon";
 import AudioHidupicon from "../element/Icon/AudioHidupicon";
 import Terjemahicon from "../element/Icon/Terjemahicon";
-import BookMarkIcon from "../element/Icon/BookMarkIcon";
 import CopyIcon from "../element/Icon/CopyIcon";
 import { OptionProps } from "../../model/Interface";
 import {
+  useBookMarkAlQuran,
   useBottomNavigation,
   useDarkmode,
   useTerjemahOption,
 } from "../../state/TypeHooks";
 import { X } from "lucide-react";
+import LoveIcon from "../element/Icon/LoveIcon";
 
 const Option = ({
   currentData,
@@ -26,6 +27,7 @@ const Option = ({
   const optionRef = useRef<HTMLDivElement | null>(null);
   const { bottomNavigation, setBottomNavigation } = useBottomNavigation();
   const { terjemahOption, setTerjemahOption } = useTerjemahOption();
+  const { bookMark: bmAlQuran }: any = useBookMarkAlQuran();
   useEffect(() => {
     function handleOutsideClick(event: MouseEvent) {
       if (
@@ -46,19 +48,13 @@ const Option = ({
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, [bottomNavigation]);
-  // useEffect(() => {
-  //   if (audio) {
-  //     setBottomNavigation(null);
-  //   }
-  // }, [audio]);
-
   return (
     <div>
       <div
         ref={optionRef}
         className={`${
           darkMode ? "bg-black border-slate-600" : "bg-white border-gray-200 "
-        } fixed z-50 w-full h-28 border bottom-0 `}
+        } fixed z-50 left-1/2 -translate-x-1/2 w-full h-28 border bottom-0 `}
       >
         <div className="grid h-full max-w-lg grid-cols-5 mx-auto">
           <button
@@ -119,16 +115,29 @@ const Option = ({
             type="button"
             className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group"
           >
-            <BookMarkIcon
-              handler={() =>
-                handleBookMark(
-                  currentData?.meta?.juz,
-                  (data as any).data.number,
-                  currentData?.number?.inSurah
+            <LoveIcon
+              fill={
+                bmAlQuran.some(
+                  (item: any) => item.id === currentData?.number?.inQuran
                 )
+                  ? darkMode
+                    ? "white"
+                    : "black"
+                  : darkMode
+                  ? "black"
+                  : "white"
               }
-              fill={`${darkMode ? "white" : "black"}`}
+              handleBookMark={() => {
+                handleBookMark(
+                  currentData?.number?.inQuran,
+                  (data as any).data.name.transliteration.id,
+                  (data as any)?.data?.number,
+                  currentData?.number?.inSurah,
+                  true
+                );
+              }}
             />
+
             <span className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">
               BookMark
             </span>

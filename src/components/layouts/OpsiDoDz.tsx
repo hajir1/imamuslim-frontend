@@ -1,139 +1,114 @@
-import {
-  useGetDoa,
-  useGetDzikir,
-  useGetDzikirPagi,
-  useGetDzikirSore,
-} from "../../state/Query";
-import { DataDoa } from "../../model/Interface";
+import { TypeDataDoa } from "../../model/Interface";
 import Border from "../element/Border";
-import { useBookMarkDoa, useDarkmode } from "../../state/TypeHooks";
-import { Sekeleton } from "../element/Sekeleton";
-// import React, { useEffect, useState } from "react";
-// import BacaIcon from "../element/Icon/BacaIcon";
-// import Terjemahicon from "../element/Icon/Terjemahicon";
-import ErrorConn from "../fragment/ErrorConn";
-import DzikirComponent from "../fragment/DzikirComponent";
-import LoveIcon from "../element/Icon/LoveIcon";
-import { useEffect, useState } from "react";
+import {
+  useBookMarkDoa,
+  useDarkmode,
+} from "../../state/TypeHooks";
 
-export const DoaRoute = () => {
-  const { data, isError } = useGetDoa();
+import LoveIcon from "../element/Icon/LoveIcon";
+
+export const DoaRoute = ({ dataDoa }: any) => {
   const darkMode = useDarkmode((state) => state.darkMode);
-  const [fillLove, setFillLove] = useState<[]>([]);
-  const skeletonArray: any = Array.from({ length: 20 }, (_, index) => index);
-  const { bookMark, addBookMark }: any = useBookMarkDoa();
-  const onHandleBookMark = (
-    id: string,
-    title: string,
-    translate: string,
-    arabic: string,
-    latin: string,
-    love = true
-  ) => {
-    addBookMark({ id, title, translate, arabic, love, latin });
+  const {
+    bookMark: bmDoa,
+    addBookMark,
+    deleteBookMark,
+  }: any = useBookMarkDoa();
+  const onHandleBookMark = (id: string, title: string, bookMark = true) => {
+    const filtered = bmDoa.some((item: any) => item.id === id);
+    if (filtered) {
+      deleteBookMark(id);
+    } else {
+      addBookMark({ id, title, bookMark });
+    }
   };
-  useEffect(() => {
-    const filtered = bookMark.filter((item: any) => item.love === true);
-    setFillLove(filtered);
-  }, [bookMark]);
   return (
-    <div className="flex w-full items-center flex-col gap-2">
-      {(data as [])?.length > 0 ? (
-        (data as [])?.map((item: DataDoa) => (
-          <div
-            className={`${
-              darkMode && " border-b-2 border-b-white"
-            } w-full my-3 p-3`}
-            key={item?.id}
-          >
-            <div className="flex justify-evenly bg-secondary rounded-sm p-1 items-center">
-              <Border
-                border="border-white border-2"
-                numberClass={`${darkMode ? "" : "text-white"}`}
-                number={item?.id}
-              />{" "}
-              <h1 className="w-[95%] text-xl text-center text-white lg:text-2xl">
-                {item?.title}
-              </h1>
-            </div>
-            <div className="flex justify-end my-2 w-full">
-              <LoveIcon
-                handleBookMark={() =>
-                  onHandleBookMark(
-                    item?.id,
-                    item?.title,
-                    item?.translation,
-                    item?.arabic,
-                    item?.latin
-                  )
-                }
-                fill={
-                  fillLove.some((dzikir: any) => dzikir.title === item?.title)
-                    ? darkMode
-                      ? "white"
-                      : "black"
-                    : darkMode
-                    ? "black"
-                    : "white"
-                }
-              />
-            </div>
-            <div className="w-full my-t">
-              <h1
-                dir="rtl"
-                className="font-sans lg:tracking-wide leading-relaxed lg:leading-loose text-3xl"
-              >
-                {item?.arabic}
-              </h1>
-            </div>
-            <div className="w-full mt-4">
-              <h1 className="text-xl text-primary font-arabic lg:text-slate-900">
-                {item?.latin}
-              </h1>
-              <p
-                className={`${
-                  darkMode
-                    ? ""
-                    : "text-slate-800 font-arabic lg:text-base lg:mt-4"
-                }`}
-              >
-                <span className="font-bold font-arabic">artinya : </span>
-                {item?.translation}
-              </p>
-              <p className="text-center font-sans lg:text-base">
-                <span className="font-semibold block uppercase text-center mt-4 ">
-                  fawaid
-                </span>{" "}
-                {item?.fawaid ? item?.fawaid : " tidak ada fawaid"}
-              </p>
-            </div>
+    <div className="w-full gap-2 p-2 flex flex-col items-center">
+      {(dataDoa as [])?.map((item: TypeDataDoa) => (
+        <div className={`w-full p-2`} key={item?.id}>
+          <div className="flex items-center gap-2">
+            <Border number={item?.id}/>
+            <h1 className="text-xl text-center lg:text-2xl">{item?.title}</h1>
           </div>
-        ))
-      ) : (
-        <div className="flex justify-center flex-wrap gap-2 w-[95%]">
-          {skeletonArray?.map((item: any) => (
-            <Sekeleton custom="h-40 lg:w-full" key={item} />
-          ))}
+          <div className="flex justify-end my-5 md:my-6">
+            <LoveIcon
+              handleBookMark={() => onHandleBookMark(item?.id, item?.title)}
+              fill={
+                bmDoa.some((doa: any) => doa.title === item?.title)
+                  ? darkMode
+                    ? "white"
+                    : "black"
+                  : darkMode
+                  ? "black"
+                  : "white"
+              }
+            />
+          </div>
+          <h1
+            dir="rtl"
+            className="font-sans font-normal md:font-thin leading-relaxed md:leading-loose text-4xl md:my-6"
+          >
+            {item?.arabic}
+          </h1>
+          <div className="mt-4">
+            <h1 className="text-base capitalize tracking-wider mt-4 mb-2 font-semibold text-left lg:text-md lg:mt-2">
+              {item?.latin}
+            </h1>
+            <p className="text-left text-sm font-normal md:text-base lg:mt-2">
+              <span className="font-semibold ">artinya : </span>
+              {item?.translation}
+            </p>
+            <p className="text-left text-sm font-normal md:text-base lg:mt-2">
+              <span className="font-semibold ">fawaid : </span>
+              {item?.fawaid ? item.fawaid : ""}
+            </p>
+          </div>
         </div>
-      )}
-      {isError && <ErrorConn />}
+      ))}
     </div>
   );
 };
 
-export const DzikirRoute = () => {
-  const { data: dzikir, isError } = useGetDzikir();
-  const { data: dataDzikirPagi } = useGetDzikirPagi();
-  const { data: dataDzikirSore } = useGetDzikirSore();
-
+export const DzikirRoute = ({ dataDzikir }: any) => {
   return (
-    <div>
-      <DzikirComponent data={dzikir} />
-      <h1 className="text-center text-4xl">dzikir pagi</h1>
-      <DzikirComponent data={dataDzikirPagi} />
-      <h1 className="text-center text-4xl">dzikir sore</h1>
-      <DzikirComponent data={dataDzikirSore} />
-      {isError && <ErrorConn />}
+    <div className="w-full gap-2 p-2 flex flex-col items-center">
+      {(dataDzikir as any)?.map((dzikir: any, index: number) => (
+        <div
+          className={`w-full p-2 border-b border-b-gray-300`}
+          key={index + 1}
+        >
+          <div className="flex items-center gap-2">
+            <Border number={index + 1}/>
+            <h1 className="text-xl text-center lg:text-2xl">{dzikir?.title}</h1>
+          </div>
+
+          <h1
+            dir="rtl"
+            className="font-sans font-normal md:font-thin leading-relaxed md:leading-loose text-4xl md:my-6"
+          >
+            {dzikir?.arabic}
+          </h1>
+          <h1 className="text-base capitalize tracking-wider mt-4 mb-2 font-semibold text-left lg:text-md lg:mt-2">
+            {dzikir?.latin}
+          </h1>
+          <p className="text-left text-sm font-normal md:text-base lg:mt-2">
+            <span className="font-semibold ">artinya : </span>
+            {dzikir?.translation}
+          </p>
+          <p className="text-left text-sm font-normal md:text-base lg:mt-2">
+            <span className="font-semibold ">notes : </span>
+            {dzikir?.notes}
+          </p>
+          <p className="text-left text-sm font-normal md:text-base lg:mt-2">
+            <span className="font-semibold ">source : </span>
+            {dzikir?.source}
+          </p>
+          <p className="text-left text-sm font-normal md:text-base lg:mt-2">
+            <span className="font-semibold ">fawaid : </span>
+            {dzikir?.fawaid ? dzikir?.fawaid : ""}
+          </p>
+        </div>
+      ))}
     </div>
   );
 };

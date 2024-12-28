@@ -48,11 +48,11 @@ export const useBookMarkAlQuran = create(
           : [newBookmark];
         set({ bookMark: updatedBookmarks });
       },
-      deleteBookMark: (ayat: number, surah: number) => {
+      deleteBookMark: (id:number) => {
         const oldBookmarks = get().bookMark;
         const updatedBookmarks = Array.isArray(oldBookmarks)
           ? oldBookmarks.filter(
-              (item) => !(item?.ayat === ayat && item?.surah === surah)
+              (item) => !(item?.id === id)
             )
           : [];
         set({ bookMark: updatedBookmarks });
@@ -116,32 +116,7 @@ export const useBookMarkDoa = create(
     }
   )
 );
-export const useBookMarkDzikir = create(
-  persist(
-    (set, get) => ({
-      bookMark: [],
-      addBookMark: (newBookmark: Bookmark) => {
-        const oldBookmarks = get().bookMark;
-        const updatedBookmarks = Array.isArray(oldBookmarks)
-          ? [...oldBookmarks, newBookmark]
-          : [newBookmark];
 
-        set({ bookMark: updatedBookmarks });
-      },
-      deleteBookMark: (id: string) => {
-        const oldBookmarks = get().bookMark;
-        const updatedBookmarks = Array.isArray(oldBookmarks)
-          ? oldBookmarks.filter((item) => !(item?.id === id))
-          : [];
-        set({ bookMark: updatedBookmarks });
-      },
-    }),
-    {
-      name: "dzikir",
-      storage: createJSONStorage(() => localStorage),
-    }
-  )
-);
 export const useBookMarkHadist = create(
   persist(
     (set, get) => ({
@@ -154,10 +129,10 @@ export const useBookMarkHadist = create(
 
         set({ bookMark: updatedBookmarks });
       },
-      deleteBookMark: (arab: string) => {
+      deleteBookMark: (id: any) => {
         const oldBookmarks = get().bookMark;
         const updatedBookmarks = Array.isArray(oldBookmarks)
-          ? oldBookmarks.filter((item) => !(item?.arabic === arab))
+          ? oldBookmarks.filter((item) => !(item?.id === id))
           : [];
         set({ bookMark: updatedBookmarks });
       },
@@ -211,14 +186,14 @@ export const useAlQuranOption = create(
     { name: "alQuranOption" }
   )
 );
-export const useOpsiDoaDzikir = create(
+export const useDoDzOption = create(
   persist(
     (set) => ({
-      dzikir: false,
-      setDzikir: (data: any) => {
-        set({ dzikir: data });
+      doDzOption: "Doa",
+      setDoDzOption: (data: any) => {
+        set({ doDzOption: data });
       },
     }),
-    { name: "opsiDoaDzikir" }
+    { name: "doDzOption" }
   )
 );

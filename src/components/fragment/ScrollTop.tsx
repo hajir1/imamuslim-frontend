@@ -1,3 +1,4 @@
+import { useLocation, useParams } from "react-router-dom";
 
 const ScrollTop = () => {
   const handleScrollTop = () => {
@@ -6,10 +7,16 @@ const ScrollTop = () => {
       behavior: "smooth",
     });
   };
+
+  const location = useLocation();
+  const { surah } = useParams();
+
   return (
     <div
       onClick={handleScrollTop}
-      className="fixed right-5 grid place-content-center rounded-full bottom-28 bg-blue-500 h-10 w-10 z-50"
+      className={`${
+        location.pathname.startsWith("/quran/surah") && surah ? " bottom-28" : "bottom-5"
+      } fixed right-5 grid place-content-center rounded-full bg-blue-500 h-10 w-10 z-50`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

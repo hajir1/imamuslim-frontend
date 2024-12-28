@@ -1,4 +1,4 @@
-import Fp from "flowbite/plugin"
+import Fp from "flowbite/plugin";
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -17,11 +17,11 @@ export default {
         },
       },
       colors: {
-        primary: "#1cb6c7",
-        secondary: "#48d6db",
-      },
-      animation: {
-        "ping-custom": "ping-custom 1s cubic-bezier(0, 0, 0.1, 0.6) infinite",
+        ijo: "#bcf0da",
+        biru: "#c3ddfd",
+        abang: "#fbd5d5",
+        fuchi: "#f5d0fe",
+        ungu: "#ddd6fe",
       },
     },
   },

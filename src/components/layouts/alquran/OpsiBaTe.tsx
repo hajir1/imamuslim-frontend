@@ -20,7 +20,7 @@ export const TerjemahRoute = () => {
   const { surah: idSurahPage } = useParams();
   const { setAudioActive } = useAudioActive();
   const audioRefPlay = useRef<HTMLAudioElement>(null);
-  const { data : dataSurah } = useGetSurahById(idSurahPage);
+  const { data: dataSurah } = useGetSurahById(idSurahPage);
   const [scrollToTerjemah, setScrollToTerjemah] = useState<number | null>(null);
 
   const { bottomNavigation, setBottomNavigation } = useBottomNavigation();
@@ -80,13 +80,13 @@ export const TerjemahRoute = () => {
   };
 
   const handleBookMark = (
-    juz: number,
-    surah: number,
+    id: number,
+    surah: string,
+    idSurah: number,
     ayat: number,
-    love = true
+    bookMark: boolean
   ) => {
-    addBookMark({ juz, surah, ayat, love });
-    alert(`sukses menambahkan ke bookMark`);
+    addBookMark({ id, surah, idSurah, ayat, bookMark });
   };
   const handleCopy = (
     e: React.MouseEvent<SVGSVGElement>,
@@ -127,7 +127,9 @@ export const TerjemahRoute = () => {
     }
   };
   const handleAudioEnded = () => {
-    const currentIndex = (dataSurah as TypeDataSurahById)?.data?.verses.findIndex(
+    const currentIndex = (
+      dataSurah as TypeDataSurahById
+    )?.data?.verses.findIndex(
       (verse: TypeDataSurahByIdMap) => verse.audio?.primary === audio
     );
     if (
@@ -135,7 +137,8 @@ export const TerjemahRoute = () => {
       currentIndex + 1 < (dataSurah as TypeDataSurahById).data.verses.length
     ) {
       setAudio(
-        (dataSurah as TypeDataSurahById).data.verses[currentIndex + 1].audio?.primary
+        (dataSurah as TypeDataSurahById).data.verses[currentIndex + 1].audio
+          ?.primary
       );
     } else {
       setAudio(null);
@@ -152,7 +155,7 @@ export const TerjemahRoute = () => {
 
   return (
     <div className="w-full relative">
-      <div className="w-full flex flex-col items-center gap-5">
+      <div className="flex flex-col items-center gap-5 ">
         {(dataSurah as TypeDataSurahById)?.data?.verses?.length > 0 &&
           (dataSurah as TypeDataSurahById)?.data?.verses?.map(
             (data: TypeDataSurahByIdMap) => (
@@ -200,9 +203,6 @@ export const BacaRoute = () => {
   const { data } = useGetSurahById(idSurahPage);
   return (
     <div className="p-1 w-full mt-24">
-      <h1 className="text-3xl py-3 text-center font-medium">
-        {(data as TypeDataSurahById)?.data?.preBismillah?.text?.arab}
-      </h1>
       {(data as TypeDataSurahById)?.data?.verses?.length > 0
         ? (data as TypeDataSurahById)?.data?.verses?.map(
             (item: TypeDataSurahByIdMap) => (
@@ -211,11 +211,11 @@ export const BacaRoute = () => {
                 key={item?.number?.inQuran}
               >
                 <div className="w-full justify-start">
-                  <Border number={item?.number?.inSurah} color="gray" />
+                  <Border number={item?.number?.inSurah}  />
                 </div>
                 <h1
                   dir="rtl"
-                  className="w-full font-mono text-slate-900 font-medium text-4xl leading-relaxed"
+                  className="w-full font-sans font-normal md:font-light text-4xl leading-relaxed md:leading-loose"
                 >
                   {item?.text?.arab}
                 </h1>

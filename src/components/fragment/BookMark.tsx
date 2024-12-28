@@ -1,154 +1,115 @@
-import { Link } from "react-router-dom";
 import {
   useBookMarkAlQuran,
   useBookMarkAsmaulHusna,
   useBookMarkDoa,
-  useBookMarkDzikir,
   useBookMarkHadist,
-  useDarkmode,
 } from "../../state/TypeHooks";
-// import SymbolMark from "../element/Icon/SymbolMark";
-import BookMarkIcon from "../element/Icon/BookMarkIcon";
-import DeleteMarkicon from "../element/Icon/DeleteMarkicon";
+import { Link } from "react-router-dom";
 import LoveIcon from "../element/Icon/LoveIcon";
-import DoDzBookMark from "./DoDzBookMark";
 
 const BookMark = () => {
-  const { bookMark: alQurans, deleteBookMark: deleteAlQuran }: any =
-    useBookMarkAlQuran();
-  const { bookMark: asmaulHusnas, deleteBookMark: deleteAsmaulHusna }: any =
+  const { bookMark: bmAlQurans }: any = useBookMarkAlQuran();
+  const { bookMark: bmDoas }: any = useBookMarkDoa();
+  const { bookMark: bmHadist }: any = useBookMarkHadist();
+  const { bookMark: bmAsmaulHusnas, deleteBookMark: delBmAsmaulHusna }: any =
     useBookMarkAsmaulHusna();
-  const { bookMark: doas, deleteBookMark: deleteDoa }: any = useBookMarkDoa();
-  const { bookMark: dzikirs, deleteBookMark: deleteDzikir }: any =
-    useBookMarkDzikir();
-  const { bookMark: hadists, deleteBookMark: deleteHadist }: any =
-    useBookMarkHadist();
-  const darkMode = useDarkmode((state) => state.darkMode);
   return (
-    <div
-      className={`${
-        darkMode ? "bg-black text-white" : "bg-white text-slate-900"
-      } p-2 w-full md:p-10`}
-    >
-      <h2 className="text-3xl mt-10 font-semibold text-slate-900 dark:text-white">Bookmarks</h2>
-      <div className="w-full">
-        {" "}
-        <h1 className="mt-10 font-semibold">Al-Quran</h1>
-        <div className="flex justify-evenly gap-2 flex-wrap md:justify-start">
-          {" "}
-          {alQurans?.length > 0 ? (
-            alQurans?.map((quran: any) => (
-              <div
-                key={Math.floor(Math.random() * 13267)}
-                className={`${
-                  darkMode ? "border-b-white" : "border-b-black"
-                } border-b-[1px] w-[45%] h-12 rounded-md flex items-center justify-center md:w-[23%]  lg:w-[18%] `}
-              >
-                {/*  */}
-                <div className="flex items-center  justify-center gap-2 w-4/5 ">
-                  <DeleteMarkicon
-                    fill={`${darkMode ? "black" : "white"}`}
-                    handler={() => {
-                      deleteAlQuran(quran?.ayat, quran?.surah);
-                    }}
-                  />
-                  <Link
-                    className="flex items-center justify-evenly w-full"
-                    to={`/quran/surah/${quran?.surah}/ayat/${quran.ayat}`}
-                  >
-                    <h1 className={`${darkMode ? "text-white" : "text-black"}`}>
-                      {quran?.juz}
-                    </h1>
-                    <p className={`${darkMode ? "text-white" : "text-black"}`}>
-                      |
-                    </p>
-                    <h1 className={`${darkMode ? "text-white" : "text-black"}`}>
-                      {quran?.surah}
-                    </h1>
-                    <p className={`${darkMode ? "text-white" : "text-black"}`}>
-                      |
-                    </p>
-                    <h1 className={`${darkMode ? "text-white" : "text-black"}`}>
-                      {quran?.ayat}
-                    </h1>
-                  </Link>
-                </div>
-              </div>
-            ))
-          ) : (
-            <div className="flex text-sm gap-2 w-full">
-              <p className="">klik icon</p>{" "}
-              <BookMarkIcon fill={`${darkMode ? "white" : "black"}`} />
-              <p className="">untuk bookmark AlQuran</p>
-            </div>
-          )}
-        </div>
+    <div className="w-full md:w-11/12 p-4">
+      <h1 className="font-semibold text-2xl">Bookmarks</h1>
+      <p className="text-xl md:my-2">
+        Al Quran
+        <hr />
+      </p>
+      <div className="">
+        {bmAlQurans.length > 0 ? (
+          bmAlQurans.map((bmAlQuran: any) => (
+            <Link
+              to={`/quran/surah/${bmAlQuran?.idSurah}/ayat/${bmAlQuran?.ayat}`}
+              className="w-auto mx-2 my-2 inline-block text-center bg-gray-200 text-black rounded-md p-2 md:px-4 "
+              key={bmAlQuran?.id}
+            >
+              <h1 className="font-semibold font-sans">{bmAlQuran?.surah}</h1>
+              <p className="text-sm font-sans">ayat {bmAlQuran?.ayat}</p>
+            </Link>
+          ))
+        ) : (
+          <h1 className="text-sm font-sans flex gap-2">
+            klik icon <LoveIcon /> untuk menambah bookmark
+          </h1>
+        )}
       </div>
-      <div className="w-full">
-        {" "}
-        <h1 className="mt-10 font-semibold">Asmaul husna</h1>
-        <div className="flex justify-evenly gap-2 flex-wrap lg:justify-start">
-          {" "}
-          {asmaulHusnas?.length > 0 ? (
-            asmaulHusnas?.map((asmaulhusna: any) => (
-              <div
-                key={Math.floor(Math.random() * 13267)}
-                className={`${
-                  darkMode ? "border-b-white" : "border-b-black"
-                } border-b-[1px] mt-2 w-full rounded-md flex items-center justify-center md:w-[30%] `}
-              >
-                <div className="flex items-center flex-col justify-around w-full">
-                  <div className="w-full flex items-center justify-between">
-                    <h1 className=" px-2">{asmaulhusna?.urutan}</h1>
-                    <p
-                      className={`${
-                        darkMode ? "text-white" : "text-gray-700"
-                      } font-sans lg:tracking-wide leading-relaxed lg:leading-loose text-3xl`}
-                    >
-                      {asmaulhusna?.arab}
-                    </p>
-                    <DeleteMarkicon
-                      fill={`${darkMode ? "black" : "white"}`}
-                      handler={() => {
-                        deleteAsmaulHusna(asmaulhusna?.urutan);
-                      }}
-                    />
-                  </div>
-                  <p
-                    className={`${
-                      darkMode ? "text-white" : "text-gray-800"
-                    } text-center text-base font-sans my-2`}
-                  >
-                    {asmaulhusna?.arti}
-                  </p>
-                </div>
+      <p className="text-xl md:my-2">Asmaul Husna <hr /></p>
+      <div className="">
+        {bmAsmaulHusnas.length > 0 ? (
+          bmAsmaulHusnas.map((bmAsmaulHusna: any) => (
+            <div
+              className="w-auto mx-2 my-2 inline-block text-center bg-gray-200 text-black rounded-md p-2 relative overflow-hidden md:px-4 group"
+              key={bmAsmaulHusna?.urutan}
+            >
+              <h1 className="font-semibold font-sans text-base ">
+                {bmAsmaulHusna?.arab}
+              </h1>
+              <p className="text-sm font-sans">{bmAsmaulHusna?.latin}</p>
+              <p className="text-xs font-sans">{bmAsmaulHusna?.arti}</p>
+              <div className="bg-blue-100 w-full -bottom-20 invisible absolute h-20 flex items-center justify-center  transition-all duration-200 group-hover:visible inset-0 group-hover:top-0">
+                <h1
+                  className="cursor-pointer"
+                  onClick={() => delBmAsmaulHusna(bmAsmaulHusna?.urutan)}
+                >
+                  delete
+                </h1>
               </div>
-            ))
-          ) : (
-            <div className="flex text-sm gap-2 w-full ">
-              <p className="">klik icon</p> <LoveIcon fill={`white`} />
-              <p className="">untuk bookmark AsmaulHusna</p>
             </div>
-          )}
-        </div>
+          ))
+        ) : (
+          <h1 className="text-sm font-sans flex gap-2">
+            klik icon <LoveIcon /> untuk menambah bookmark
+          </h1>
+        )}
       </div>
-      <h1 className="mt-10 font-semibold">
-        Doa dan Dzikir
-      </h1>
-      <DoDzBookMark datas={doas} handleDelete={deleteDoa} type="" pesan="doa" />
-      <DoDzBookMark
-        datas={dzikirs}
-        type=""
-        handleDelete={deleteDzikir}
-        pesan="dzikir"
-      />
-      <h1 className="mt-10 font-semibold">Hadist</h1>
-      <DoDzBookMark
-        type="hadist"
-        datas={hadists}
-        handleDelete={deleteHadist}
-        pesan="hadist"
-      />
+      <p className="text-xl md:my-2">Doa <hr /></p>
+      <div className="">
+        {bmDoas.length > 0 ? (
+          bmDoas.map((bmDoa: any) => (
+            <Link
+              to={`/dodz/doa/${bmDoa?.id}`}
+              className="w-auto mx-2 my-2 inline-block text-center bg-gray-200 text-black rounded-md p-2 md:px-4"
+              key={bmDoa?.id}
+            >
+              <h1 className="font-semibold font-sans capitalize">
+                {bmDoa?.title}
+              </h1>
+            </Link>
+          ))
+        ) : (
+          <h1 className="text-sm font-sans flex gap-2">
+            klik icon <LoveIcon /> untuk menambah bookmark
+          </h1>
+        )}
+      </div>
+      <p className="text-xl md:my-2">Hadist <hr /></p>
+      <div className="">
+        {bmHadist.length > 0 ? (
+          bmHadist.map((bmDoa: any) => (
+            <Link
+              to={`/hadist/${bmDoa?.name}/${bmDoa?.number}`}
+              className="w-auto mx-2 my-2 inline-block text-center bg-gray-200 text-black rounded-md p-2 md:px-4 "
+              key={bmDoa?.id}
+            >
+              <h1 className="font-semibold font-sans capitalize">
+                {bmDoa?.name}
+              </h1>
+              <h1 className="text-sm font-sans capitalize">
+                hadist ke {bmDoa?.number}
+              </h1>
+            </Link>
+          ))
+        ) : (
+          <h1 className="text-sm font-sans flex gap-2">
+            klik icon <LoveIcon /> untuk menambah bookmark
+          </h1>
+        )}
+      </div>
     </div>
   );
 };

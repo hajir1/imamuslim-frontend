@@ -4,7 +4,7 @@ const NotFoundPage = () => {
       <h1 className="text-2xl text-center font-semibold ">
         Ups....Page Tidak Diketahui
       </h1>{" "}
-      <img className="w-full h-64" src="./notfound.png" alt="" />
+      <img className="w-full h-64" src="/notfound.png" alt="" />
     </div>
   );
 };

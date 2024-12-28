@@ -1,17 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 const API_BASE_URL = "https://qurankuv2.vercel.app";
-import {
-  APIgetAllAsmaulHusna,
-  APIgetAllDoaDoa,
-  APIgetAllDzikir,
-  APIgetAllDzikirPagi,
-  APIgetJadwalSholat,
-  APIgetProvince,
-  APIgetPrayer,
-  APIgetHadist,
-  APIgetHadistBySlug,
-  APIgetHadistById,
-} from "../services/api_call";
+const API_BASE_URL_2 = "https://quranku-alpha.vercel.app";
+const API_BASE_URL_PRAYER = "https://waktu-sholat.vercel.app";
+const API_BASE_URL_HADIST = "https://hadis-api-id.vercel.app";
 import { MetaData } from "../model/Interface";
 import { useParams } from "react-router-dom";
 
@@ -49,11 +40,11 @@ const useGetJuz = (juz: any) => {
 
   return responses;
 };
-const useGetAlQuranSurahByAyat = () => {
+const useGetBookmarkAlquran = () => {
   const { surah, ayat }: any = useParams();
 
   const response = useQuery<MetaData, Error, unknown, string[]>({
-    queryKey: ["getAlQuranSurahByAyat"],
+    queryKey: ["useGetBookmarkAlquran"],
     queryFn: async () => {
       const response = await fetch(`${API_BASE_URL}/surah/${surah}/${ayat}`);
       return response.json();
@@ -63,109 +54,98 @@ const useGetAlQuranSurahByAyat = () => {
   return response;
 };
 const useGetAsmaulHusna = () => {
-  const { data, isError, isLoading } = useQuery<
+  const response = useQuery<
     MetaData,
     Error,
     unknown,
     string[]
   >({
     queryKey: ["getAsmaulHusna"],
-    queryFn: APIgetAllAsmaulHusna,
+    queryFn: async () => {
+      const response = await fetch(`${API_BASE_URL_2}/dzikir/asmaulHusna`);
+      return response.json();
+    },
   });
 
-  return { data, isError, isLoading };
+  return response;
 };
 const useGetDoa = () => {
-  const { data, isError, isLoading } = useQuery<
-    MetaData,
-    Error,
-    unknown,
-    string[]
-  >({
+  const response = useQuery<MetaData, Error, unknown, string[]>({
     queryKey: ["getDoa"],
-    queryFn: APIgetAllDoaDoa,
+    queryFn: async () => {
+      const response = await fetch(`${API_BASE_URL_2}/doa`);
+      return response.json();
+    },
   });
 
-  return { data, isError, isLoading };
+  return response;
+};
+const useGetDoaById = (id: any) => {
+  const response = useQuery<MetaData, Error, unknown, string[]>({
+    queryKey: ["getDoaById"],
+    queryFn: async () => {
+      const response = await fetch(`${API_BASE_URL_2}/doa/${id}`);
+      return response.json();
+    },
+  });
+
+  return response;
 };
 const useGetDzikir = () => {
-  const { data, isError, isLoading } = useQuery<
+  const response = useQuery<
     MetaData,
     Error,
     unknown,
     string[]
   >({
     queryKey: ["getDzikir"],
-    queryFn: APIgetAllDzikir,
+    queryFn: async () => {
+      const response = await fetch(`${API_BASE_URL_2}/dzikir`);
+      return response.json();
+    },
   });
 
-  return { data, isError, isLoading };
-};
-const useGetDzikirPagi = () => {
-  const { data, isError, isLoading } = useQuery<
-    MetaData,
-    Error,
-    unknown,
-    string[]
-  >({
-    queryKey: ["getDzikirPagi"],
-    queryFn: APIgetAllDzikirPagi,
-  });
-
-  return { data, isError, isLoading };
-};
-const useGetDzikirSore = () => {
-  const { data, isError, isLoading } = useQuery<
-    MetaData,
-    Error,
-    unknown,
-    string[]
-  >({
-    queryKey: ["getDzikirSore"],
-    queryFn: APIgetAllDzikirPagi,
-  });
-
-  return { data, isError, isLoading };
-};
-const useGetJadwalSholat = () => {
-  const { data, isError, isLoading } = useQuery<
-    MetaData,
-    Error,
-    unknown,
-    string[]
-  >({
-    queryKey: ["jadwalSholat"],
-    queryFn: APIgetJadwalSholat,
-  });
-
-  return { data, isError, isLoading };
+  return response;
 };
 
-const useGetProvince = (provinceId: any) => {
-  const { data, isError, isLoading } = useQuery<
-    MetaData,
-    Error,
-    unknown,
-    string[]
-  >({
-    queryKey: ["getProvince", provinceId],
-    queryFn: () => APIgetProvince(provinceId),
+const useGetProvince = () => {
+  const response = useQuery<MetaData, Error, unknown, string[]>({
+    queryKey: ["province"],
+    queryFn: async () => {
+      const response = await fetch(`${API_BASE_URL_PRAYER}/province`);
+      return response.json();
+    },
   });
 
-  return { data, isError, isLoading };
+  return response;
+};
+
+const useGetRegency = (provinceId: string) => {
+  const response = useQuery<MetaData, Error, unknown, string[]>({
+    queryKey: ["regency", provinceId],
+    enabled: provinceId !== null || undefined,
+    queryFn: async () => {
+      const response = await fetch(
+        `${API_BASE_URL_PRAYER}/province/${provinceId}`
+      );
+      return response.json();
+    },
+  });
+
+  return response;
 };
 const useGetPrayer = (latitude: any, longitude: any) => {
-  const { data, isError, isLoading } = useQuery<
-    MetaData,
-    Error,
-    unknown,
-    string[]
-  >({
+  const response = useQuery<MetaData, Error, unknown, string[]>({
     queryKey: ["prayer", latitude, longitude],
-    queryFn: () => APIgetPrayer(latitude, longitude),
+    queryFn: async () => {
+      const response = await fetch(
+        `${API_BASE_URL_PRAYER}/prayer?latitude=${latitude}&longitude=${longitude}`
+      );
+      return response.json();
+    },
   });
 
-  return { data, isError, isLoading };
+  return response;
 };
 
 const rssPaths: string[] = [
@@ -222,44 +202,56 @@ const useGetNews = () => {
   });
 };
 const useGetHadist = () => {
-  const data = useQuery<MetaData, Error, unknown, string[]>({
+  const response = useQuery<MetaData, Error, unknown, string[]>({
     queryKey: ["getHadist"],
-    queryFn: APIgetHadist,
+    queryFn: async () => {
+      const response = await fetch(`${API_BASE_URL_HADIST}/hadith`);
+      return response.json();
+    },
   });
 
-  return data;
+  return response;
 };
-const useGetHadistBySlug = (slug: any, currentPage?: any) => {
-  const data = useQuery<MetaData, Error, unknown, string[]>({
+const useGetHadistByMufassir = (slug: any, currentPage?: any) => {
+  const response = useQuery<MetaData, Error, unknown, string[]>({
     queryKey: ["getHadistBySlug", slug, currentPage],
-    queryFn: () => APIgetHadistBySlug(slug, currentPage),
+    queryFn: async () => {
+      const response = await fetch(
+        `${API_BASE_URL_HADIST}/hadith/${slug}?page=${currentPage}`
+      );
+      return response.json();
+    },
   });
 
-  return data;
+  return response
 };
-const useGetHadistById = (slug: any, id: any) => {
-  const data = useQuery<MetaData, Error, unknown, string[]>({
+const useGetHadistByNumber = (slug: any, id: any) => {
+  const response = useQuery<MetaData, Error, unknown, string[]>({
     queryKey: ["getHadistById", slug, id],
-    queryFn: () => APIgetHadistById(slug, id),
+    queryFn: async () => {
+      const response = await fetch(
+        `${API_BASE_URL_HADIST}/hadith/${slug}/${id}`
+      );
+      return response.json();
+    },
   });
 
-  return data;
+  return response;
 };
 export {
   useGetSurah,
   useGetSurahById,
-  useGetAlQuranSurahByAyat,
+  useGetBookmarkAlquran,
   useGetAsmaulHusna,
   useGetDoa,
+  useGetDoaById,
   useGetDzikir,
-  useGetDzikirPagi,
-  useGetDzikirSore,
   useGetJuz,
-  useGetJadwalSholat,
   useGetProvince,
+  useGetRegency,
   useGetPrayer,
   useGetNews,
   useGetHadist,
-  useGetHadistBySlug,
-  useGetHadistById,
+  useGetHadistByMufassir,
+  useGetHadistByNumber,
 };

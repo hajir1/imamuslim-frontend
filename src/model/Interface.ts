@@ -12,11 +12,7 @@ export interface IconProps {
   id?: string | undefined;
 }
 
-export interface Bookmark {
-  juz: number;
-  surah: number;
-  ayat: number;
-}
+
 export type TypeDataSurahByIdMap = {
   number: { inQuran: number; inSurah: number };
   text: { arab: string; transliteration: { en: string } };
@@ -99,33 +95,36 @@ export interface TypeDataJuz {
     verses: TypeDataJuzMap[];
   };
 }
-export interface DataGetAlQuranSurahByAyat {
+export interface TypeBookmarkQuran {
   data: {
-    preBismillah: {
-      text: { arab: string };
-      translation: { id: string };
-    };
-    numberOfVerses: number;
-    name: {
-      short: string;
-      long: string;
-      transliteration: { en: string; id: string };
-      translation: { en: string; id: string };
-    };
+    number: { inQuran: number; inSurah: number };
+    text: { arab: string; transliteration: { en: string } };
+    translation: { en: string; id: string };
+    audio: { primary: any };
     tafsir: {
-      id: string;
+      id: {
+        short: string;
+        long: string;
+      };
     };
-    revelation: { id: string; arab: string; en: string };
-    number: number;
-    verses: {
-      number: { inQuran: number; inSurah: number };
-      text: { arab: string; transliteration: { en: string } };
-      translation: { id: string };
-      audio: { primary: string };
+    surah: {
+      preBismillah: any;
+      number: number;
+      numberOfVerses: number;
+      name: {
+        short: string;
+        long: string;
+        transliteration: { en: string; id: string };
+        translation: { en: string; id: string };
+      };
+      revelation: { id: string; arab: string; en: string };
+      tafsir: {
+        id: string;
+      };
     };
   };
 }
-export interface DataAsmaulHusna {
+export interface TypeAsmaulHusna {
   arab: string;
   arti: string;
   latin: string;
@@ -133,7 +132,7 @@ export interface DataAsmaulHusna {
   urutan: string;
 }
 [];
-export interface DataDoa {
+export interface TypeDataDoa {
   arabic: string;
   fawaid: string;
   id: string;
@@ -153,21 +152,23 @@ export interface DataDzikir {
   title: string;
   translation: string;
 }
-export interface DataProvinceMapType {
+
+export interface Cities {
   coordinate: { latitude: number; longitude: number };
   id: string;
   name: string;
   slug: string;
   provinceId: string;
 }
-export interface DataProvinceKabMapType {
+
+export interface TypeLocation {
   id: string;
   name: string;
   slug: string;
-  cities: DataProvinceMapType[];
+  cities: Cities[];
 }
 
-export interface DataPrayer extends DataProvinceKabMapType {
+export interface TypePrayer {
   province: {
     id: string;
     name: string;
@@ -214,7 +215,13 @@ export interface OptionProps {
   setAudio: React.Dispatch<React.SetStateAction<any>>;
   handleAudio: (a: any, b: any) => void;
   handleTerjemah: (a: number) => void;
-  handleBookMark: (a: number, b: number, c: number) => void;
+  handleBookMark: (
+    id: number,
+    surah: string,
+    idSurah: number,
+    ayat: number,
+    bookMark: boolean
+  ) => void;
   data: any;
   handleCopy: (e: any, a: string, b: string, c: string) => void;
 }
@@ -238,7 +245,9 @@ export interface HadistSlugType {
     endIndex: number;
     pages: [];
   };
-  items: hadistSlug[];
+  items: [
+    hadistSlug
+  ];
 }
 interface Pagination {
   currentPage: number;

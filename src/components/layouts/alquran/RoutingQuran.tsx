@@ -41,18 +41,14 @@ export const SurahRoute = () => {
       {(dataSurah as any)?.data?.map((surah: surahMap) => (
         <Link
           to={`/quran/surah/${surah?.number}`}
-          className={`${tafsir === surah?.number ? "h-96 lg:h-72" : "h-20"} ${
-            darkMode ? "border-gray-100" : " border-gray-300"
-          } w-full outline-none border rounded-md sm:w-[47%] md:w-[30%] relative transition-all duration-300 hover:border-2 hover:shadow-sm group `}
+          className={`${
+            tafsir === surah?.number ? "h-96 lg:h-72" : "h-20"
+          } w-full max-w-[22rem] outline-none border rounded-md relative transition-all duration-300 hover:border-2 hover:shadow-sm group `}
           key={surah?.number}
         >
           <div className="w-full h-20 flex items-center justify-evenly p-1  ">
-            <Border
-              numberClass={`${darkMode ? "text-white" : "text-slate-900"}`}
-              number={surah.number}
-              color="bg-primary"
-            />
-            <div className="flex flex-col w-[55%] items-center  h-full justify-center ">
+            <Border number={surah.number} color="bg-primary" />
+            <div className="flex flex-col w-3/5 items-center  h-full justify-center ">
               <h1 className="font-semibold">
                 {surah?.name?.transliteration?.id}
               </h1>
@@ -60,7 +56,7 @@ export const SurahRoute = () => {
                 {surah?.name?.translation?.id}
               </p>
             </div>
-            <div className="flex flex-col items-center justify-center w-[37%] h-full ">
+            <div className="flex flex-col items-center justify-center w-2/5 h-full ">
               <p className="text-sm font-semibold text-center">
                 {surah.revelation.id}
               </p>
@@ -71,7 +67,6 @@ export const SurahRoute = () => {
             {tafsir === surah.number ? (
               <Icon width="1em" height="1em" viewBox="0 0 24 24">
                 <path
-                  fill=""
                   stroke="currentColor"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -103,19 +98,13 @@ export const SurahRoute = () => {
 };
 
 export const JuzRoute = () => {
-  const darkMode = useDarkmode((state) => state.darkMode);
-  const NumberOfJuz: number[] = Array.from(
-    { length: 30 },
-    (_, index) => index
-  );
+  const NumberOfJuz: number[] = Array.from({ length: 30 }, (_, index) => index);
   return (
     <>
       {NumberOfJuz.map((index) => (
         <Link
           to={`/quran/juz/${index + 1}`}
-          className={`${
-            darkMode ? "border-gray-100" : "border-gray-300 "
-          } w-full  md:w-[47%] lg:w-[30%] rounded-md h-20 border hover:border-2 flex items-center justify-center`}
+          className={` w-full  max-w-[22rem] rounded-md h-20 border hover:border-2 flex items-center justify-center`}
           key={index}
         >
           <h1 className="text-center font-semibold text-3xl">
