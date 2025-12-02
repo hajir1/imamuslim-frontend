@@ -3,7 +3,7 @@ import { DoaRoute, DzikirRoute } from "../components/layouts/OpsiDoDz";
 import { useEffect } from "react";
 import { useGetDoa, useGetDzikir } from "../state/Query";
 import MainLayouts from "../components/layouts/Main";
-import { BreadCrumbV1 } from "../components/fragment/Breadcrumb";
+import { BreadCrumb } from "../components/fragment/Breadcrumb";
 
 const DoDzPage = () => {
   const { doDzOption, setDoDzOption }: any = useDoDzOption();
@@ -15,7 +15,7 @@ const DoDzPage = () => {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <MainLayouts navbarType="dodz">
+    <MainLayouts>
       {doaLoading && doDzOption === "Doa" ? (
         <div className="w-full md:w-5/6 flex items-center gap-2 flex-col p-2">
           <div className="w-full flex justify-start gap-2">
@@ -78,15 +78,6 @@ const DoDzPage = () => {
         </div>
       ) : (
         <div className="w-full md:w-5/6">
-          <BreadCrumbV1
-            firstRoute="Option"
-            firstRouteLink="/dodz"
-            routeOption1="Doa"
-            routeOption2="Dzikir"
-            option={doDzOption}
-            setOption={setDoDzOption}
-          />
-          <hr />
           {doDzOption === "Dzikir" ? (
             <DzikirRoute dataDzikir={dataDzikir} />
           ) : (

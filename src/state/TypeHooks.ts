@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { Bookmark, TypeDataSurahByIdMap } from "../model/Interface";
+import { Bookmark, TypeDataSurahByIdMap, TypeRegencyMap } from "../model/_Type";
 
 type TypeAudio = {
   audio: HTMLAudioElement | null;
@@ -26,7 +26,8 @@ type TypeAudioActive = {
 };
 export const useAudioActive = create<TypeAudioActive>((set) => ({
   audioActive: null,
-  setAudioActive: (data: TypeDataSurahByIdMap | null) => set({ audioActive: data }),
+  setAudioActive: (data: TypeDataSurahByIdMap | null) =>
+    set({ audioActive: data }),
 }));
 type TypeTerjemahkOption = {
   terjemahOption: null | number;
@@ -48,12 +49,10 @@ export const useBookMarkAlQuran = create(
           : [newBookmark];
         set({ bookMark: updatedBookmarks });
       },
-      deleteBookMark: (id:number) => {
+      deleteBookMark: (id: number) => {
         const oldBookmarks = get().bookMark;
         const updatedBookmarks = Array.isArray(oldBookmarks)
-          ? oldBookmarks.filter(
-              (item) => !(item?.id === id)
-            )
+          ? oldBookmarks.filter((item) => !(item?.id === id))
           : [];
         set({ bookMark: updatedBookmarks });
       },
@@ -175,17 +174,45 @@ export const usePagination = create(
     { name: "page" }
   )
 );
-export const useAlQuranOption = create(
+
+/** Surah or Juz */
+export const useCurrentQuran = create(
   persist(
     (set) => ({
-      alQuranOption: "Surah",
-      setAlquranOption: (data: any) => {
-        set({ alQuranOption: data });
+      currentQuran: "Surah",
+      setCurrentQuran: (data: any) => {
+        set({ currentQuran: data });
       },
     }),
-    { name: "alQuranOption" }
+    { name: "_CurrentQuran" }
   )
 );
+/** Terjemah or Read */
+export const useCurrentSurah = create(
+  persist(
+    (set) => ({
+      currentSurah: "Terjemah",
+      setCurrentSurah: (data: any) => {
+        set({ currentSurah: data });
+      },
+    }),
+    { name: "_CurrentSurah" }
+  )
+);
+
+/** Regencies of J Sholat */
+export const useCurrentRegency = create(
+  persist(
+    (set) => ({
+      currentRegency: { id: 1614, lokasi: "KAB. MALANG" },
+      setCurrentRegency: (data: TypeRegencyMap) => {
+        set({ currentRegency: data });
+      },
+    }),
+    { name: "_CurrentRegency" }
+  )
+);
+
 export const useDoDzOption = create(
   persist(
     (set) => ({

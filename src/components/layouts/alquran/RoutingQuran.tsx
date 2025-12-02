@@ -1,10 +1,9 @@
 import Icon from "../../../helper/Icon";
 import { Link } from "react-router-dom";
-// import { Sekeleton } from "../element/Sekeleton";
 import Border from "../../element/Border";
 import Viewicon from "../../element/Icon/Viewicon";
 import { useEffect, useState } from "react";
-import { useGetSurah } from "../../../state/Query";
+import { useAllSurah } from "../../../state/Query";
 import { useDarkmode } from "../../../state/TypeHooks";
 
 export type surahMap = {
@@ -23,7 +22,7 @@ export type surahMap = {
 export const SurahRoute = () => {
   const [tafsir, settafsir] = useState<any>();
   const darkMode = useDarkmode((state) => state.darkMode);
-  const { data: dataSurah } = useGetSurah();
+  const { data: dataSurah } = useAllSurah();
   const handleTafsir = (e: React.MouseEvent<SVGSVGElement>, id: number) => {
     e.preventDefault();
     const dataId = (dataSurah as any).data.filter(
@@ -40,7 +39,7 @@ export const SurahRoute = () => {
     <>
       {(dataSurah as any)?.data?.map((surah: surahMap) => (
         <Link
-          to={`/quran/surah/${surah?.number}`}
+          to={`/quran/surah/${surah.number}`}
           className={`${
             tafsir === surah?.number ? "h-96 lg:h-72" : "h-20"
           } w-full max-w-[22rem] outline-none border rounded-md relative transition-all duration-300 hover:border-2 hover:shadow-sm group `}

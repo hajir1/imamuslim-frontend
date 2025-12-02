@@ -1,31 +1,33 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useGetJuz } from "../../state/Query";
+import { useJuzById } from "../../state/Query";
 
 import { useEffect } from "react";
-import { TypeDataJuz, TypeDataJuzMap } from "../../model/Interface";
+import { TypeDataJuz, TypeDataJuzMap } from "../../model/_Type";
 
-import { BreadCrumbV1 } from "../../components/fragment/Breadcrumb";
 import MainLayouts from "../../components/layouts/Main";
 import Box from "../../components/fragment/BoxModel";
 
 const JuzByIdPage = () => {
-  const { juz: idJuzPage }: any = useParams();
-  const { data: dataJuz, isLoading: loadingJuz } = useGetJuz(idJuzPage);
+  /** get id juz */
+  const { juz: idJuz }: any = useParams();
+
+  /** get data juz */
+  const { data: dataJuz, isLoading: loadingJuz } = useJuzById(idJuz);
   const navigate = useNavigate();
+
+  /** qty skeleton if data load */
   const SekeletonArray = Array.from({ length: 10 }, (_, index) => index);
+
+  /** scroll to the top when starting rendering */
   useEffect(() => {
     window.scrollTo({ top: 0 });
-  }, [idJuzPage]);
+  }, [idJuz]);
 
   return (
-    <MainLayouts navbarType="quran">
+    <MainLayouts>
+      {/* handle if juz loading.... */}
       {loadingJuz ? (
         <div className="w-full md:w-5/6 flex gap-2 flex-col p-2">
-          <div className="flex-shrink-0 flex justify-start gap-2">
-            <div className="bg-gray-300 h-5 md:ml-6 w-20 rounded-md animate-pulse"></div>
-            <div className="bg-gray-300 h-5 w-20 rounded-md animate-pulse"></div>
-            <div className="bg-gray-300 h-5 w-20 rounded-md animate-pulse"></div>
-          </div>
           <div className="w-full flex gap-2 justify-between">
             <div className="bg-gray-300 h-5 md:ml-6 w-32  rounded-md animate-pulse"></div>
             <div className="bg-gray-300 h-5 w-32  rounded-md animate-pulse"></div>
@@ -49,16 +51,12 @@ const JuzByIdPage = () => {
         </div>
       ) : (
         <div className="w-full md:w-5/6 flex flex-col items-center">
-          <BreadCrumbV1
-            firstRoute={`Juz ${(dataJuz as TypeDataJuz)?.data?.juz.toString()}`}
-            firstRouteLink="/quran"
-          />
           <div className="flex w-full justify-between gap-2 px-4">
             <button
               className="font-semibold text-sm "
               onClick={() => {
-                if (parseInt(idJuzPage) > 1) {
-                  navigate(`/quran/juz/${parseInt(idJuzPage) - 1}`);
+                if (parseInt(idJuz ?? "0") > 1) {
+                  navigate(`/quran/juz/${parseInt(idJuz ?? "0") - 1}`);
                 }
               }}
             >
@@ -68,15 +66,14 @@ const JuzByIdPage = () => {
             <button
               className="font-semibold text-sm "
               onClick={() => {
-                if (parseInt(idJuzPage) < 30) {
-                  navigate(`/quran/juz/${parseInt(idJuzPage) + 1}`);
+                if (parseInt(idJuz ?? "0") < 30) {
+                  navigate(`/quran/juz/${parseInt(idJuz ?? "0") + 1}`);
                 }
               }}
             >
               Juz Berikutnya&nbsp;&nbsp;&raquo;
             </button>
           </div>
-          <div className="border w-full border-gray-300"></div>
           {(dataJuz as TypeDataJuz)?.data?.verses?.map(
             (data: TypeDataJuzMap) => (
               <Box

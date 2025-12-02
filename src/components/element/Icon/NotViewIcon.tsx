@@ -1,16 +1,14 @@
 import Icon from "../../../helper/Icon";
-import { IconProps } from "../../../model/Interface";
+import { IconProps } from "../../../model/_Type";
 
-const NotViewIcon = ({classIcon,fill,handler}: IconProps) => {
+const NotViewIcon = ({ classIcon, fill, handler }: IconProps) => {
   return (
     <Icon
       width="1em"
       classIcon={classIcon}
       height="1em"
       viewBox="0 0 24 24"
-      
-      handler={handler
-      }
+      handler={handler}
     >
       {" "}
       <path

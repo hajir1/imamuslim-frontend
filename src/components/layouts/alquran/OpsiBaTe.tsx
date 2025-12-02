@@ -5,22 +5,23 @@ import {
   useBottomNavigation,
   useTerjemahOption,
 } from "../../../state/TypeHooks";
-import {
-  TypeDataSurahByIdMap,
-  TypeDataSurahById,
-} from "../../../model/Interface";
-import { useGetSurahById } from "../../../state/Query";
+import { TypeDataSurahByIdMap, TypeDataSurahById } from "../../../model/_Type";
+import { useSurahById } from "../../../state/Query";
 
 import Option from "../../fragment/Option";
 import Border from "../../element/Border";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import Box from "../../fragment/BoxModel";
 
 export const TerjemahRoute = () => {
-  const { surah: idSurahPage } = useParams();
+  /** get id quran using */
+  const { surah: idSurah } = useParams();
   const { setAudioActive } = useAudioActive();
   const audioRefPlay = useRef<HTMLAudioElement>(null);
-  const { data: dataSurah } = useGetSurahById(idSurahPage);
+
+  /** get surah */
+  const { data: dataSurah } = useSurahById(idSurah);
+
   const [scrollToTerjemah, setScrollToTerjemah] = useState<number | null>(null);
 
   const { bottomNavigation, setBottomNavigation } = useBottomNavigation();
@@ -46,7 +47,7 @@ export const TerjemahRoute = () => {
   }, []);
   useEffect(() => {
     setTerjemahOption(null);
-  }, [idSurahPage]);
+  }, [idSurah]);
   useEffect(() => {
     const dataId = (dataSurah as TypeDataSurahById)?.data?.verses.find(
       (verse: TypeDataSurahByIdMap) => verse.audio?.primary === audio
@@ -199,8 +200,9 @@ export const TerjemahRoute = () => {
 };
 
 export const BacaRoute = () => {
-  const { surah: idSurahPage } = useParams();
-  const { data } = useGetSurahById(idSurahPage);
+  /** get id quran using */
+  const idSurah = useLocation().pathname.split("/").pop();
+  const { data } = useSurahById(idSurah);
   return (
     <div className="p-1 w-full mt-24">
       {(data as TypeDataSurahById)?.data?.verses?.length > 0
@@ -211,7 +213,7 @@ export const BacaRoute = () => {
                 key={item?.number?.inQuran}
               >
                 <div className="w-full justify-start">
-                  <Border number={item?.number?.inSurah}  />
+                  <Border number={item?.number?.inSurah} />
                 </div>
                 <h1
                   dir="rtl"

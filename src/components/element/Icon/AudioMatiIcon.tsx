@@ -1,7 +1,7 @@
 import Icon from "../../../helper/Icon";
-import { IconProps } from "../../../model/Interface";
+import { IconProps } from "../../../model/_Type";
 
-const AudioMatiIcon = ({handler, fill, classIcon}: IconProps) => {
+const AudioMatiIcon = ({ handler, fill, classIcon }: IconProps) => {
   return (
     <Icon
       width="1.6em"

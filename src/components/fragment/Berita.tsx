@@ -1,4 +1,4 @@
-import { DataNews } from "../../model/Interface";
+import { DataNews } from "../../model/_Type";
 
 const Berita = ({ berita }: any) => {
   return (

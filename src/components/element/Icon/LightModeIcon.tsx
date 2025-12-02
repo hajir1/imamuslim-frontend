@@ -1,9 +1,15 @@
 import Icon from "../../../helper/Icon";
-import { IconProps } from "../../../model/Interface";
+import { IconProps } from "../../../model/_Type";
 
-const LightModeIcon = ({handler,fill,classIcon}: IconProps) => {
+const LightModeIcon = ({ handler, fill, classIcon }: IconProps) => {
   return (
-    <Icon width="16" height="16" handler={handler} viewBox="0 0 16 16" classIcon={classIcon}>
+    <Icon
+      width="16"
+      height="16"
+      handler={handler}
+      viewBox="0 0 16 16"
+      classIcon={classIcon}
+    >
       <g clipPath="url(#clip0_3122_652)">
         <path
           fillRule="evenodd"

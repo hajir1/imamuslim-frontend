@@ -4,7 +4,7 @@ import AlQuranPage from "./page/alquran/AlQuranPage";
 import AsmaulHusnaPage from "./page/AsmaulHusnaPage";
 import JadwalSholatPage from "./page/JadwalSholatPage";
 import NotFoundPage from "./page/NotFoundPage";
-import { HadistPage, HadistBySlugPage } from "./page/HadistPage";
+import {  HadistBySlugPage, ParawiPage } from "./page/HadistPage";
 import SurahByIdPage from "./page/alquran/SurahByIdPage";
 import JuzByIdPage from "./page/alquran/JuzByIdPage";
 import DoDzPage from "./page/DoDzPage";
@@ -34,7 +34,7 @@ const Routes = createBrowserRouter([
     element: <AsmaulHusnaPage />,
   },
   {
-    path: "/dodz",
+    path: "/doadzikir",
     element: <DoDzPage />,
   },
   {
@@ -44,7 +44,7 @@ const Routes = createBrowserRouter([
 
   {
     path: "/hadist",
-    element: <HadistPage />,
+    element: <ParawiPage />,
   },
   {
     path: "/hadist/:slug",

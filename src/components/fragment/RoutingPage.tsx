@@ -22,7 +22,7 @@ const RoutingPage = () => {
       id: 3,
       title: "Doa dan Dzikir",
       quote: "doa dan dzikir yang sering digunakan",
-      direction: "/dodz",
+      direction: "/doadzikir",
       sourceImage: "/icondoa.png",
       color: "red-200",
     },
@@ -44,7 +44,7 @@ const RoutingPage = () => {
     },
   ];
   return (
-    <div className="flex flex-wrap justify-center gap-4 mt-4 w-full p-4 md:p-8">
+    <div className="flex flex-wrap justify-center gap-4 w-full mt-4 p-4 md:p-8">
       {cards.map((card: any) => (
         <Link
           key={card?.id}

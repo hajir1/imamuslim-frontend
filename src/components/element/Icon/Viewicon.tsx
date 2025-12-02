@@ -1,5 +1,5 @@
 import Icon from "../../../helper/Icon";
-import { IconProps } from "../../../model/Interface";
+import { IconProps } from "../../../model/_Type";
 
 const Viewicon = ({ handler, classIcon, fill }: IconProps) => {
   return (

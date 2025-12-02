@@ -1,8 +1,8 @@
 const date = new Date();
 const getYears = date.getFullYear();
-const getMonth = date.toLocaleDateString("id-ID", { month: "long" });
+const getMonthIdn = date.toLocaleDateString("id-ID", { month: "long" });
+const getMonth = date.getMonth();
 const getDate = date.getDate();
-const getDay = date.toLocaleDateString("id-ID", { weekday: "long" });
+const getDayIdn = date.toLocaleDateString("id-ID", { weekday: "long" });
 
-export const timeZone = ` ${getDay},${getDate}-${getMonth}-${getYears}  `;
-
+export { getDayIdn, getMonthIdn, getDate, getMonth, getYears };

@@ -12,7 +12,6 @@ export interface IconProps {
   id?: string | undefined;
 }
 
-
 export type TypeDataSurahByIdMap = {
   number: { inQuran: number; inSurah: number };
   text: { arab: string; transliteration: { en: string } };
@@ -153,44 +152,36 @@ export interface DataDzikir {
   translation: string;
 }
 
-export interface Cities {
-  coordinate: { latitude: number; longitude: number };
-  id: string;
-  name: string;
-  slug: string;
-  provinceId: string;
+export interface TypeRegencyMap {
+  id: number;
+  lokasi: string;
 }
-
-export interface TypeLocation {
-  id: string;
-  name: string;
-  slug: string;
-  cities: Cities[];
+export interface TypeRegency {
+  data: TypeRegencyMap[];
+}
+[];
+export interface TypePrayerMap {
+  tanggal: string;
+  imsak: string;
+  subuh: string;
+  terbit: string;
+  dhuha: string;
+  dzuhur: string;
+  ashar: string;
+  maghrib: string;
+  isya: string;
+  date: string;
 }
 
 export interface TypePrayer {
-  province: {
-    id: string;
-    name: string;
-    slug: string;
+  status: boolean;
+  request: { path: string };
+  data: {
+    id: number;
+    lokasi: string;
+    daerah: string;
+    jadwal: TypePrayerMap[];
   };
-  prayers: [
-    {
-      time: {
-        imsak: string;
-        subuh: string;
-        terbit: string;
-        dhuha: string;
-        dzuhur: string;
-        ashar: string;
-        maghrib: string;
-        isya: string;
-      };
-      id: string;
-      date: any;
-      cityId: string;
-    }[]
-  ];
 }
 
 export interface DataNews {
@@ -204,10 +195,21 @@ export interface DataNews {
     image: any;
   };
 }
-export interface HadistType {
+export interface ParawisMap {
   name: string;
   slug: string;
   total: string;
+}
+export interface Parawis {
+  status: boolean;
+  request: {
+    path: string;
+  };
+  info: {
+    format: string;
+    sample: string;
+  };
+  data: ParawisMap[];
 }
 export interface OptionProps {
   currentData: any;
@@ -245,9 +247,7 @@ export interface HadistSlugType {
     endIndex: number;
     pages: [];
   };
-  items: [
-    hadistSlug
-  ];
+  items: [hadistSlug];
 }
 interface Pagination {
   currentPage: number;

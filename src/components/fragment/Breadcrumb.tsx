@@ -2,27 +2,27 @@ import { Link } from "react-router-dom";
 import { Dispatch, SetStateAction } from "react";
 import { Home } from "lucide-react";
 
-type TypeBreadCrumbV1 = {
+type TypeBreadCrumb = {
   firstRoute: string;
   firstRouteLink: string;
   secondRoute?: string;
   thirdRoute?: string;
   option?: string | Dispatch<SetStateAction<string>>;
-  setOption?: any;
-  routeOption1?: string;
-  routeOption2?: string;
+  setOption?: (param: string | undefined) => void;
+  routeStatus1?: string;
+  routeStatus2?: string;
 };
 // tanpa darkmode
-export const BreadCrumbV1 = ({
+export const BreadCrumb = ({
   firstRoute,
   firstRouteLink,
   setOption,
   option,
-  routeOption1,
-  routeOption2,
-}: TypeBreadCrumbV1) => {
+  routeStatus1,
+  routeStatus2,
+}: TypeBreadCrumb) => {
   return (
-    <nav className={`flex gap-1 top-0 w-full p-1`} aria-label="Breadcrumb">
+    <nav className={`flex gap-1 w-full p-1`} aria-label="Breadcrumb">
       <ol className="inline-flex flex-wrap items-center ml-2 space-x-1 md:space-x-2 rtl:space-x-reverse">
         <li className="inline-flex items-center">
           <Link
@@ -30,13 +30,14 @@ export const BreadCrumbV1 = ({
             className="inline-flex items-center text-sm font-medium "
           >
             <Home
-              className="mx-1"
+              className="mx-1 "
               onClick={() => (window.location.href = `/`)}
             ></Home>
             &nbsp;Home
           </Link>
         </li>
         <li className="">
+          {/* first dynamic route */}
           <div className="flex items-center">
             -
             <Link
@@ -49,27 +50,30 @@ export const BreadCrumbV1 = ({
         </li>
         {option && (
           <li className="">
+            {/* set new status here... */}
+            {/* indication when user clicks route1, then change to route2 */}
             <div
               onClick={() => {
-                if (option === routeOption1) {
-                  setOption(routeOption2);
+                if (option === routeStatus1) {
+                  /** handle if setOption is used */
+                  setOption && setOption(routeStatus2);
                 } else {
-                  setOption(routeOption1);
+                  setOption && setOption(routeStatus1);
                 }
               }}
               className="flex items-center cursor-pointer"
             >
-              -
-              {option === routeOption1 ? (
+              -{/* show current status */}
+              {option === routeStatus1 ? (
                 <div className="relative flex items-center">
                   <p className="ms-1 text-sm font-bold md:ms-2 dark:text-gray-400 dark:hover:text-white">
-                    {routeOption1}
+                    {routeStatus1}
                   </p>
                 </div>
               ) : (
                 <div className="relative flex items-center">
                   <p className="ms-1 text-sm font-bold  md:ms-2 dark:text-gray-400 dark:hover:text-white">
-                    {routeOption2}
+                    {routeStatus2}
                   </p>
                 </div>
               )}

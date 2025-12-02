@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import LoveIcon from "../../components/element/Icon/LoveIcon";
 import Border from "../../components/element/Border";
 import { useBookMarkDoa, useDarkmode } from "../../state/TypeHooks";
-import { TypeDataDoa } from "../../model/Interface";
+import { TypeDataDoa } from "../../model/_Type";
 
 const BmDoaPage = () => {
   const { id } = useParams();
@@ -15,11 +15,8 @@ const BmDoaPage = () => {
     <MainLayouts navbarType="dodz">
       {loadingDoa ? (
         <div className="w-full md:w-5/6 flex items-center gap-2 flex-col p-2">
-         
           <div className="w-full flex flex-col items-center ">
-            <div
-              className="w-full border-b border-b-gray-300 h-auto rounded-md gap-2 p-2 animate-pulse"
-            >
+            <div className="w-full border-b border-b-gray-300 h-auto rounded-md gap-2 p-2 animate-pulse">
               <div className="w-full flex flex-col gap-2 relative">
                 <div className="flex justify-start gap-2">
                   <div className="w-10 h-10 bg-gray-300 animate-pulse rounded-md transition-all duration-200"></div>

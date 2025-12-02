@@ -1,15 +1,17 @@
 import { useEffect } from "react";
 import Border from "../components/element/Border";
 import LoveIcon from "../components/element/Icon/LoveIcon";
-import { TypeAsmaulHusna } from "../model/Interface";
-import { useGetAsmaulHusna } from "../state/Query";
+import { TypeAsmaulHusna } from "../model/_Type";
+import { useAsmaulHusna } from "../state/Query";
 import { useBookMarkAsmaulHusna, useDarkmode } from "../state/TypeHooks";
 import MainLayouts from "../components/layouts/Main";
 
 const AsmaulHusnaPage = () => {
   const darkMode = useDarkmode((state) => state.darkMode);
-  const { data: dataAsmaulHusna, isLoading: asmaulHusnaLoading } =
-    useGetAsmaulHusna();
+
+  /** get data asmaul husna */
+  const { data: dataAsmaulHusna, isLoading: loadingAsmaulHusna } =
+    useAsmaulHusna();
   const skeletonArray: any = Array.from({ length: 100 }, (_, index) => index);
   const {
     addBookMark,
@@ -37,8 +39,9 @@ const AsmaulHusnaPage = () => {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <MainLayouts navbarType="asmaulHusna">
-      {asmaulHusnaLoading ? (
+    // navbarType="asmaulHusna"
+    <MainLayouts>
+      {loadingAsmaulHusna ? (
         <div className="flex w-full md:w-5/6 flex-col gap-2">
           {skeletonArray.map((skeleton: any) => (
             <div
@@ -73,7 +76,7 @@ const AsmaulHusnaPage = () => {
                       ? "black"
                       : "white"
                   }
-                  handleBookMark={() => {
+                  onClick={() => {
                     onHandleAddBookMark(
                       asmaulHusna?.urutan,
                       asmaulHusna?.arab,

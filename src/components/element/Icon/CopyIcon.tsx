@@ -1,12 +1,11 @@
 import Icon from "../../../helper/Icon";
-import { IconProps } from "../../../model/Interface";
+import { IconProps } from "../../../model/_Type";
 
-const CopyIcon = ({handler, classIcon, fill}: IconProps) => {
+const CopyIcon = ({ handler, classIcon, fill }: IconProps) => {
   return (
     <Icon
       width="1.6em"
-      handler={handler
-      }
+      handler={handler}
       height="1.6em"
       classIcon={classIcon}
       viewBox="0 0 24 24"

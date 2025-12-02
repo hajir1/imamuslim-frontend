@@ -1,9 +1,15 @@
 import Icon from "../../../helper/Icon";
-import { IconProps } from "../../../model/Interface";
+import { IconProps } from "../../../model/_Type";
 
-const DarkModeixon = ({classIcon, handler}: IconProps) => {
+const DarkModeixon = ({ classIcon, handler }: IconProps) => {
   return (
-    <Icon width="16" height="16" handler={handler} viewBox="0 0 16 16" classIcon={classIcon}>
+    <Icon
+      width="16"
+      height="16"
+      handler={handler}
+      viewBox="0 0 16 16"
+      classIcon={classIcon}
+    >
       <path
         fillRule="evenodd"
         clipRule="evenodd"

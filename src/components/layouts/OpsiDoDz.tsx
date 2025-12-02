@@ -1,9 +1,6 @@
-import { TypeDataDoa } from "../../model/Interface";
+import { TypeDataDoa } from "../../model/_Type";
 import Border from "../element/Border";
-import {
-  useBookMarkDoa,
-  useDarkmode,
-} from "../../state/TypeHooks";
+import { useBookMarkDoa, useDarkmode } from "../../state/TypeHooks";
 
 import LoveIcon from "../element/Icon/LoveIcon";
 
@@ -27,7 +24,7 @@ export const DoaRoute = ({ dataDoa }: any) => {
       {(dataDoa as [])?.map((item: TypeDataDoa) => (
         <div className={`w-full p-2`} key={item?.id}>
           <div className="flex items-center gap-2">
-            <Border number={item?.id}/>
+            <Border number={item?.id} />
             <h1 className="text-xl text-center lg:text-2xl">{item?.title}</h1>
           </div>
           <div className="flex justify-end my-5 md:my-6">
@@ -78,7 +75,7 @@ export const DzikirRoute = ({ dataDzikir }: any) => {
           key={index + 1}
         >
           <div className="flex items-center gap-2">
-            <Border number={index + 1}/>
+            <Border number={index + 1} />
             <h1 className="text-xl text-center lg:text-2xl">{dzikir?.title}</h1>
           </div>
 

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useGetBookmarkAlquran } from "../../state/Query";
-import { TypeBookmarkQuran } from "../../model/Interface";
+import { TypeBookmarkQuran } from "../../model/_Type";
 import { useBookMarkAlQuran, useDarkmode } from "../../state/TypeHooks";
 import AudioMatiIcon from "../../components/element/Icon/AudioMatiIcon";
 import AudioHidupicon from "../../components/element/Icon/AudioHidupicon";

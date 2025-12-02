@@ -1,20 +1,37 @@
-import { Link } from "react-router-dom";
-import { useDarkmode } from "../../state/TypeHooks";
+import { Link, useLocation, useParams } from "react-router-dom";
+import {
+  useCurrentQuran,
+  useCurrentSurah,
+  useDarkmode,
+} from "../../state/TypeHooks";
 import DarkModeixon from "../element/Icon/DarkModeixon";
 import LightModeIcon from "../element/Icon/LightModeIcon";
 import { useEffect, useRef } from "react";
+import { BreadCrumb } from "../fragment/Breadcrumb";
 
-type NavbarProps = {
-  type: string;
-};
-const Navbar = ({ type }: NavbarProps) => {
+const Navbar = () => {
   const darkMode = useDarkmode((state) => state.darkMode);
   const setDarkMode = useDarkmode((state) => state.setDarkMode);
-
   const handleCheckboxChange = () => {
     setDarkMode(!darkMode);
   };
   const navbarRef = useRef<HTMLDivElement>(null);
+
+  /** get current path */
+  const location = useLocation();
+  const segments = location.pathname.split("/").filter(Boolean);
+  const path = segments[0];
+  const subPath = segments[1];
+
+  /** path spesific */
+  const { surah: idSurah, juz: idJuz } = useParams();
+
+  /** handle breadcrumb dynamic */
+  const currentQuran = useCurrentQuran((s: any) => s.currentQuran);
+  const setCurrentQuran = useCurrentQuran((s: any) => s.setCurrentQuran);
+  const currentSurah = useCurrentSurah((s: any) => s.currentSurah);
+  const setCurrentSurah = useCurrentSurah((s: any) => s.setCurrentSurah);
+
   useEffect(() => {
     const scrolling = () => {
       if (navbarRef.current && window.scrollY > 50) {
@@ -28,103 +45,150 @@ const Navbar = ({ type }: NavbarProps) => {
       window.removeEventListener("scroll", scrolling);
     };
   }, [navbarRef]);
+
   return (
     <>
-      <div
-        ref={navbarRef}
-        className={` w-full justify-around h-14 transition-all duration-150 fixed z-20 flex items-center`}
-      >
-        <div className="flex  items-center flex-grow gap-2 md:justify-start ml-4 md:ml-10">
-          {type === "home" && (
-            <Link to={"/"} className={` text-2xl`}>
-              Im'a muslim
-            </Link>
-          )}
-          {type === "quran" && (
-            <>
-              <img
-                src="/iconQuran.png"
-                className="w-10 object-cover h-10"
-                alt=""
-              />
+      <div ref={navbarRef} className={`w-full flex flex-col fixed z-20 `}>
+        <div className="w-full justify-around flex items-center p-2">
+          <div className="flex  items-center flex-grow gap-2 md:justify-start pl-4 md:ml-10">
+            {!path && (
               <Link to={"/"} className={` text-2xl`}>
-                Al-Quran
+                Im'a muslim
               </Link>
-            </>
-          )}
-          {type === "asmaulHusna" && (
-            <>
-              <img
-                src="/iconasma.png"
-                className="w-10 object-cover h-10"
-                alt=""
-              />
-              <Link to={"/asmaulhusna"} className="">
-                Asmaul Husna
-              </Link>
-            </>
-          )}
-          {type === "dodz" && (
-            <>
-              <img
-                src="/icondoa.png"
-                className="w-10 object-cover h-10"
-                alt=""
-              />
-              <Link to={"/dodz"} className="">
-                Doa Dan Dzikir
-              </Link>
-            </>
-          )}
-          {type === "jadwalsholat" && (
-            <>
-              <img
-                src="/iconSholat.png"
-                className="w-10 object-cover h-10"
-                alt=""
-              />
-              <Link to={"/jadwalsholat"} className="">
-                Jadwal Sholat
-              </Link>
-            </>
-          )}
+            )}
+            {path === "quran" && (
+              <>
+                <img
+                  src="/iconQuran.png"
+                  className="w-10 object-cover h-10"
+                  alt=""
+                />
+                <Link to={"/"} className={` text-2xl`}>
+                  Al-Quran
+                </Link>
+              </>
+            )}
+            {path === "asmaulhusna" && (
+              <>
+                <img
+                  src="/iconasma.png"
+                  className="w-10 object-cover h-10"
+                  alt=""
+                />
+                <Link to={"/"} className="">
+                  Asmaul Husna
+                </Link>
+              </>
+            )}
+            {path === "dodz" && (
+              <>
+                <img
+                  src="/icondoa.png"
+                  className="w-10 object-cover h-10"
+                  alt=""
+                />
+                <Link to={"/"} className="">
+                  Doa Dan Dzikir
+                </Link>
+              </>
+            )}
+            {path === "jadwalsholat" && (
+              <>
+                <img
+                  src="/iconSholat.png"
+                  className="w-10 object-cover h-10"
+                  alt=""
+                />
+                <Link to={"/"} className="">
+                  Jadwal Sholat
+                </Link>
+              </>
+            )}
 
-          {type === "hadist" && (
-            <>
-              <img
-                src="/hadits.png"
-                className="w-10 object-cover h-10"
-                alt=""
+            {path === "hadist" && (
+              <>
+                <img
+                  src="/hadits.png"
+                  className="w-10 object-cover h-10"
+                  alt=""
+                />
+                <Link to={"/"} className={` text-2xl`}>
+                  Hadist
+                </Link>
+              </>
+            )}
+          </div>
+          <div className="h-full flex items-center justify-end">
+            <label
+              className={`${
+                darkMode && "bg-[#d3d9df]"
+              } h-10 themeSwitcherTwo shadow-card relative inline-flex cursor-pointer select-none items-center justify-center  rounded-md p-1 mr-4`}
+            >
+              <input
+                type="checkbox"
+                className="sr-only"
+                onChange={handleCheckboxChange}
               />
-              <Link to={"/"} className={` text-2xl`}>
-                Hadist
-              </Link>
-            </>
-          )}
+              <span
+                className={`h-8 flex items-center space-x-[6px] py-2 px-3 text-sm font-medium `}
+              >
+                <LightModeIcon classIcon={`fill-curent`} />
+              </span>
+              <span
+                className={`h-8 flex items-center space-x-[6px] py-2 px-3 text-sm font-medium `}
+              >
+                <DarkModeixon classIcon={`fill-curent`} />
+              </span>
+            </label>
+          </div>
         </div>
-        <div className="h-full flex items-center justify-end">
-          <label
-            className={`${
-              darkMode && "bg-[#d3d9df]"
-            } h-10 themeSwitcherTwo shadow-card relative inline-flex cursor-pointer select-none items-center justify-center  rounded-md p-1 mr-4`}
-          >
-            <input
-              type="checkbox"
-              className="sr-only"
-              onChange={handleCheckboxChange}
+        {path === "quran" && subPath !== "surah" && subPath !== "juz" && (
+          <div className="w-full pl-4 md:ml-10">
+            <BreadCrumb
+              firstRoute={"al-Quran"}
+              firstRouteLink="/"
+              routeStatus1="Surah"
+              routeStatus2="Juz"
+              option={currentQuran}
+              setOption={setCurrentQuran}
             />
-            <span
-              className={`h-8 flex items-center space-x-[6px] py-2 px-3 text-sm font-medium `}
-            >
-              <LightModeIcon classIcon={`fill-curent`} />
-            </span>
-            <span
-              className={`h-8 flex items-center space-x-[6px] py-2 px-3 text-sm font-medium `}
-            >
-              <DarkModeixon classIcon={`fill-curent`} />
-            </span>
-          </label>
-        </div>
+          </div>
+        )}
+        {subPath === "surah" && (
+          <div className="w-full pl-4 md:ml-10">
+            <BreadCrumb
+              firstRoute={`Surah ke ${idSurah}`}
+              firstRouteLink="/quran"
+              routeStatus1="Terjemah"
+              routeStatus2="Baca"
+              option={currentSurah}
+              setOption={setCurrentSurah}
+            />
+          </div>
+        )}
+        {subPath === "juz" && (
+          <div className="w-full pl-4 md:ml-10">
+            <BreadCrumb
+              firstRoute={`Juz ke ${idJuz}`}
+              firstRouteLink="/quran"
+              // routeStatus1="Terjemah"
+              // routeStatus2="Baca"
+              // option={currentSurah}
+              // setOption={setCurrentSurah}
+            />
+          </div>
+        )}
+        {path === "doadzikir" && (
+          <BreadCrumb
+            firstRoute="Option"
+            firstRouteLink="/dodz"
+            routeStatus1="Doa"
+            routeStatus2="Dzikir"
+            // option={doDzOption}
+            // setOption={setDoDzOption}
+          />
+        )}
+        <hr />
       </div>
     </>
   );

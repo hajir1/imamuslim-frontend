@@ -3,7 +3,7 @@ import AudioMatiIcon from "../element/Icon/AudioMatiIcon";
 import AudioHidupicon from "../element/Icon/AudioHidupicon";
 import Terjemahicon from "../element/Icon/Terjemahicon";
 import CopyIcon from "../element/Icon/CopyIcon";
-import { OptionProps } from "../../model/Interface";
+import { OptionProps } from "../../model/_Type";
 import {
   useBookMarkAlQuran,
   useBottomNavigation,

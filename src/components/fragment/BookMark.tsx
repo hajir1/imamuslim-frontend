@@ -16,11 +16,9 @@ const BookMark = () => {
   return (
     <div className="w-full md:w-11/12 p-4">
       <h1 className="font-semibold text-2xl">Bookmarks</h1>
-      <p className="text-xl md:my-2">
-        Al Quran
-        <hr />
-      </p>
-      <div className="">
+      <p className="text-xl md:my-2">Al Quran</p>
+
+      <div className="mt-4">
         {bmAlQurans.length > 0 ? (
           bmAlQurans.map((bmAlQuran: any) => (
             <Link
@@ -33,13 +31,16 @@ const BookMark = () => {
             </Link>
           ))
         ) : (
-          <h1 className="text-sm font-sans flex gap-2">
+          <h1 className="text-sm font-sans flex gap-2 mt-2">
             klik icon <LoveIcon /> untuk menambah bookmark
           </h1>
         )}
       </div>
-      <p className="text-xl md:my-2">Asmaul Husna <hr /></p>
-      <div className="">
+      <hr />
+
+      <p className="text-xl md:my-2">Asmaul Husna</p>
+
+      <div className="mt-4">
         {bmAsmaulHusnas.length > 0 ? (
           bmAsmaulHusnas.map((bmAsmaulHusna: any) => (
             <div
@@ -62,13 +63,15 @@ const BookMark = () => {
             </div>
           ))
         ) : (
-          <h1 className="text-sm font-sans flex gap-2">
+          <h1 className="text-sm font-sans flex gap-2 mt-2">
             klik icon <LoveIcon /> untuk menambah bookmark
           </h1>
         )}
       </div>
-      <p className="text-xl md:my-2">Doa <hr /></p>
-      <div className="">
+      <hr />
+      <p className="text-xl md:my-2">Doa</p>
+
+      <div className="mt-4">
         {bmDoas.length > 0 ? (
           bmDoas.map((bmDoa: any) => (
             <Link
@@ -82,13 +85,16 @@ const BookMark = () => {
             </Link>
           ))
         ) : (
-          <h1 className="text-sm font-sans flex gap-2">
+          <h1 className="text-sm font-sans flex gap-2 mt-2">
             klik icon <LoveIcon /> untuk menambah bookmark
           </h1>
         )}
       </div>
-      <p className="text-xl md:my-2">Hadist <hr /></p>
-      <div className="">
+      <hr />
+
+      <p className="text-xl md:my-2">Hadist</p>
+
+      <div className="mt-4">
         {bmHadist.length > 0 ? (
           bmHadist.map((bmDoa: any) => (
             <Link
@@ -105,7 +111,7 @@ const BookMark = () => {
             </Link>
           ))
         ) : (
-          <h1 className="text-sm font-sans flex gap-2">
+          <h1 className="text-sm font-sans flex gap-2 mt-2">
             klik icon <LoveIcon /> untuk menambah bookmark
           </h1>
         )}
