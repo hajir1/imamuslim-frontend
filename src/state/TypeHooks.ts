@@ -1,6 +1,12 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { Bookmark, TypeDataSurahByIdMap, TypeRegencyMap } from "../model/_Type";
+import {
+  Bookmark,
+  TypeAsmaulHusnaMap,
+  TypeDataSurahByIdMap,
+  TypeParawisMap,
+  TypeRegencyMap,
+} from "../model/_Type";
 
 type TypeAudio = {
   audio: HTMLAudioElement | null;
@@ -63,24 +69,28 @@ export const useBookMarkAlQuran = create(
     }
   )
 );
+/** handle bookmark asmaul husna */
 export const useBookMarkAsmaulHusna = create(
   persist(
-    (set, get) => ({
+    (set, get: any) => ({
       bookMark: [],
-      addBookMark: (newBookmark: Bookmark) => {
+      /** add bookmark  */
+      /** If the data already exists, add it, and if not, create a new array. */
+      addBookMark: (newBookmark: TypeAsmaulHusnaMap) => {
         const oldBookmarks = get().bookMark;
-        const updatedBookmarks = Array.isArray(oldBookmarks)
+        const updatedBookmark = Array.isArray(oldBookmarks)
           ? [...oldBookmarks, newBookmark]
           : [newBookmark];
 
-        set({ bookMark: updatedBookmarks });
+        set({ bookMark: updatedBookmark });
       },
-      deleteBookMark: (urutan: string) => {
-        const oldBookmarks = get().bookMark;
-        const updatedBookmarks = Array.isArray(oldBookmarks)
-          ? oldBookmarks.filter((item) => !(item?.urutan === urutan))
-          : [];
-        set({ bookMark: updatedBookmarks });
+      /** delete bookmark  */
+      deleteBookMark: (id: number) => {
+        set((state: any) => ({
+          bookMark: state.bookMark.filter(
+            (item: TypeAsmaulHusnaMap) => item.id !== id
+          ),
+        }));
       },
     }),
     {
@@ -199,7 +209,18 @@ export const useCurrentSurah = create(
     { name: "_CurrentSurah" }
   )
 );
-
+/** Source of Doa */
+export const useCurrentSc = create(
+  persist(
+    (set) => ({
+      currentSc: "harian",
+      setCurrentSc: (data: any) => {
+        set({ currentSc: data });
+      },
+    }),
+    { name: "_CurrentSc" }
+  )
+);
 /** Regencies of J Sholat */
 export const useCurrentRegency = create(
   persist(
@@ -213,14 +234,41 @@ export const useCurrentRegency = create(
   )
 );
 
-export const useDoDzOption = create(
+/** Get a current parawi (hadist) */
+export const useCurrentParawi = create(
   persist(
     (set) => ({
-      doDzOption: "Doa",
-      setDoDzOption: (data: any) => {
-        set({ doDzOption: data });
+      currentParawi: "",
+      setCurrentParawi: (data: TypeParawisMap) => {
+        set({ currentParawi: data });
       },
     }),
-    { name: "doDzOption" }
+    { name: "_CurrentParawi" }
   )
 );
+
+/** Get a current number of hadist (hadist) */
+/** handle search hadist by id */
+export const useCurrentNumberHadist = create(
+  persist(
+    (set) => ({
+      currentNumber: 1,
+      setCurrentNumber: (data: number) => {
+        set({ currentNumber: data });
+      },
+    }),
+    { name: "_CurrentNumberOfHadist" }
+  )
+);
+
+// export const useDoDzOption = create(
+//   persist(
+//     (set) => ({
+//       doDzOption: "Doa",
+//       setDoDzOption: (data: any) => {
+//         set({ doDzOption: data });
+//       },
+//     }),
+//     { name: "doDzOption" }
+//   )
+// );

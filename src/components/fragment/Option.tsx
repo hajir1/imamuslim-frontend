@@ -54,7 +54,7 @@ const Option = ({
         ref={optionRef}
         className={`${
           darkMode ? "bg-black border-slate-600" : "bg-white border-gray-200 "
-        } fixed z-50 left-1/2 -translate-x-1/2 w-full h-28 border bottom-0 `}
+        } fixed bottom-16 z-50 left-1/2 -translate-x-1/2 w-full h-28 border `}
       >
         <div className="grid h-full max-w-lg grid-cols-5 mx-auto">
           <button

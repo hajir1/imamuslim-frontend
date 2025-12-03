@@ -4,13 +4,13 @@ import AlQuranPage from "./page/alquran/AlQuranPage";
 import AsmaulHusnaPage from "./page/AsmaulHusnaPage";
 import JadwalSholatPage from "./page/JadwalSholatPage";
 import NotFoundPage from "./page/NotFoundPage";
-import {  HadistBySlugPage, ParawiPage } from "./page/HadistPage";
+import { HadistPage } from "./page/HadistPage";
 import SurahByIdPage from "./page/alquran/SurahByIdPage";
 import JuzByIdPage from "./page/alquran/JuzByIdPage";
-import DoDzPage from "./page/DoDzPage";
 import BmAlquranPage from "./page/bookMark/BmAlquranPage";
-import BmDoaPage from "./page/bookMark/BmDoaPage";
-import BmHadistPage from "./page/bookMark/BmHadistPage";
+// import BmDoaPage from "./page/bookMark/BmDoaPage";
+import DoaPage from "./page/DoaPage";
+// import BmHadistPage from "./page/bookMark/BmHadistPage";
 
 const Routes = createBrowserRouter([
   {
@@ -34,8 +34,8 @@ const Routes = createBrowserRouter([
     element: <AsmaulHusnaPage />,
   },
   {
-    path: "/doadzikir",
-    element: <DoDzPage />,
+    path: "/doa",
+    element: <DoaPage />,
   },
   {
     path: "/jadwalsholat",
@@ -44,21 +44,17 @@ const Routes = createBrowserRouter([
 
   {
     path: "/hadist",
-    element: <ParawiPage />,
-  },
-  {
-    path: "/hadist/:slug",
-    element: <HadistBySlugPage />,
+    element: <HadistPage />,
   },
   {
     path: "/quran/surah/:surah/ayat/:ayat",
     element: <BmAlquranPage />,
   },
-  {
-    path: "/dodz/doa/:id",
-    element: <BmDoaPage />,
-  },
-  { path: "/hadist/:slug/:id", element: <BmHadistPage /> },
+  // {
+  //   path: "/dodz/doa/:id",
+  //   element: <BmDoaPage />,
+  // },
+  // { path: "/hadist/:slug/:id", element: <BmHadistPage /> },
   {
     path: "*",
     element: <NotFoundPage />,

@@ -217,7 +217,7 @@ export const BacaRoute = () => {
                 </div>
                 <h1
                   dir="rtl"
-                  className="w-full font-sans font-normal md:font-light text-4xl leading-relaxed md:leading-loose"
+                  className="font-amiri text-4xl leading-loose"
                 >
                   {item?.text?.arab}
                 </h1>

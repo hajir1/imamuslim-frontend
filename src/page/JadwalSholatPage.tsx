@@ -49,12 +49,12 @@ const JadwalSholatPage = () => {
   return (
     <MainLayouts>
       <h1
-        className="text-xl md:text-4xl font-semibold w-full text-center"
+        className=" font-primary text-xl md:text-2xl text-center"
         ref={timerRef}
       >
-        {getYears}-{getMonth}-{getDayIdn}-{getDate}&nbsp;&nbsp;{time}
+        {getYears}-{getMonth}-{getDate}&nbsp;&nbsp;{getDayIdn}&nbsp;&nbsp; {time}
       </h1>
-      <div className="w-full sm:w-3/5 md:w-1/2 flex gap-2 p-2 ">
+      <div className="w-full flex gap-2 p-2 ">
         <div className="w-full">
           <div>
             <label
@@ -77,7 +77,7 @@ const JadwalSholatPage = () => {
                     lokasi: e.target.value,
                   })
                 }
-                className="block w-full p-3 ps-9 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+                className="block w-full p-3 ps-9 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:border-gray-500 focus:ring-0 focus:outline-none shadow-xs placeholder:text-body"
                 placeholder="Search"
               />
             </div>

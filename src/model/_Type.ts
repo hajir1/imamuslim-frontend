@@ -123,35 +123,50 @@ export interface TypeBookmarkQuran {
     };
   };
 }
-export interface TypeAsmaulHusna {
+export interface TypeAsmaulHusnaMap {
+  id: number;
   arab: string;
-  arti: string;
+  indo: string;
   latin: string;
-  meaning: string;
-  urutan: string;
+}
+export interface TypeAsmaulHusna {
+  status: boolean;
+  request: {
+    path: string;
+  };
+  info: {
+    min: number;
+    max: number;
+  };
+  data: TypeAsmaulHusnaMap[];
 }
 [];
-export interface TypeDataDoa {
-  arabic: string;
-  fawaid: string;
-  id: string;
-  latin: string;
-  notes: string;
-  title: string;
-  translation: string;
+
+/** type for sc(sumber) doa */
+export interface TypeSc {
+  status: boolean;
+  request: {
+    path: string;
+  };
+  data: string[];
+}
+
+/** type for doa map*/
+export interface TypeDoaMap {
+  arab: string;
+  indo: string;
+  judul: string;
   source: string;
 }
 
-export interface DataDzikir {
-  arabic: string;
-  fawaid: string;
-  latin: string;
-  notes: string;
-  source: string;
-  title: string;
-  translation: string;
+/** type for doa*/
+export interface TypeDoa {
+  status: boolean;
+  request: {
+    path: string;
+  };
+  data: TypeDoaMap[];
 }
-
 export interface TypeRegencyMap {
   id: number;
   lokasi: string;
@@ -184,23 +199,13 @@ export interface TypePrayer {
   };
 }
 
-export interface DataNews {
-  link: string;
-  title: string;
-  pubDate: string;
-  description: string;
-  thumbnail: string;
-  publisher: {
-    name: string;
-    image: any;
-  };
-}
-export interface ParawisMap {
+/** type parawis for hadist page*/
+export interface TypeParawisMap {
   name: string;
   slug: string;
   total: string;
 }
-export interface Parawis {
+export interface TypeParawis {
   status: boolean;
   request: {
     path: string;
@@ -209,8 +214,30 @@ export interface Parawis {
     format: string;
     sample: string;
   };
-  data: ParawisMap[];
+  data: TypeParawisMap[];
 }
+/** type hadist by id */
+export interface TypeHadist {
+  status: boolean;
+  request: {
+    path: string;
+    slug: string;
+    nomor: string;
+  };
+  info: {
+    perawi: {
+      name: string;
+      slug: string;
+      total: number;
+    };
+  };
+  data: {
+    number: number;
+    arab: string;
+    id: string;
+  };
+}
+
 export interface OptionProps {
   currentData: any;
   audio: any;
@@ -226,35 +253,4 @@ export interface OptionProps {
   ) => void;
   data: any;
   handleCopy: (e: any, a: string, b: string, c: string) => void;
-}
-export interface hadistSlug {
-  number: number;
-  arab: string;
-  id: string;
-}
-export interface HadistSlugType {
-  name: string;
-  slug: string;
-  total: number;
-  pagination: {
-    totalItems: number;
-    currentPage: number;
-    pageSize: number;
-    totalPages: number;
-    startPage: number;
-    endPage: number;
-    startIndex: number;
-    endIndex: number;
-    pages: [];
-  };
-  items: [hadistSlug];
-}
-interface Pagination {
-  currentPage: number;
-  totalPages: number;
-}
-
-export interface HadithPage {
-  pagination: Pagination;
-  data: any;
 }

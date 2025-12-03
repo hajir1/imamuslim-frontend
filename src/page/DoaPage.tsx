@@ -1,0 +1,136 @@
+// import { useDoDzOption } from "../state/TypeHooks";
+import { useEffect } from "react";
+import { useDoaBySc, useScDoa } from "../state/Query";
+import MainLayouts from "../components/layouts/Main";
+import skeletonArray from "../helper/_skeleton";
+import { useCurrentSc } from "../state/TypeHooks";
+import { TypeDoa, TypeDoaMap, TypeSc } from "../model/_Type";
+import LoveIcon from "../components/element/Icon/LoveIcon";
+import Border from "../components/element/Border";
+
+const DoaPage = () => {
+  // const { doDzOption, setDoDzOption }: any = useDoDzOption();
+
+  /** get sc data*/
+  const { data: dataSc, isLoading: loadingSc }: any = useScDoa();
+
+  /** caching sc */
+  const currentSc = useCurrentSc((s: any) => s.currentSc);
+  const setCurrentSc = useCurrentSc((s: any) => s.setCurrentSc);
+
+  /** get sc data*/
+  const { data: dataDoas, isLoading: isLoadingDoa } = useDoaBySc(currentSc);
+
+  // const darkMode = useDarkmode((state) => state.darkMode);
+  // const {
+  //   bookMark: bmDoa,
+  //   addBookMark,
+  //   deleteBookMark,
+  // }: any = useBookMarkDoa();
+  // const onHandleBookMark = (id: string, title: string, bookMark = true) => {
+  //   const filtered = bmDoa.some((item: any) => item.id === id);
+  //   if (filtered) {
+  //     deleteBookMark(id);
+  //   } else {
+  //     addBookMark({ id, title, bookMark });
+  //   }
+  // };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  return (
+    <MainLayouts>
+      <div className="flex w-full md:w-5/6 justify-center">
+        <select
+          value={currentSc}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+            setCurrentSc(e.target.value);
+          }}
+          className="block w-full max-w-2xl px-3 py-2.5 bg-neutral-secondary-medium border-0 border-b-gray-500 border-b-2 text-heading text-sm rounded-base focus:ring-0 focus:border-b-gray-500 placeholder:text-body"
+          id=""
+        >
+          <option value="" disabled>
+            Cari Doa
+          </option>
+          {(dataSc as TypeSc)?.data.map((sc: string, index: number) => (
+            <option
+              value={sc}
+              key={index}
+              className="w-full max-w-sm border rounded items-center mt-3 p-4 flex justify-between hover:border-2"
+            >
+              {sc}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="w-full md:w-5/6 flex items-center gap-2 flex-col p-2">
+        {isLoadingDoa ? (
+          <div className="w-full flex flex-col items-center ">
+            {skeletonArray(20).map((skleton: number) => (
+              <div
+                key={skleton}
+                className="w-full border-b border-b-gray-300 h-auto rounded-md gap-2 p-2 animate-pulse"
+              >
+                <div className="w-full flex flex-col gap-2 relative">
+                  <div className="flex justify-start gap-2">
+                    <div className="w-10 h-10 bg-gray-300 animate-pulse rounded-md transition-all duration-200"></div>
+                    <div className="w-44 h-10 bg-gray-300 animate-pulse rounded-md transition-all duration-200"></div>
+                  </div>
+                  <div className="w-6 h-6 bg-gray-300 animate-pulse rounded-md transition-all duration-200 ml-auto"></div>
+                  <div className="w-11/12 h-6 bg-gray-300 animate-pulse rounded-md transition-all duration-200 ml-auto"></div>
+                  <div className="w-11/12 h-6 bg-gray-300 animate-pulse rounded-md transition-all duration-200 ml-auto"></div>
+                  <div className="w-11/12 h-6 bg-gray-300 animate-pulse rounded-md transition-all duration-200 ml-auto"></div>
+                  <div className="w-full h-5 bg-gray-300 animate-pulse rounded-md transition-all duration-200"></div>
+                  <div className="w-44 md:w-72 h-5 bg-gray-300 animate-pulse rounded-md transition-all duration-200"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="w-full gap-2 p-2 flex flex-col items-center">
+            {(dataDoas as TypeDoa)?.data?.map(
+              (doa: TypeDoaMap, index: number) => (
+                <div className={`w-full p-2`} key={doa?.judul}>
+                  <div className="flex items-center gap-2">
+                    <Border number={index + 1} />
+                    <h1 className="text-xl text-center lg:text-2xl">
+                      {doa?.judul}
+                    </h1>
+                  </div>
+                  <div className="flex justify-end my-5 md:my-6">
+                    <LoveIcon
+                    // handleBookMark={() =>
+                    //   onHandleBookMark(item?.id, item?.title)
+                    // }
+                    // fill={
+                    //   bmDoa.some((doa: any) => doa.title === item?.title)
+                    //     ? darkMode
+                    //       ? "white"
+                    //       : "black"
+                    //     : darkMode
+                    //     ? "black"
+                    //     : "white"
+                    // }
+                    />
+                  </div>
+                  <h1 dir="rtl" className="font-amiri leading-loose text-4xl">
+                    {doa?.arab}
+                  </h1>
+                  <div className="mt-4">
+                    <p className="text-left text-sm font-normal md:text-base">
+                      <span className="font-semibold ">artinya : </span>
+                      {doa?.indo}
+                    </p>
+                  </div>
+                </div>
+              )
+            )}
+          </div>
+        )}
+      </div>
+    </MainLayouts>
+  );
+};
+
+export default DoaPage;

@@ -8,7 +8,7 @@ const RoutingPage = () => {
       quote: "al-quran dengan murottal , tafsir terjemah",
       direction: "/quran",
       sourceImage: "/iconQuran.png",
-      color: "green-200",
+      color: "group-hover:bg-green-200",
     },
     {
       id: 2,
@@ -16,15 +16,15 @@ const RoutingPage = () => {
       quote: "99 asmaul husna berserta arti",
       direction: "/asmaulhusna",
       sourceImage: "/iconasma.png",
-      color: "blue-200",
+      color: "group-hover:bg-blue-200",
     },
     {
       id: 3,
-      title: "Doa dan Dzikir",
-      quote: "doa dan dzikir yang sering digunakan",
-      direction: "/doadzikir",
+      title: "Doa Doa",
+      quote: "doa yang sering digunakan",
+      direction: "/doa",
       sourceImage: "/icondoa.png",
-      color: "red-200",
+      color: "group-hover:bg-red-200",
     },
     {
       id: 4,
@@ -32,7 +32,7 @@ const RoutingPage = () => {
       quote: " menampilkan jadwal sholat seluruh Indonesia",
       direction: "/jadwalsholat",
       sourceImage: "/iconSholat.png",
-      color: "fuchsia-200",
+      color: "group-hover:bg-fuchsia-200",
     },
     {
       id: 5,
@@ -40,7 +40,7 @@ const RoutingPage = () => {
       quote: "hadist dan terjemah dari beberapa mufassir",
       direction: "/hadist",
       sourceImage: "/hadits.png",
-      color: "violet-200",
+      color: "group-hover:bg-violet-200",
     },
   ];
   return (
@@ -52,14 +52,14 @@ const RoutingPage = () => {
           to={`${card?.direction}`}
         >
           <img src={`${card?.sourceImage}`} className="w-24 h-auto" alt="" />
-          <h1 className="font-semibold font-sans text-2xl text-slate-800">
+          <h1 className="font-semibold text-2xl text-slate-800">
             {card?.title}
           </h1>
-          <p className="text-sm text-center font-sans font-normal text-slate-800">
+          <p className="text-sm text-center font-normal text-slate-800">
             {card?.quote}
           </p>
           <div
-            className={`flex items-center justify-center inset-0 absolute invisible -bottom-0 group-hover:top-0 group-hover:bg-green-200 group-hover:visible`}
+            className={`flex items-center justify-center inset-0 absolute invisible -bottom-0 group-hover:top-0 ${card?.color} group-hover:visible`}
           >
             <h1 className="cursor-pointer text-2xl text-black">
               <span className="w-full mx-2">Baca</span>

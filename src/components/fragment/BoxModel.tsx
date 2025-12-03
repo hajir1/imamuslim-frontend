@@ -36,7 +36,7 @@ const Box = ({
         />
         <h1
           dir="rtl"
-          className="w-full my-2 font-sans font-normal md:font-thin leading-relaxed lg:leading-loose text-4xl md:my-6"
+          className="font-amiri font-normal leading-loose text-4xl"
         >
           {data?.text?.arab}
         </h1>
