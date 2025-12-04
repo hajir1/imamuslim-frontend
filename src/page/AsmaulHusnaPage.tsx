@@ -8,18 +8,19 @@ import MainLayouts from "../components/layouts/Main";
 import skeletonArray from "../helper/_skeleton";
 
 const AsmaulHusnaPage = () => {
+  /** state current theme */
   const darkMode = useDarkmode((state) => state.darkMode);
 
   /** get data asmaul husna */
   const { data: dataAsmaulHusna, isLoading: loadingAsmaulHusna } =
     useAsmaulHusna();
 
-  /** handle create and delete bookmark asmaul husna */
+  /** handle cache create and delete bookmark asmaul husna */
   const bookMark = useBookMarkAsmaulHusna((s: any) => s.bookMark);
   const addBookMark = useBookMarkAsmaulHusna((s: any) => s.addBookMark);
   const deleteBookMark = useBookMarkAsmaulHusna((s: any) => s.deleteBookMark);
 
-  /** handle bookMark */
+  /** handle bookMark Asmaul husna*/
   const onHandleBookMark = (props: TypeAsmaulHusnaMap) => {
     const filtering = bookMark.some(
       (item: TypeAsmaulHusnaMap) => item.id === props.id
@@ -57,7 +58,9 @@ const AsmaulHusnaPage = () => {
         <div className="w-full md:w-5/6 flex items-center flex-col gap-2">
           {(dataAsmaulHusna as TypeAsmaulHusna)?.data?.map(
             (asmaulHusna: TypeAsmaulHusnaMap) => (
-              <div className={`w-full border-b p-2 space-y-2`} key={asmaulHusna?.id}>
+              <div className={`w-full border-b ${
+              darkMode ? "border-b-white" : "border-b-black"
+            } p-2 space-y-2`} key={asmaulHusna?.id}>
                 <div className="flex w-full justify-between">
                   <Border number={asmaulHusna?.id} />
                   <LoveIcon
@@ -78,7 +81,7 @@ const AsmaulHusnaPage = () => {
                     }}
                   />
                 </div>
-                <h1 dir="rtl" className="font-amiri my-2 text-3xl md:text-4xl leading-relaxed tracking-wide font-mono">
+                <h1 dir="rtl" className="font-amiri leading-loose text-4xl">
                   {asmaulHusna?.arab}
                 </h1>
                 <p className="text-base capitalize font-semibold text-left lg:text-md">

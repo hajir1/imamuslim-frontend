@@ -26,13 +26,13 @@ const SurahByIdPage = () => {
             <div className="bg-gray-300 h-5 w-32  rounded-md animate-pulse"></div>
             <div className="bg-gray-300 h-5 w-32  rounded-md animate-pulse"></div>
           </div>
-          <div className="flex flex-col mt-10 items-center gap-5">
+          <div className="flex flex-col mt-10 items-center gap-2">
             {SekeletonArray.map((skleton: any) => (
               <div
                 key={skleton}
                 className="w-full border-b border-b-gray-300 h-auto rounded-md animate-pulse"
               >
-                <div className="w-full flex flex-col gap-2 relative p-4 md:mt-4 lg:mt-10 lg:p-3 ">
+                <div className="w-full flex flex-col gap-2 relative p-4 md:mt-4 lg:mt-6 lg:p-3 ">
                   <div className="w-10 h-10 bg-gray-300 animate-pulse rounded-md transition-all duration-200"></div>
                   <div className="w-11/12 h-6 bg-gray-300 animate-pulse rounded-md transition-all duration-200 ml-auto"></div>
                   <div className="w-11/12 h-6 bg-gray-300 animate-pulse rounded-md transition-all duration-200 ml-auto"></div>
@@ -57,16 +57,16 @@ const SurahByIdPage = () => {
               &laquo;&nbsp;&nbsp;Surah Sebelumnya
             </button>
 
-            <div
+            {/* <div
               className={`${audioActive === null && "invisible"} flex relative`}
             >
               <LoaderCircle className="animate-spin w-10 h-10" />
               <span className="inline-block text-sm absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2">
                 {audioActive?.number?.inSurah}
               </span>
-            </div>
+            </div> */}
             <button
-              className="font-semibold text-sm "
+              className="font-semibold text-sm mt-4"
               onClick={() => {
                 if (parseInt(idSurah ?? "0") < 114) {
                   navigate(`/quran/surah/${parseInt(idSurah ?? "0") + 1}`);

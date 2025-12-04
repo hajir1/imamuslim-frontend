@@ -9,7 +9,7 @@ const ScrollTop = () => {
   return (
     <div
       onClick={handleScrollTop}
-      className={`bottom-16 fixed right-5 grid place-content-center rounded-full bg-gray-500 h-10 w-10 z-50`}
+      className={`bottom-20 fixed right-5 grid place-content-center rounded-full bg-gray-500 h-10 w-10 z-50`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

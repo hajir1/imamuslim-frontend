@@ -7,7 +7,7 @@ import NotFoundPage from "./page/NotFoundPage";
 import { HadistPage } from "./page/HadistPage";
 import SurahByIdPage from "./page/alquran/SurahByIdPage";
 import JuzByIdPage from "./page/alquran/JuzByIdPage";
-import BmAlquranPage from "./page/bookMark/BmAlquranPage";
+// import BmAlquranPage from "./page/bookMark/BmAlquranPage";
 // import BmDoaPage from "./page/bookMark/BmDoaPage";
 import DoaPage from "./page/DoaPage";
 // import BmHadistPage from "./page/bookMark/BmHadistPage";
@@ -46,10 +46,10 @@ const Routes = createBrowserRouter([
     path: "/hadist",
     element: <HadistPage />,
   },
-  {
-    path: "/quran/surah/:surah/ayat/:ayat",
-    element: <BmAlquranPage />,
-  },
+  // {
+  //   path: "/quran/surah/:surah/ayat/:ayat",
+  //   element: <BmAlquranPage />,
+  // },
   // {
   //   path: "/dodz/doa/:id",
   //   element: <BmDoaPage />,

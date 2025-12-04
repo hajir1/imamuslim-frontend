@@ -6,7 +6,6 @@ import CopyIcon from "../element/Icon/CopyIcon";
 import { OptionProps } from "../../model/_Type";
 import {
   useBookMarkAlQuran,
-  useBottomNavigation,
   useDarkmode,
   useTerjemahOption,
 } from "../../state/TypeHooks";
@@ -24,37 +23,34 @@ const Option = ({
   handleCopy,
 }: OptionProps) => {
   const darkMode = useDarkmode((state) => state.darkMode);
-  const optionRef = useRef<HTMLDivElement | null>(null);
-  const { bottomNavigation, setBottomNavigation } = useBottomNavigation();
   const { terjemahOption, setTerjemahOption } = useTerjemahOption();
   const { bookMark: bmAlQuran }: any = useBookMarkAlQuran();
+  const optionRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
-    function handleOutsideClick(event: MouseEvent) {
+    const scrolling = () => {
       if (
         optionRef.current &&
-        !optionRef.current.contains(event.target as Node)
+        window.innerHeight + window.scrollY >=
+          document.documentElement.scrollHeight
       ) {
-        setBottomNavigation(null);
+        optionRef.current.style.bottom = `5rem`;
+      } else if (optionRef.current) {
+        optionRef.current.style.bottom = `0`;
       }
-    }
-
-    if (bottomNavigation) {
-      document.addEventListener("mousedown", handleOutsideClick);
-    } else {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [bottomNavigation]);
+    window.addEventListener("scroll", scrolling);
+    return () => {
+      window.removeEventListener("scroll", scrolling);
+    };
+  }, [optionRef]);
+
   return (
     <div>
       <div
         ref={optionRef}
         className={`${
-          darkMode ? "bg-black border-slate-600" : "bg-white border-gray-200 "
-        } fixed bottom-16 z-50 left-1/2 -translate-x-1/2 w-full h-28 border `}
+          darkMode ? "bg-black" : "bg-white "
+        } fixed z-50 left-1/2 -translate-x-1/2 w-full h-28 border transition-all duration-300`}
       >
         <div className="grid h-full max-w-lg grid-cols-5 mx-auto">
           <button
@@ -87,7 +83,7 @@ const Option = ({
               <>
                 <X
                   onClick={() => {
-                    setTerjemahOption(null), setBottomNavigation(null);
+                    setTerjemahOption(null);
                   }}
                   fill={`${darkMode ? "white" : "black"}`}
                 />
@@ -115,7 +111,7 @@ const Option = ({
             type="button"
             className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group"
           >
-            <LoveIcon
+            {/* <LoveIcon
               fill={
                 bmAlQuran.some(
                   (item: any) => item.id === currentData?.number?.inQuran
@@ -136,7 +132,7 @@ const Option = ({
                   true
                 );
               }}
-            />
+            /> */}
 
             <span className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">
               BookMark

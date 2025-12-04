@@ -1,18 +1,18 @@
-// import { useDoDzOption } from "../state/TypeHooks";
 import { useEffect } from "react";
 import { useDoaBySc, useScDoa } from "../state/Query";
 import MainLayouts from "../components/layouts/Main";
 import skeletonArray from "../helper/_skeleton";
-import { useCurrentSc } from "../state/TypeHooks";
+import { useBookMarkDoa, useCurrentSc, useDarkmode } from "../state/TypeHooks";
 import { TypeDoa, TypeDoaMap, TypeSc } from "../model/_Type";
 import LoveIcon from "../components/element/Icon/LoveIcon";
 import Border from "../components/element/Border";
 
 const DoaPage = () => {
-  // const { doDzOption, setDoDzOption }: any = useDoDzOption();
+  /** state current theme */
+  const darkMode = useDarkmode((state) => state.darkMode);
 
   /** get sc data*/
-  const { data: dataSc, isLoading: loadingSc }: any = useScDoa();
+  const { data: dataSc }: any = useScDoa();
 
   /** caching sc */
   const currentSc = useCurrentSc((s: any) => s.currentSc);
@@ -21,20 +21,21 @@ const DoaPage = () => {
   /** get sc data*/
   const { data: dataDoas, isLoading: isLoadingDoa } = useDoaBySc(currentSc);
 
-  // const darkMode = useDarkmode((state) => state.darkMode);
-  // const {
-  //   bookMark: bmDoa,
-  //   addBookMark,
-  //   deleteBookMark,
-  // }: any = useBookMarkDoa();
-  // const onHandleBookMark = (id: string, title: string, bookMark = true) => {
-  //   const filtered = bmDoa.some((item: any) => item.id === id);
-  //   if (filtered) {
-  //     deleteBookMark(id);
-  //   } else {
-  //     addBookMark({ id, title, bookMark });
-  //   }
-  // };
+  /** caching bookmark doa */
+  const bookMark = useBookMarkDoa((s: any) => s.bookMark);
+  const addBookMark = useBookMarkDoa((s: any) => s.addBookMark);
+  const deleteBookMark = useBookMarkDoa((s: any) => s.deleteBookMark);
+
+  /** handle bookmark doa */
+  const onHandleBookMark = (props: TypeDoaMap) => {
+    const filtered = bookMark.some((item: any) => item.judul === props.judul);
+    // if filtered true
+    if (filtered) {
+      deleteBookMark(props.judul);
+    } else {
+      addBookMark(props);
+    }
+  };
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -70,7 +71,9 @@ const DoaPage = () => {
             {skeletonArray(20).map((skleton: number) => (
               <div
                 key={skleton}
-                className="w-full border-b border-b-gray-300 h-auto rounded-md gap-2 p-2 animate-pulse"
+                className={`w-full border-b ${
+                  darkMode ? "border-b-white" : "border-b-black"
+                } h-auto rounded-md gap-2 p-2 animate-pulse `}
               >
                 <div className="w-full flex flex-col gap-2 relative">
                   <div className="flex justify-start gap-2">
@@ -91,8 +94,11 @@ const DoaPage = () => {
           <div className="w-full gap-2 p-2 flex flex-col items-center">
             {(dataDoas as TypeDoa)?.data?.map(
               (doa: TypeDoaMap, index: number) => (
-                <div className={`w-full p-2`} key={doa?.judul}>
-                  <div className="flex items-center gap-2">
+                <div
+                  className={`w-full p-2 border-b border-b-slate-700`}
+                  key={doa?.judul}
+                >
+                  <div className="flex items-center gap-2 justify-start">
                     <Border number={index + 1} />
                     <h1 className="text-xl text-center lg:text-2xl">
                       {doa?.judul}
@@ -100,18 +106,18 @@ const DoaPage = () => {
                   </div>
                   <div className="flex justify-end my-5 md:my-6">
                     <LoveIcon
-                    // handleBookMark={() =>
-                    //   onHandleBookMark(item?.id, item?.title)
-                    // }
-                    // fill={
-                    //   bmDoa.some((doa: any) => doa.title === item?.title)
-                    //     ? darkMode
-                    //       ? "white"
-                    //       : "black"
-                    //     : darkMode
-                    //     ? "black"
-                    //     : "white"
-                    // }
+                      onClick={() => onHandleBookMark(doa)}
+                      fill={
+                        bookMark.some(
+                          (bm: TypeDoaMap) => bm.judul === doa?.judul
+                        )
+                          ? darkMode
+                            ? "white"
+                            : "black"
+                          : darkMode
+                          ? "black"
+                          : "white"
+                      }
                     />
                   </div>
                   <h1 dir="rtl" className="font-amiri leading-loose text-4xl">

@@ -12,7 +12,7 @@ export interface IconProps {
   id?: string | undefined;
 }
 
-export type TypeDataSurahByIdMap = {
+export type TypeSurahMap = {
   number: { inQuran: number; inSurah: number };
   text: { arab: string; transliteration: { en: string } };
   translation: { id: string };
@@ -26,8 +26,9 @@ export type TypeDataSurahByIdMap = {
       long: string;
     };
   };
+  surah?: number;
 };
-export interface TypeDataSurahById {
+export interface TypeSurah {
   data: {
     preBismillah: {
       text: { arab: string };
@@ -45,7 +46,7 @@ export interface TypeDataSurahById {
     };
     revelation: { id: string; arab: string; en: string };
     number: number;
-    verses: TypeDataSurahByIdMap[];
+    verses: TypeSurahMap[];
   };
 }
 
@@ -216,6 +217,13 @@ export interface TypeParawis {
   };
   data: TypeParawisMap[];
 }
+export interface TypeHadistMap {
+  number: number;
+  arab: string;
+  id: string;
+  slug?: string;
+}
+
 /** type hadist by id */
 export interface TypeHadist {
   status: boolean;
@@ -231,11 +239,7 @@ export interface TypeHadist {
       total: number;
     };
   };
-  data: {
-    number: number;
-    arab: string;
-    id: string;
-  };
+  data: TypeHadistMap;
 }
 
 export interface OptionProps {

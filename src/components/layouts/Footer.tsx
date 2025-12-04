@@ -1,15 +1,18 @@
-import {
-  getDate,
-  getYears,
-  getMonthIdn,
-} from "../../helper/moment";
+import { getDate, getYears, getMonthIdn } from "../../helper/moment";
+import { useDarkmode } from "../../state/TypeHooks";
 
 const Footer = () => {
+  const darkMode = useDarkmode((state) => state.darkMode);
   return (
-    <div className="fixed bottom-0 w-full h-16 bg-slate-100 mt-10 flex items-center justify-center">
-      <h1 className="text-sm font-sans text-slate-800 ">
-        &copy;{getYears}{" "} {getDate}-{getMonthIdn}{" "} 
-        <span className="font-bold">all right Reserved</span>
+    <div
+      className={`${
+        darkMode ? "border-t-white bg-black" : "border-t-black bg-white"
+      } 
+ w-full h-20 flex items-center justify-center`}
+    >
+      <h1 className="text-sm md:text-base ">
+        &copy; {getDate}-{getMonthIdn}-{getYears}{" "}
+        <span className="font-semibold">all right Reserved</span>
       </h1>
     </div>
   );

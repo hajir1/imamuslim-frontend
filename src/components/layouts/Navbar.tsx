@@ -6,7 +6,6 @@ import {
 } from "../../state/TypeHooks";
 import DarkModeixon from "../element/Icon/DarkModeixon";
 import LightModeIcon from "../element/Icon/LightModeIcon";
-import { useEffect, useRef } from "react";
 import { BreadCrumb } from "../fragment/Breadcrumb";
 
 const Navbar = () => {
@@ -15,7 +14,6 @@ const Navbar = () => {
   const handleCheckboxChange = () => {
     setDarkMode(!darkMode);
   };
-  const navbarRef = useRef<HTMLDivElement>(null);
 
   /** get current path */
   const location = useLocation();
@@ -32,23 +30,9 @@ const Navbar = () => {
   const currentSurah = useCurrentSurah((s: any) => s.currentSurah);
   const setCurrentSurah = useCurrentSurah((s: any) => s.setCurrentSurah);
 
-  useEffect(() => {
-    const scrolling = () => {
-      if (navbarRef.current && window.scrollY > 50) {
-        navbarRef.current.style.background = `white`;
-      } else if (navbarRef.current) {
-        navbarRef.current.style.background = `transparent`;
-      }
-    };
-    window.addEventListener("scroll", scrolling);
-    return () => {
-      window.removeEventListener("scroll", scrolling);
-    };
-  }, [navbarRef]);
-
   return (
     <>
-      <div ref={navbarRef} className={`w-full flex flex-col fixed z-20 `}>
+      <div className={`bg-white text-black w-full flex flex-col fixed z-20 `}>
         <div className="w-full justify-around flex items-center p-2">
           <div className="flex  items-center flex-grow gap-2 md:justify-start pl-4 md:ml-10">
             {!path && (
@@ -80,7 +64,7 @@ const Navbar = () => {
                 </Link>
               </>
             )}
-            {path === "dodz" && (
+            {path === "doa" && (
               <>
                 <img
                   src="/icondoa.png"
@@ -88,7 +72,7 @@ const Navbar = () => {
                   alt=""
                 />
                 <Link to={"/"} className="">
-                  Doa Dan Dzikir
+                  Doa-doa
                 </Link>
               </>
             )}
@@ -177,16 +161,6 @@ const Navbar = () => {
               // setOption={setCurrentSurah}
             />
           </div>
-        )}
-        {path === "doadzikir" && (
-          <BreadCrumb
-            firstRoute="Option"
-            firstRouteLink="/dodz"
-            routeStatus1="Doa"
-            routeStatus2="Dzikir"
-            // option={doDzOption}
-            // setOption={setDoDzOption}
-          />
         )}
         <hr />
       </div>
