@@ -178,7 +178,7 @@ const BookMark = () => {
                   {bm?.judul}
                 </p>
                 <p className={`mt-0.5 line-clamp-1 text-xs ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
-                  {bm?.indo}
+                  {bm?.artinya}
                 </p>
               </div>
               <button
