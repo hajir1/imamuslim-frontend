@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "imamuslim",
+=======
+  "name": "alquranv2",
+>>>>>>> 17a45830acac7f2f8c1051fcd7c62e379e38a6a1
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,6 +14,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@tailwindcss/postcss": "^4.3.0",
     "@tanstack/react-query": "^5.90.12",
     "autoprefixer": "^10.4.23",
@@ -36,5 +41,32 @@
     "ts-morph": "^28.0.0",
     "typescript": "^5.9.3",
     "vite": "^7.3.0"
+=======
+    "@tanstack/react-query": "^5.25.0",
+    "autoprefixer": "^10.4.18",
+    "flowbite": "^2.5.1",
+    "howler": "^2.2.4",
+    "lucide-react": "^0.445.0",
+    "postcss": "^8.4.35",
+    "react": "^18.2.0",
+    "react-audio-player": "^0.17.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.3",
+    "tailwindcss": "^3.4.1",
+    "zustand": "^4.5.2"
+  },
+  "devDependencies": {
+    "@iconify/tailwind": "^0.1.4",
+    "@types/react": "^18.2.56",
+    "@types/react-dom": "^18.2.19",
+    "@typescript-eslint/eslint-plugin": "^7.0.2",
+    "@typescript-eslint/parser": "^7.0.2",
+    "@vitejs/plugin-react-swc": "^3.5.0",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "typescript": "^5.2.2",
+    "vite": "^5.1.4"
+>>>>>>> 17a45830acac7f2f8c1051fcd7c62e379e38a6a1
   }
 }
