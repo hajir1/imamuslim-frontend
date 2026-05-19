@@ -1,0 +1,280 @@
+/* =========================================
+   FONTS
+   ========================================= */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+/* =========================================
+   SCROLLBAR
+   ========================================= */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #10b981, #059669);
+  border-radius: 10px;
+}
+
+/* =========================================
+   BASE
+   ========================================= */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f8fafc;
+  color: #1e293b;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* =========================================
+   TYPOGRAPHY UTILITIES
+   ========================================= */
+.font-amiri {
+  font-family: "Amiri", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* =========================================
+   DARK MODE
+   ========================================= */
+.dark-mode {
+  background-color: #0f172a;
+  color: #e2e8f0;
+}
+
+.dark-mode .card-bg {
+  background-color: #1e293b;
+  border-color: #334155;
+}
+
+.dark-mode .navbar-bg {
+  background-color: rgba(15, 23, 42, 0.95);
+  border-bottom-color: #1e293b;
+}
+
+.dark-mode .input-bg {
+  background-color: #1e293b;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+
+/* =========================================
+   COMPONENTS
+   ========================================= */
+.navbar-bg {
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 1px 20px rgba(0,0,0,0.05);
+}
+
+.card-bg {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  transition: all 0.25s ease;
+}
+
+.card-bg:hover {
+  box-shadow: 0 8px 30px rgba(0,0,0,0.10);
+  transform: translateY(-2px);
+}
+
+.input-bg {
+  background-color: #f1f5f9;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  color: #1e293b;
+}
+
+.input-bg:focus {
+  outline: none;
+  border-color: #10b981;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(16,185,129,0.12);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  border-radius: 10px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(16,185,129,0.4);
+}
+
+/* =========================================
+   GRADIENT TEXT
+   ========================================= */
+.gradient-text {
+  background: linear-gradient(135deg, #10b981, #0ea5e9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* =========================================
+   AYAT CARD
+   ========================================= */
+.ayat-card {
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  transition: background-color 0.2s ease;
+}
+
+.ayat-card:hover {
+  background-color: rgba(16,185,129,0.04);
+}
+
+.dark-mode .ayat-card:hover {
+  background-color: rgba(16,185,129,0.08);
+}
+
+/* =========================================
+   HEXAGON BORDER
+   ========================================= */
+.hexagon-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =========================================
+   SKELETON PULSE
+   ========================================= */
+.skeleton {
+  background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+.dark-mode .skeleton {
+  background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+  background-size: 200% 100%;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* =========================================
+   BADGE / TAG
+   ========================================= */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.badge-green {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.badge-blue {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.dark-mode .badge-green {
+  background-color: #064e3b;
+  color: #6ee7b7;
+}
+
+/* =========================================
+   ANIMATIONS
+   ========================================= */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fade-in 0.4s ease forwards;
+}
+
+@keyframes ping-custom {
+  0%   { transform: scale(1); opacity: 1; }
+  75%  { transform: scale(1.3); opacity: 0; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+
+.animate-ping-custom {
+  animation: ping-custom 1s cubic-bezier(0,0,0.2,1) infinite;
+}
+
+/* =========================================
+   PAGE HERO
+   ========================================= */
+.page-hero {
+  background: linear-gradient(135deg, #10b981 0%, #0ea5e9 100%);
+  border-radius: 20px;
+  color: white;
+}
+
+/* =========================================
+   TABLE
+   ========================================= */
+.prayer-table th {
+  background-color: #f1f5f9;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #64748b;
+  padding: 12px 16px;
+}
+
+.dark-mode .prayer-table th {
+  background-color: #1e293b;
+  color: #94a3b8;
+}
+
+.prayer-table td {
+  padding: 12px 16px;
+  font-size: 0.85rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.dark-mode .prayer-table td {
+  border-bottom-color: #1e293b;
+}
+
+.prayer-table tr.today-row {
+  background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+  font-weight: 600;
+}
+
+.dark-mode .prayer-table tr.today-row {
+  background: linear-gradient(135deg, #064e3b, #065f46);
+}

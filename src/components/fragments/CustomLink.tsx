@@ -1,0 +1,30 @@
+import { Link } from "react-router-dom";
+
+/**
+ * Component/Function  Custom Link.
+ * Used to render or handle logic for CustomLink.
+ */
+const CustomLink = ({ href, ...rest }: any) => {
+  const isInternalLink = (href && href.startsWith("/")) || !href.includes("/");
+  const isInternalLinkAnchor = href && href.startsWith("#");
+
+  if (isInternalLink) {
+    return <Link to={href} {...rest} />;
+  }
+
+  if (isInternalLinkAnchor) {
+    return (
+      <a href={href} {...rest}>
+        {rest.children}
+      </a>
+    );
+  }
+
+  return (
+    <a target="_blank" rel="noopener noreferrer" href={href} {...rest}>
+      {rest.children}
+    </a>
+  );
+};
+
+export default CustomLink;
